@@ -342,6 +342,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			iJumpCount += 1;
 			//Play sound for jump
 			cSoundController->PlaySoundByID(5);
+			std::cout << "Play Sound 5" << endl;
 		}
 		else if (cKeyboardController->IsKeyPressed(GLFW_KEY_X))
 		{
