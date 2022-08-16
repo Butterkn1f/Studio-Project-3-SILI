@@ -159,6 +159,9 @@ bool CPlayer2D::Init(void)
 	deadElapsed = 0;
 	focusElapsed = 0;
 	dir = DIRECTION::RIGHT;
+	
+	//Variables
+	AllNumbersCollected = false;
 
 	// Get the handler to the CINventoryManager instance
 	cInventoryManager = CInventoryManager::GetInstance();
@@ -169,6 +172,10 @@ bool CPlayer2D::Init(void)
 
 	cInventoryItem = cInventoryManager->Add("Soul", "Image/GUI_Soul.png", 100, 0);
 	cInventoryItem->vec2Size = glm::vec2(200, 100);
+
+	//Inventory item Papers
+	cInventoryItem = cInventoryManager->Add("Paper", "Image/GUI_Health.png", 10, 0);
+	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
 	// Get handler for sound controller
 	cSoundController = CSoundController::GetInstance();
@@ -401,6 +408,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 		else
 			animatedSprites->PlayAnimation("focusRight", -1, 0.2f);
 	}
+
+	//Win condition
+	cInventoryItem = cInventoryManager->GetItem("Paper");
+	if (cInventoryItem->GetCount() == cInventoryItem->GetMaxCount())
+		CGameManager::GetInstance()->bLevelCompleted = true;
 
 	UpdateHealthLives();
 
@@ -843,7 +855,10 @@ void CPlayer2D::UpdateHealthLives(void)
 		// Player loses the game
 		if (deadElapsed >= 1.5)
 			CGameManager::GetInstance()->bPlayerLost = true;
+		//Lose condition
+		/*CGameManager::GetInstance()->bPlayerLost = true;*/
 	}
+
 }
 
 void CPlayer2D::UpdateBreakables(glm::vec2 pos)
