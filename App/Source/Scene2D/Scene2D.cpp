@@ -181,6 +181,24 @@ bool CScene2D::Init(void)
 			break;
 		}
 	}
+	//for sawcon 
+	while (true)
+	{
+		CEnemySawCon* cEnemySawCon = new CEnemySawCon();
+		//Pass shader to cEnemyWarrior
+		cEnemySawCon->SetShader("Shader2D_Colour");
+		//Initalise the instance
+		if (cEnemySawCon->Init() == true)
+		{
+			cEnemySawCon->SetPlayer2D(cPlayer2D);
+			enemyVector.push_back(cEnemySawCon);
+		}
+		else
+		{
+			//Break out of this loop if the enemy has all been loaded
+			break;
+		}
+	}
 
 	// Load sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
@@ -303,6 +321,24 @@ bool CScene2D::Update(const double dElapsedTime)
 			{
 				cEnemyWarrior->SetPlayer2D(cPlayer2D);
 				enemyVector.push_back(cEnemyWarrior);
+			}
+			else
+			{
+				//Break out of this loop if the enemy has all been loaded
+				break;
+			}
+		}
+
+		while (true)
+		{
+			CEnemySawCon* cEnemySawCon = new CEnemySawCon();
+			//Pass shader to cEnemyWarrior
+			cEnemySawCon->SetShader("Shader2D_Colour");
+			//Initalise the instance
+			if (cEnemySawCon->Init() == true)
+			{
+				cEnemySawCon->SetPlayer2D(cPlayer2D);
+				enemyVector.push_back(cEnemySawCon);
 			}
 			else
 			{

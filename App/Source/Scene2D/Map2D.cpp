@@ -121,6 +121,7 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
 
 	// Load and create textures
+	
 	// Load the ground texture
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/stoneMid.png", true);
 	if (iTextureID == 0)
@@ -253,6 +254,9 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(99, iTextureID));
 	}
+
+
+
 
 	// Initialise the variables for AStar
 	m_weight = 1;

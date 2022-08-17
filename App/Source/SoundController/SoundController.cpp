@@ -124,12 +124,12 @@ void CSoundController::PlaySoundByID(const int ID)
 	CSoundInfo* pSoundInfo = GetSound(ID);
 	if (!pSoundInfo)
 	{
-		cout << "Sound #" << ID << " is not playable." << endl;
+		//cout << "Sound #" << ID << " is not playable." << endl;
 		return;
 	}
 	else if (cSoundEngine->isCurrentlyPlaying(pSoundInfo->GetSound()))
 	{
-		cout << "Sound #" << ID << " is currently being played." << endl;
+		//cout << "Sound #" << ID << " is currently being played." << endl;
 		return;
 	}
 
@@ -157,12 +157,12 @@ void CSoundController::StopSoundByID(const int ID)
 	CSoundInfo* pSoundInfo = GetSound(ID);
 	if (!pSoundInfo)
 	{
-		cout << "Sound #" << ID << " is not playing now." << endl;
+		//cout << "Sound #" << ID << " is not playing now." << endl;
 		return;
 	}
 	else if (cSoundEngine->isCurrentlyPlaying(pSoundInfo->GetSound()))
 	{
-		cout << "Sound #" << ID << " has been stopped." << endl;
+		//cout << "Sound #" << ID << " has been stopped." << endl;
 		cSoundEngine->stopAllSoundsOfSoundSource(pSoundInfo->GetSound());
 	}
 }

@@ -131,6 +131,8 @@ protected:
 	//Focus delay, resets each time trying to focus, and auto ends after a couple seconds
 	double focusElapsed;
 
+	bool AllNumbersCollected;
+
 	// Constructor
 	CPlayer2D(void);
 
