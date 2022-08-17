@@ -1,3 +1,223 @@
-﻿  LINK : C:\School\Studio-Project-3-SILI\Debug\App.exe not found or not built by the last incremental link; performing full link
+﻿  EnemySawCon.cpp
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(365,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(366,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(450,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(451,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(461,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(462,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(496,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(504,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(534,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(534,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(543,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(543,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(544,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(544,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(563,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(563,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(572,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(572,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(573,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(573,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(593,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(593,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(602,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(602,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(603,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(603,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(615,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(615,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(624,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(624,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(625,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(625,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(828,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(829,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(900,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(900,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(906,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(938,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(938,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(977,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(977,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1007,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1007,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+          with
+          [
+              T=float
+          ]
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1013,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   App.vcxproj -> C:\School\Studio-Project-3-SILI\Debug\App.exe

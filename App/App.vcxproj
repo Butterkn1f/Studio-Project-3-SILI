@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Scene2D\Enemy2D.cpp" />
     <ClCompile Include="Source\Scene2D\EnemyCrawlid.cpp" />
     <ClCompile Include="Source\Scene2D\EnemyFalseKnight.cpp" />
+    <ClCompile Include="Source\Scene2D\EnemySawCon.cpp" />
     <ClCompile Include="Source\Scene2D\EnemyWarrior.cpp" />
     <ClCompile Include="Source\Scene2D\GameManager.cpp" />
     <ClCompile Include="Source\Scene2D\GUI_Scene2D.cpp" />
@@ -54,6 +55,7 @@
     <ClInclude Include="Source\Scene2D\Enemy2D.h" />
     <ClInclude Include="Source\Scene2D\EnemyCrawlid.h" />
     <ClInclude Include="Source\Scene2D\EnemyFalseKnight.h" />
+    <ClInclude Include="Source\Scene2D\EnemySawCon.h" />
     <ClInclude Include="Source\Scene2D\EnemyWarrior.h" />
     <ClInclude Include="Source\Scene2D\GameManager.h" />
     <ClInclude Include="Source\Scene2D\GUI_Scene2D.h" />
