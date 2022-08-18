@@ -1,2269 +1,242 @@
-﻿  Application.cpp
-  GameStateManager.cpp
-  IntroState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\glfw\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(138,121): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(138,74): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(139,94): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(139,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(153,115): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(153,68): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(154,94): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(154,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\IntroState.cpp(181,41): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
-  LoseState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\glfw\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\LoseState.cpp(134,121): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\LoseState.cpp(134,74): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\LoseState.cpp(135,94): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\LoseState.cpp(135,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\LoseState.cpp(162,41): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
-  MenuState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\glfw\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\MenuState.cpp(184,75): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\MenuState.cpp(185,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\MenuState.cpp(185,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\MenuState.cpp(192,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\MenuState.cpp(191,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\MenuState.cpp(193,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\MenuState.cpp(193,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  OptionsState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\glfw\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(104,76): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(107,117): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(107,70): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(115,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(143,107): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(143,67): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(145,48): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(144,74): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\OptionsState.cpp(194,41): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
-  PauseState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\glfw\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\PauseState.cpp(109,43): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\PauseState.cpp(108,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\PauseState.cpp(110,95): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\PauseState.cpp(110,55): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\PauseState.cpp(177,41): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
-  PlayGameState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\glfw\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-  WinState.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(130,1): warning C4005: 'APIENTRY': macro redefinition
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\glfw\include\GLFW\glfw3.h(123): message : see previous definition of 'APIENTRY'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\WinState.cpp(135,121): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\WinState.cpp(135,74): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\WinState.cpp(136,94): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\WinState.cpp(136,54): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\GameStateManagement\WinState.cpp(161,41): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
-  main.cpp
-  BackgroundEntity.cpp
-  Camera.cpp
-  Crate.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(261,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+﻿  EnemySawCon.cpp
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(394,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(262,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(395,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(345,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(479,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(346,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(480,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(356,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(490,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(357,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(491,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(391,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(525,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(399,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(533,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(429,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(563,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(429,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(563,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(438,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(572,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(438,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(572,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(439,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(573,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(439,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(573,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(458,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(592,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(458,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(592,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(467,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(601,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(467,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(601,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(468,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(602,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(468,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(602,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(488,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(622,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(488,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(622,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(497,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(631,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(497,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(631,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(498,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(632,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(498,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(632,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(510,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(644,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(510,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(644,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(519,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(653,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(519,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(653,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(520,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(654,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(520,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(654,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(574,71): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(735,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(646,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(736,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(647,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(807,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(677,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(807,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(677,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(810,43): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(683,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(813,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(706,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(845,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Crate.cpp(706,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(845,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-  Enemy2D.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(230,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(848,43): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(231,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(884,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(312,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(884,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(313,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(887,43): warning C4244: '+=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(323,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(913,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(324,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(913,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(358,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(916,43): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(366,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
+C:\School\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(919,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
           with
           [
               T=float
           ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(396,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(396,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(405,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(405,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(406,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(406,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(425,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(425,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(434,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(434,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(435,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(435,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(455,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(455,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(464,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(464,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(465,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(465,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(477,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(477,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(486,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(486,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(487,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(487,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(510,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(510,35): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(531,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(551,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(555,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(585,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(592,60): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(595,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(605,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(609,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(615,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(665,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(666,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(695,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(695,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(701,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(729,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Enemy2D.cpp(729,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  EnemyCrawlid.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(269,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(270,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(353,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(354,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(364,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(365,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(399,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(407,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(437,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(437,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(446,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(446,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(447,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(447,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(466,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(466,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(475,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(475,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(476,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(476,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(496,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(496,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(505,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(505,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(506,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(506,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(518,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(518,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(527,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(527,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(528,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(528,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(551,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(551,35): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(572,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(592,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(596,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(626,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(633,60): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(636,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(646,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(650,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(656,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(706,71): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(793,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(794,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(825,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(825,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(831,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(861,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyCrawlid.cpp(861,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  EnemyFalseKnight.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(401,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(402,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(485,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(486,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(496,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(497,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(531,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(539,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(570,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(570,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(571,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(571,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(572,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(572,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(573,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(573,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(582,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(582,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(583,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(583,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(584,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(584,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(585,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(585,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(604,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(604,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(605,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(605,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(606,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(606,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(607,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(607,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(616,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(616,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(617,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(617,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(618,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(618,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(619,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(619,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(639,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(639,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(640,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(640,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(641,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(641,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(642,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(642,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(643,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(643,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(644,47): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(644,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(653,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(653,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(654,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(654,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(655,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(655,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(656,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(656,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(657,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(657,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(658,47): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(658,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(670,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(670,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(671,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(671,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(672,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(672,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(673,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(673,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(674,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(674,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(675,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(675,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(684,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(684,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(685,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(685,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(686,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(686,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(687,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(687,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(688,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(688,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(689,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(689,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(712,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(712,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(713,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(713,35): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(738,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(758,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(762,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(796,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(803,66): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(806,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(816,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(820,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(826,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(919,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(920,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(949,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(949,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(955,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(984,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyFalseKnight.cpp(984,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  EnemySawCon.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(401,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(402,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(486,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(487,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(497,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(498,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(532,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(540,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(570,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(570,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(579,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(579,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(580,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(580,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(599,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(599,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(608,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(608,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(609,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(609,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(629,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(629,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(638,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(638,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(639,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(639,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(651,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(651,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(660,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(660,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(661,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(661,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(864,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(865,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(936,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(936,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(942,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(974,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(974,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1013,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1013,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1043,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1043,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemySawCon.cpp(1049,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-  EnemyWarrior.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(334,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(335,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(418,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(419,22): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(429,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(430,33): warning C4244: '=': conversion from 'const int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(464,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(472,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(502,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(502,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(511,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(511,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(512,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(512,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(531,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(531,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(540,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(540,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(541,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(541,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(561,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(561,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(570,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(570,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(571,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(571,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(583,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(583,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(592,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(592,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(593,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(593,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(616,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(616,35): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(637,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(657,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(661,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(691,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(698,60): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(701,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(711,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(715,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(721,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(848,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(849,34): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(880,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(880,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(886,73): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(916,34): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\EnemyWarrior.cpp(916,23): warning C4244: 'initializing': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  GameManager.cpp
-  GUI_Scene2D.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\GUI_Scene2D.cpp(157,80): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\GUI_Scene2D.cpp(158,74): warning C4305: 'argument': truncation from 'double' to 'float'
-  Generating Code...
-  Compiling...
-  InventoryItem.cpp
-  InventoryManager.cpp
-  Map2D.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(597,36): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(597,24): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(598,36): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(598,23): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(650,41): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(650,26): warning C4244: 'argument': conversion from 'const T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(766,46): warning C4244: 'return': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(795,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Map2D.cpp(804,20): warning C4018: '<': signed/unsigned mismatch
-  Physics2D.cpp
-  Player2D.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(263,71): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(355,71): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(467,5): warning C4305: 'argument': truncation from 'int' to 'const bool'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(467,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(467,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(469,5): warning C4305: 'argument': truncation from 'int' to 'const bool'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(469,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(469,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(471,5): warning C4305: 'argument': truncation from 'int' to 'const bool'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(471,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(471,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(473,5): warning C4305: 'argument': truncation from 'int' to 'const bool'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(473,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(473,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(495,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(496,79): warning C4244: 'argument': conversion from 'T' to 'const int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(587,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(595,52): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(625,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(625,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(634,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(634,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(635,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(635,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(654,52): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(654,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(663,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(663,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(664,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(664,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(684,53): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(684,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(693,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(693,40): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(694,54): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(694,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(706,49): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(706,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(715,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(715,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(716,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(716,34): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(742,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(761,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(765,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(795,24): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(803,63): warning C4244: '-=': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(806,70): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(816,29): warning C4244: 'initializing': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(820,18): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(826,22): warning C4244: '=': conversion from 'int' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(872,50): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(872,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(872,110): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(872,96): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(885,51): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(885,38): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(899,44): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(899,31): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(933,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(933,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(937,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(937,25): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(942,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(942,25): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(949,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(949,25): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(954,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(954,25): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(965,39): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(965,32): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(971,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(971,26): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(973,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(973,26): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(978,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(978,26): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(980,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(980,26): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(985,37): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(985,29): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(987,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(987,26): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(992,36): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(992,29): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(994,33): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Player2D.cpp(994,26): warning C4244: 'argument': conversion from 'T' to 'const unsigned int', possible loss of data
-          with
-          [
-              T=float
-          ]
-  Scene2D.cpp
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(73,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(274,20): warning C4018: '<': signed/unsigned mismatch
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(307,21): warning C4018: '<': signed/unsigned mismatch
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(414,41): warning C4305: 'argument': truncation from 'double' to 'GLclampf'
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(434,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(435,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(450,20): warning C4018: '<': signed/unsigned mismatch
-  SoundController.cpp
-  SoundInfo.cpp
-  Generating Code...
-C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\App\Source\Scene2D\Scene2D.cpp(403): warning C4715: 'CScene2D::Update': not all control paths return a value
-  LINK : C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\Debug\App.exe not found or not built by the last incremental link; performing full link
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  App.vcxproj -> C:\Users\deebi\OneDrive\Documents\Studio-Project-3-SILI\Debug\App.exe
+  App.vcxproj -> C:\School\Studio-Project-3-SILI\Debug\App.exe
