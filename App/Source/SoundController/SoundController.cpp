@@ -70,8 +70,7 @@ bool CSoundController::Init(void)
  @param bPreload A const bool variable which indicates if this iSoundSource will be pre-loaded into memory now.
  @param bIsLooped A const bool variable which indicates if this iSoundSource will have loop playback.
  @param eSoundType A SOUNDTYPE enum variable which states the type of sound
- @param vec3dfSoundPos A vec3df variable which contains the 3D position of the sound
- @return A bool value. True if the sound was loaded, else false.
+ @param vec3dfSoundPos A vec3df variable which contains the 3D position of the soundS
  */
 bool CSoundController::LoadSound(string filename,
 	const int ID,
@@ -79,13 +78,11 @@ bool CSoundController::LoadSound(string filename,
 	const bool bIsLooped,
 	CSoundInfo::SOUNDTYPE eSoundType,
 	vec3df vec3dfSoundPos)
-{
-	
+{	
 	// Load the sound from the file
 	ISoundSource* pSoundSource = cSoundEngine->addSoundSourceFromFile(filename.c_str(),
 		E_STREAM_MODE::ESM_NO_STREAMING,
 		bPreload);
-
 
 	// Trivial Rejection : Invalid pointer provided
 	if (pSoundSource == nullptr)
@@ -124,12 +121,12 @@ void CSoundController::PlaySoundByID(const int ID)
 	CSoundInfo* pSoundInfo = GetSound(ID);
 	if (!pSoundInfo)
 	{
-		//cout << "Sound #" << ID << " is not playable." << endl;
+		cout << "Sound #" << ID << " is not playable." << endl;
 		return;
 	}
 	else if (cSoundEngine->isCurrentlyPlaying(pSoundInfo->GetSound()))
 	{
-		//cout << "Sound #" << ID << " is currently being played." << endl;
+		cout << "Sound #" << ID << " is currently being played." << endl;
 		return;
 	}
 
@@ -157,12 +154,12 @@ void CSoundController::StopSoundByID(const int ID)
 	CSoundInfo* pSoundInfo = GetSound(ID);
 	if (!pSoundInfo)
 	{
-		//cout << "Sound #" << ID << " is not playing now." << endl;
+		cout << "Sound #" << ID << " is not playing now." << endl;
 		return;
 	}
 	else if (cSoundEngine->isCurrentlyPlaying(pSoundInfo->GetSound()))
 	{
-		//cout << "Sound #" << ID << " has been stopped." << endl;
+		cout << "Sound #" << ID << " has been stopped." << endl;
 		cSoundEngine->stopAllSoundsOfSoundSource(pSoundInfo->GetSound());
 	}
 }
@@ -181,7 +178,7 @@ bool CSoundController::MasterVolumeIncrease(void)
 
 	// Update the Mastervolume
 	cSoundEngine->setSoundVolume(fCurrentVolume);
-	cout << "MasterVolumeIncrease: fCurrentVolume = " << fCurrentVolume << endl;
+	//cout << "MasterVolumeIncrease: fCurrentVolume = " << fCurrentVolume << endl;
 
 	return true;
 }
@@ -291,7 +288,6 @@ bool CSoundController::SetVolume(const int ID, const float volume)
 	//}
 
 	pISoundSource->setDefaultVolume(volume);
-	cout << "MasterVolumeDecrease: fCurrentVolume = " << fCurrentVolume << endl;
 
 	return true;
 }
@@ -315,8 +311,7 @@ bool CSoundController::SetBGMVolume(const float volume)
 	SetVolume(1, volume);
 	SetVolume(3, volume);
 	SetVolume(18, volume);
-	SetVolume(26, volume);
-	SetVolume(27, volume);
+	//SetVolume(27, volume);
 	
 	return true;
 }
@@ -345,6 +340,7 @@ bool CSoundController::SetSFXVolume(const float volume)
 	SetVolume(23, volume);
 	SetVolume(24, volume);
 	SetVolume(25, volume);
+	SetVolume(26, volume);
 
 	return true;
 }
@@ -404,6 +400,32 @@ void CSoundController::SetListenerPosition(const float x, const float y, const f
 void CSoundController::SetListenerDirection(const float x, const float y, const float z)
 {
 	vec3dfListenerDir.set(x, y, z);
+}
+
+void CSoundController::SetSoundPosition(const float x, const float y, const float z, const int ID)
+{
+	CSoundInfo* pSoundInfo = GetSound(ID);
+	pSoundInfo->SetPosition(x, y, z);
+}
+
+int CSoundController::GetSoundType(const int ID)
+{
+	CSoundInfo* pSoundInfo = GetSound(ID);
+	if (pSoundInfo->GetSoundType() == CSoundInfo::SOUNDTYPE::_2D)
+		return 2;
+	else if (pSoundInfo->GetSoundType() == CSoundInfo::SOUNDTYPE::_3D)
+		return 3;
+	else
+		return 0;
+}
+
+void CSoundController::SetSoundType(const int ID, int type)
+{
+	CSoundInfo* pSoundInfo = GetSound(ID);
+	if (type == 2)
+		pSoundInfo->SetSoundType(CSoundInfo::SOUNDTYPE::_2D);
+	else if (type == 3)
+		pSoundInfo->SetSoundType(CSoundInfo::SOUNDTYPE::_3D);
 }
 
 /**

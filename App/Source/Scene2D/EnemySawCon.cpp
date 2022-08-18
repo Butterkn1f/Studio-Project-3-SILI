@@ -198,6 +198,42 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		return;
 	/*cout << cPlayer2D->vec2Index.x << cPlayer2D->vec2Index.y << endl;*/
 
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
+
+	//change volume based on distance of enemy to player
+	if (cPlayer2D->vec2Index.y >= vec2Index.y && cPlayer2D->vec2Index.y <= vec2Index.y + 3 ||
+		cPlayer2D->vec2Index.y <= vec2Index.y && cPlayer2D->vec2Index.y >= vec2Index.y - 3)
+	{
+		if (cPlayer2D->vec2Index.x >= vec2Index.x - 3 && cPlayer2D->vec2Index.x < vec2Index.x)
+			cSoundController->SetVolume(26, 1);
+		//Player is to the right of the enemy
+		else if (cPlayer2D->vec2Index.x > vec2Index.x && cPlayer2D->vec2Index.x <= vec2Index.x + 3)
+			cSoundController->SetVolume(26, 1);
+
+		//If enemy is below or above player
+		if (cPlayer2D->vec2Index.x == vec2Index.x)
+			cSoundController->SetSoundType(26, 2);
+		else
+			cSoundController->SetSoundType(26, 3);
+	}
+	else
+		cSoundController->SetVolume(26, 0.5);
+
+	//Update sound position based on enemy position
+	if (cSoundController->GetSoundType(26) == 3)
+	{
+		cSoundController->SetSoundPosition(vec2Index.x, vec2Index.y, 0, 26);
+
+		//Set player as the listener position
+		cSoundController->SetListenerPosition(cPlayer2D->vec2Index.x, cPlayer2D->vec2Index.y, 0);
+		//cout << "3";
+	}
+
+	//if (cSoundController->GetSoundType(26) == 2)
+	//	cout << "2" << endl;
+
+	cSoundController->PlaySoundByID(26);
+
 	//check if player collect the collectable
 	combineCheckPlayerCollect();
 	switch (sCurrentFSM)

@@ -103,6 +103,7 @@ protected:
 		DEFEND = 2,
 		STUN = 3,
 		DEAD = 4,
+		IDLE = 5,
 		NUM_FSM
 	};
 

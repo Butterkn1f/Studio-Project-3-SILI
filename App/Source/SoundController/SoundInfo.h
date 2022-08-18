@@ -42,6 +42,7 @@ public:
 
 	// Get sound type
 	SOUNDTYPE GetSoundType(void) const;
+	void SetSoundType(SOUNDTYPE eSoundtype);
 
 	// Increase volume of a ISoundSource
 	bool VolumeIncrease(void);

@@ -35,7 +35,7 @@ CEnemyWarrior::CEnemyWarrior(void)
 	, cMap2D(NULL)
 	, cSettings(NULL)
 	, cPlayer2D(NULL)
-	, sCurrentFSM(FSM::PATROL)
+	, sCurrentFSM(FSM::IDLE)
 	, quadMesh(NULL)
 	, camera(NULL)
 	, animatedSprites(NULL)
@@ -179,6 +179,51 @@ void CEnemyWarrior::Update(const double dElapsedTime)
 		return;
 	lastAttackElapsed += 0.01;
 	iframeElapsed += 0.01;
+
+	//cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
+
+	////change volume based on distance of enemy to player
+	//if (cPlayer2D->vec2Index.y >= vec2Index.y && cPlayer2D->vec2Index.y <= vec2Index.y + 3 ||
+	//	cPlayer2D->vec2Index.y <= vec2Index.y && cPlayer2D->vec2Index.y >= vec2Index.y - 3)
+	//{
+	//	if (cPlayer2D->vec2Index.x >= vec2Index.x - 3 && cPlayer2D->vec2Index.x < vec2Index.x)
+	//		cSoundController->SetVolume(26, 1);
+	//	//Player is to the right of the enemy
+	//	else if (cPlayer2D->vec2Index.x > vec2Index.x && cPlayer2D->vec2Index.x <= vec2Index.x + 3)
+	//		cSoundController->SetVolume(26, 1);
+
+	//	//If enemy is below or above player
+	//	if (cPlayer2D->vec2Index.x == vec2Index.x)
+	//		cSoundController->SetSoundType(26, 2);
+	//	else
+	//		cSoundController->SetSoundType(26, 3);
+	//}
+	//else
+	//	cSoundController->SetVolume(26, 0.5);
+
+	////Update sound position based on enemy position
+	//if (cSoundController->GetSoundType(26) == 3)
+	//{
+	//	cSoundController->SetSoundPosition(vec2Index.x, vec2Index.y, 0, 26);
+
+	//	//Set player as the listener position
+	//	cSoundController->SetListenerPosition(cPlayer2D->vec2Index.x, cPlayer2D->vec2Index.y, 0);
+ //		//cout << "3";
+	//}
+
+	////if (cSoundController->GetSoundType(26) == 2)
+	////	cout << "2" << endl;
+
+	////if (cPlayer2D->vec2Index.x < vec2Index.x)
+	////	cSoundController->SetListenerDirection(vec2Index.x - cPlayer2D->vec2Index.x,vec2Index.y, 0);
+	////else if (cPlayer2D->vec2Index.x > vec2Index.x)
+	////	cSoundController->SetListenerDirection(cPlayer2D->vec2Index.x - vec2Index.x,vec2Index.y, 0);
+	////else
+	////	cSoundController->SetListenerDirection(vec2Index.x, vec2Index.y, 0);
+
+	//cout << "Sound:" << cSoundController->getCurrentVolume(26) << endl;
+	//cSoundController->PlaySoundByID(26);
+	
 	if (iframeElapsed < 0.3)
 	{
 		runtimeColour = glm::vec4(1.0, 0.0, 0.0, 1.0);
@@ -195,10 +240,13 @@ void CEnemyWarrior::Update(const double dElapsedTime)
 		cInventoryManager->GetItem("Soul")->Add(30);
 		cInventoryManager->GetItem("Geo")->Add(150);
 		bIsActive = false;
+		cSoundController->StopSoundByID(26);
 	}
 
 	switch (sCurrentFSM)
 	{
+	case IDLE:
+		break;
 	case PATROL:
 		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < 8.0f)
 		{
