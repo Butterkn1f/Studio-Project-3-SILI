@@ -68,6 +68,12 @@ public:
 	// Set Listener direction
 	void SetListenerDirection(const float x, const float y, const float z);
 
+	//Set sound position
+	void SetSoundPosition(const float x, const float y, const float z,const int ID);
+
+	int GetSoundType(const int ID);
+	void SetSoundType(const int ID, int type);
+
 protected:
 	// Constructor
 	CSoundController(void);
@@ -92,5 +98,6 @@ protected:
 	vec3df vec3dfListenerPos;
 	// For 3D sound only: Listender view direction
 	vec3df vec3dfListenerDir;
+
 };
 

@@ -159,6 +159,9 @@ bool CPlayer2D::Init(void)
 	deadElapsed = 0;
 	focusElapsed = 0;
 	dir = DIRECTION::RIGHT;
+	
+	//Variables
+	AllNumbersCollected = false;
 
 	// Get the handler to the CINventoryManager instance
 	cInventoryManager = CInventoryManager::GetInstance();
@@ -169,6 +172,10 @@ bool CPlayer2D::Init(void)
 
 	cInventoryItem = cInventoryManager->Add("Soul", "Image/GUI_Soul.png", 100, 0);
 	cInventoryItem->vec2Size = glm::vec2(200, 100);
+
+	//Inventory item Papers
+	cInventoryItem = cInventoryManager->Add("Paper", "Image/GUI_Health.png", 10, 0);
+	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
 	// Get handler for sound controller
 	cSoundController = CSoundController::GetInstance();
@@ -395,7 +402,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 			iJumpCount += 1;
 			//Play sound for jump
 			cSoundController->PlaySoundByID(5);
-			std::cout << "Play Sound 5" << endl;
 		}
 		else if (cKeyboardController->IsKeyPressed(GLFW_KEY_X))
 		{
@@ -467,6 +473,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 	if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x, 110))
 		UpdateBox(glm::vec2(vec2Index.y - 1, vec2Index.x));
 
+
+	//Win condition
+	cInventoryItem = cInventoryManager->GetItem("Paper");
+	if (cInventoryItem->GetCount() == cInventoryItem->GetMaxCount())
+		CGameManager::GetInstance()->bLevelCompleted = true;
 
 	UpdateHealthLives();
 
@@ -876,14 +887,16 @@ void CPlayer2D::InteractWithMap(void)
 	case 99:
 		DamagePlayer();
 		break;
+	
 
 	case 97:
-		CGameManager::GetInstance()->bLevelCompleted = true;
+		/*CGameManager::GetInstance()->bLevelCompleted = true;
 
 		if (cMap2D->GetCurrentLevel() == 1)
 		{
 			CGameManager::GetInstance()->bPlayerWon = true;
-		}
+		}*/
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
 		break;
 	default:
 		break;
@@ -909,7 +922,10 @@ void CPlayer2D::UpdateHealthLives(void)
 		// Player loses the game
 		if (deadElapsed >= 1.5)
 			CGameManager::GetInstance()->bPlayerLost = true;
+		//Lose condition
+		/*CGameManager::GetInstance()->bPlayerLost = true;*/
 	}
+
 }
 
 void CPlayer2D::UpdateBreakables(glm::vec2 pos)

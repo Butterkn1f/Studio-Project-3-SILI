@@ -41,6 +41,8 @@
 
 #include "EnemyCrawlid.h"
 
+#include "EnemySawCon.h"
+
 #include "EnemyWarrior.h"
 
 #include "EnemyFalseKnight.h"

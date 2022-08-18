@@ -85,6 +85,11 @@ CSoundInfo::SOUNDTYPE CSoundInfo::GetSoundType(void) const
 	return eSoundType;
 }
 
+void CSoundInfo::SetSoundType(SOUNDTYPE eSoundtype)
+{
+	eSoundType = eSoundtype;
+}
+
 /**
  @brief Increase volume of a ISoundSource
  @return true if successfully decreased volume, else false

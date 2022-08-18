@@ -101,6 +101,9 @@
     <ClCompile Include="Source\Scene2D\Crate.cpp">
       <Filter>Scene2D</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene2D\EnemySawCon.cpp">
+      <Filter>Scene2D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h">
@@ -182,6 +185,9 @@
       <Filter>GameStateManagement</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene2D\Crate.h">
+      <Filter>Scene2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene2D\EnemySawCon.h">
       <Filter>Scene2D</Filter>
     </ClInclude>
   </ItemGroup>
