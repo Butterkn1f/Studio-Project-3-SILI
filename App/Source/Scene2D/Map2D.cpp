@@ -254,6 +254,17 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		MapOfTextureIDs.insert(pair<int, int>(99, iTextureID));
 	}
 
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/crate.png", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/crate.png" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(110, iTextureID));
+	}
 	// Initialise the variables for AStar
 	m_weight = 1;
 	m_startPos = glm::vec2(0, 0);

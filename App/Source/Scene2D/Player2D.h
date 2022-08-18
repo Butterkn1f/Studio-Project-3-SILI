@@ -157,5 +157,7 @@ protected:
 
 	// Update breakable objects when player attacks
 	void UpdateBreakables(glm::vec2 pos);
+
+	void UpdateBox(glm::vec2 pos);
 };
 

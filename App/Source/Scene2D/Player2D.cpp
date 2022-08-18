@@ -246,7 +246,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		if (cKeyboardController->IsKeyDown(GLFW_KEY_LEFT))
 		{
 			dir = DIRECTION::LEFT;
-			cSoundController->PlaySoundByID(4);
+			/*cSoundController->PlaySoundByID(4);*/
 			// Calculate the new position to the left
 			if (vec2Index.x >= 0)
 			{
@@ -267,19 +267,14 @@ void CPlayer2D::Update(const double dElapsedTime)
 				vec2NumMicroSteps.x = 0;
 			}
 
-			if (IsMidAir() == true)
-			{
-				if (cPhysics2D.GetStatus() != CPhysics2D::STATUS::JUMP)
-					cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-			}
-
 			//CS: Play the "left" animation
 			animatedSprites->PlayAnimation("left", -1, 0.2f);
+			
 		}
 		else if (cKeyboardController->IsKeyDown(GLFW_KEY_RIGHT))
 		{
 			dir = DIRECTION::RIGHT;
-			cSoundController->PlaySoundByID(4);
+			/*cSoundController->PlaySoundByID(4);*/
 			// Calculate the new position to the right
 			if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
 			{
@@ -300,10 +295,68 @@ void CPlayer2D::Update(const double dElapsedTime)
 				vec2NumMicroSteps.x = 0;
 			}
 
-			if (IsMidAir() == true)
+			//CS: Play the "right" animation
+			animatedSprites->PlayAnimation("right", -1, 0.2f);
+		}
+		else {
+			//CS: Play the "idle" animation by default, if not jumping/falling as well
+			if (dir == DIRECTION::LEFT)
+				animatedSprites->PlayAnimation("idleLeft", -1, 0.8f);
+			else
+				animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
+		}
+
+		if (cKeyboardController->IsKeyDown(GLFW_KEY_UP))
+		{
+			dir = DIRECTION::UP;
+			/*cSoundController->PlaySoundByID(4);*/
+			// Calculate the new position to the left
+			if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
 			{
-				if (cPhysics2D.GetStatus() != CPhysics2D::STATUS::JUMP)
-					cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
+				vec2NumMicroSteps.y++;
+
+				if (vec2NumMicroSteps.y >= cSettings->NUM_STEPS_PER_TILE_YAXIS)
+				{
+					vec2NumMicroSteps.y = 0;
+					vec2Index.y++;
+				}
+			}
+		
+			// Constraint the player's position within the screen boundary
+			Constraint(UP);
+
+			// If the new position is not feasible, then revert to old position
+			if (CheckPosition(UP) == false)
+			{
+				/*vec2Index = vec2OldIndex;*/
+				vec2NumMicroSteps.y = 0;
+			}
+
+			//CS: Play the "left" animation
+			animatedSprites->PlayAnimation("left", -1, 0.2f);
+		}
+		else if (cKeyboardController->IsKeyDown(GLFW_KEY_DOWN))
+		{
+			dir = DIRECTION::DOWN;
+			/*cSoundController->PlaySoundByID(4);*/
+			// Calculate the new position to the right
+			if (vec2Index.y >= 0)
+			{
+				vec2NumMicroSteps.y--;
+				if (vec2NumMicroSteps.y < 0)
+				{
+					vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_YAXIS) - 1;
+					vec2Index.y--;
+				}
+			}
+			// Constraint the player's position within the screen boundary
+			Constraint(DOWN);
+
+			// If the new position is not feasible, then revert to old position
+			if (CheckPosition(DOWN) == false)
+			{
+				vec2Index.y = vec2OldIndex.y;
+				vec2NumMicroSteps.y = 0;
 			}
 
 			//CS: Play the "right" animation
@@ -311,7 +364,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		}
 		else {
 			//CS: Play the "idle" animation by default, if not jumping/falling as well
-			if (dir == DIRECTION::LEFT)
+			if (dir == DIRECTION::DOWN)
 				animatedSprites->PlayAnimation("idleLeft", -1, 0.8f);
 			else
 				animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
@@ -365,6 +418,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 	}
 
 
+
+
 	// Override animation if jump/falling/attacking
 	if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::JUMP)
 	{
@@ -383,7 +438,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			animatedSprites->PlayAnimation("fallRight", -1, 0.2f);
 
 		//Play the fall sound
-		cSoundController->PlaySoundByID(6);
+		/*cSoundController->PlaySoundByID(6);*/
 	}
 	else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::ATTACK)
 	{
@@ -402,11 +457,21 @@ void CPlayer2D::Update(const double dElapsedTime)
 			animatedSprites->PlayAnimation("focusRight", -1, 0.2f);
 	}
 
+
+	if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1, 110))
+		UpdateBox(glm::vec2(vec2Index.y, vec2Index.x - 1));
+	if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1, 110))
+		UpdateBox(glm::vec2(vec2Index.y, vec2Index.x + 1));
+	if (cMap2D->GetMapInfo(vec2Index.y+1, vec2Index.x, 110))
+		UpdateBox(glm::vec2(vec2Index.y + 1, vec2Index.x));
+	if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x, 110))
+		UpdateBox(glm::vec2(vec2Index.y - 1, vec2Index.x));
+
+
 	UpdateHealthLives();
 
 	// Update Jump or Fall
 	//CS: Will cause error when debugging. Set to default elapsed time
-	UpdateJumpFall(dElapsedTime);
 
 
 	// Interact with the Map
@@ -752,7 +817,7 @@ void CPlayer2D::UpdateJumpFall(const double dElapsedTime)
 				cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
 				iJumpCount = 0;
 				vec2NumMicroSteps.y = 0;
-
+				
 				//Play land sound
 				cSoundController->StopSoundByID(6);
 				cSoundController->PlaySoundByID(7);
@@ -819,6 +884,7 @@ void CPlayer2D::InteractWithMap(void)
 		{
 			CGameManager::GetInstance()->bPlayerWon = true;
 		}
+		break;
 	default:
 		break;
 	}
@@ -876,6 +942,43 @@ void CPlayer2D::UpdateBreakables(glm::vec2 pos)
 		break;
 	}
 	iAttackCount = 1;
+}
+
+void CPlayer2D::UpdateBox(glm::vec2 pos)
+{
+	switch (cMap2D->GetMapInfo(pos.y, pos.x))
+	{
+	case 110:
+		if (dir == LEFT)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(pos.y, pos.x - 1, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(pos.y, pos.x, 0);
+		}
+		if (dir == RIGHT)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(pos.y, pos.x + 1, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(pos.y, pos.x, 0);
+		}
+		if (dir == UP)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(pos.y + 1, pos.x, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(pos.y, pos.x, 0);
+		}
+		if (dir == DOWN)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(pos.y -1, pos.x, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(pos.y, pos.x, 0);
+		}
+		break;
+	}
 }
 
 void CPlayer2D::DamagePlayer(int eDirection)
