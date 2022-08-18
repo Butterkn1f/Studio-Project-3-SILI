@@ -194,10 +194,11 @@ bool CEnemySawCon::Init(void)
  */
 void CEnemySawCon::Update(const double dElapsedTime)
 {
+	//cout << "x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
 	if (!bIsActive)
 		return;
 	/*cout << cPlayer2D->vec2Index.x << cPlayer2D->vec2Index.y << endl;*/
-
+		
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
 
 	//change volume based on distance of enemy to player
@@ -1066,9 +1067,9 @@ void CEnemySawCon::UpdatePosition(void)
 void CEnemySawCon::combineCheckPlayerCollect()
 {
 	//97 is the id for the collectable
-	checkCollectable(collect1, 6, 6, 97);
-	checkCollectable(collect2, 17, 4, 97);
-	checkCollectable(collect3, 14, 4, 75);
+	checkCollectable(collect1, 14, 7, 75);
+	//checkCollectable(collect2, 17, 4, 75);
+	//checkCollectable(collect3, 14, 4, 75);
 	/*checkCollectable(collect3, sawPlayer3);
 	checkCollectable(collect4, sawPlayer4);
 	checkCollectable(collect5, sawPlayer5);*/
@@ -1078,11 +1079,11 @@ void CEnemySawCon::combineCheckPlayerCollect()
 //value is the id number of the object u wan player to collect
 void CEnemySawCon::checkCollectable(bool &Papercollect, int y,int x, int value)
 {
-	if (cMap2D->GetMapInfo(x, y) != value && !Papercollect)
+	if (cMap2D->GetMapInfo(y, x) != value && !Papercollect)
 	{
 		{
 			Papercollect = true;
-			spotDestination = glm::vec2(y, x);
+			spotDestination = glm::vec2(x, y);
 			cout << "x" << y << "y" << x << endl;
 
 		}
