@@ -108,7 +108,7 @@ bool CScene2D::Init(void)
 	}
 
 	// Load the map into an array
-	if (cMap2D->LoadMap("Maps/DM2213_Map_Level_01.csv") == false)
+	if (cMap2D->LoadMap("Maps/Maze_Level_01.csv") == false)
 	{
 		// The loading of a map has failed. Return false
 		return false;
@@ -192,6 +192,23 @@ bool CScene2D::Init(void)
 		{
 			cEnemySawCon->SetPlayer2D(cPlayer2D);
 			enemyVector.push_back(cEnemySawCon);
+		}
+		else
+		{
+			//Break out of this loop if the enemy has all been loaded
+			break;
+		}
+	}
+	while (true)
+	{
+		CCrate* cCrate = new CCrate();
+		//Pass shader to cEnemyWarrior
+		cCrate->SetShader("Shader2D_Colour");
+		//Initalise the instance
+		if (cCrate->Init() == true)
+		{
+			cCrate->SetPlayer2D(cPlayer2D);
+			enemyVector.push_back(cCrate);
 		}
 		else
 		{
@@ -415,7 +432,7 @@ void CScene2D::Render(void)
 	// the translation required is Min. (-0.93, -0.8), Max. (0.93, 0.95).
 	// The calculations is working backwards to arrive at the required translation values, given the player coords.
 	float xTranslate = (cPlayer2D->vec2Index.x + (cPlayer2D->vec2NumMicroSteps.x / 15) - 2) * 0.0248 - 0.93;
-	float yTranslate = (cPlayer2D->vec2Index.y + (cPlayer2D->vec2NumMicroSteps.y / 15) - 4) * 0.041 - 0.8;
+	float yTranslate = (cPlayer2D->vec2Index.y + (cPlayer2D->vec2NumMicroSteps.y / 15) - 4) * 0.045 - 0.8;
 
 	camera->Update(glm::vec3(xTranslate, yTranslate, 0.5f),
 		glm::vec3(xTranslate, yTranslate, 0.f),

@@ -47,6 +47,8 @@
 
 #include "EnemyFalseKnight.h"
 
+#include "Crate.h"
+
 #include "..\SoundController\SoundController.h"
 
 #include "Camera.h"
