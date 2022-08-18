@@ -214,8 +214,6 @@ protected:
 	bool collect4;
 	bool collect5;
 
-
-
 	bool sawPlayer;
 
 	bool sawPlayer1;
@@ -225,7 +223,7 @@ protected:
 	bool sawPlayer5;
 
 
-	void checkCollectable(bool &tests, int y, int x, int value);
+	void checkCollectable(bool& Papercollect, int y, int x, int value);
 	void combineCheckPlayerCollect();
 	Camera* camera;
 };

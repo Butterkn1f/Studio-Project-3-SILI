@@ -174,7 +174,7 @@ bool CPlayer2D::Init(void)
 	cInventoryItem->vec2Size = glm::vec2(200, 100);
 
 	//Inventory item Papers
-	cInventoryItem = cInventoryManager->Add("Paper", "Image/GUI_Health.png", 10, 0);
+	cInventoryItem = cInventoryManager->Add("Paper", "Image/paper.png", 10, 0);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
 	// Get handler for sound controller
@@ -822,15 +822,10 @@ void CPlayer2D::InteractWithMap(void)
 	case 99:
 		DamagePlayer();
 		break;
-	
-
 	case 97:
-		/*CGameManager::GetInstance()->bLevelCompleted = true;
-
-		if (cMap2D->GetCurrentLevel() == 1)
-		{
-			CGameManager::GetInstance()->bPlayerWon = true;
-		}*/
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
+		break;
+	case 75:
 		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
 		break;
 	default:

@@ -226,12 +226,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 
 		//Set player as the listener position
 		cSoundController->SetListenerPosition(cPlayer2D->vec2Index.x, cPlayer2D->vec2Index.y, 0);
-		//cout << "3";
 	}
-
-	//if (cSoundController->GetSoundType(26) == 2)
-	//	cout << "2" << endl;
-
 	cSoundController->PlaySoundByID(26);
 
 	//check if player collect the collectable
@@ -254,11 +249,6 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			iFSMCounter = 0;
 			sCurrentFSM = INVESTIGATE;
 		}
-
-
-
-
-
 
 		else if (iFSMCounter > iMaxFSMCounter)
 		{
@@ -1030,7 +1020,6 @@ void CEnemySawCon::UpdatePosition(void)
 			vec2Index = i32vec2OldIndex;
 			i32vec2NumMicroSteps.y = 0;
 		}
-
 		InteractWithPlayer();
 	}
 
@@ -1071,13 +1060,6 @@ void CEnemySawCon::UpdatePosition(void)
 		// Interact with the Player
 		InteractWithPlayer();
 	}
-
-
-	
-
-
-
-
 }
 
 //make it nicer in the update
@@ -1086,6 +1068,7 @@ void CEnemySawCon::combineCheckPlayerCollect()
 	//97 is the id for the collectable
 	checkCollectable(collect1, 6, 6, 97);
 	checkCollectable(collect2, 17, 4, 97);
+	checkCollectable(collect3, 14, 4, 75);
 	/*checkCollectable(collect3, sawPlayer3);
 	checkCollectable(collect4, sawPlayer4);
 	checkCollectable(collect5, sawPlayer5);*/
@@ -1093,13 +1076,12 @@ void CEnemySawCon::combineCheckPlayerCollect()
 
 
 //value is the id number of the object u wan player to collect
-void CEnemySawCon::checkCollectable(bool &tests, int y,int x, int value)
+void CEnemySawCon::checkCollectable(bool &Papercollect, int y,int x, int value)
 {
-	//cMap2D->GetMapInfo
-	if (cMap2D->GetMapInfo(x, y) != value && !tests)
+	if (cMap2D->GetMapInfo(x, y) != value && !Papercollect)
 	{
 		{
-			tests = true;
+			Papercollect = true;
 			spotDestination = glm::vec2(y, x);
 			cout << "x" << y << "y" << x << endl;
 
