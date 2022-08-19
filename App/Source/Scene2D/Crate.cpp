@@ -112,7 +112,7 @@ bool CCrate::Init(void)
 	// Find the indices for the player in arrMapInfo, and assign it to cPlayer2D
 	unsigned int uiRow = -1;
 	unsigned int uiCol = -1;
-	if (cMap2D->FindValue(115, uiRow, uiCol) == false)
+	if (cMap2D->FindValue(305, uiRow, uiCol) == false)
 		return false;	// Unable to find the start position of the player, so quit this game
 
 	// Erase the value of the player in the arrMapInfo
@@ -537,170 +537,92 @@ bool CCrate::CheckPosition(DIRECTION eDirection)
 bool CCrate::InteractWithPlayer(void)
 {
 	glm::i32vec2 i32vec2PlayerPos = cPlayer2D->vec2Index;
-
+	
 	// Check if the EnemyCrawlid is within 1.5 indices of the player2D
+	if (((vec2Index.x >= i32vec2PlayerPos.x - 0.5) && 
+		(vec2Index.x <= i32vec2PlayerPos.x + 0.5))
+		&& 
+		((vec2Index.y >= i32vec2PlayerPos.y - 0.5) &&
+		(vec2Index.y <= i32vec2PlayerPos.y + 0.5)))
 	{
-		if (((vec2Index.x >= i32vec2PlayerPos.x - 0.5) &&
+		/*cPlayer2D->DamagePlayer(dir);*/
+		return true;
+	}
+
+	/*cout<<cPhysics2D.CalculateDistance(i32vec2PlayerPos, vec2Index)<<endl;*/
+		if (((vec2Index.x >= i32vec2PlayerPos.x - 0.2) &&
+			(vec2Index.x <= i32vec2PlayerPos.x))
+			&&
+			((vec2Index.y >= i32vec2PlayerPos.y) &&
+				(vec2Index.y <= i32vec2PlayerPos.y + 1))
+			&&
+			cPlayer2D->dir == DIRECTION::LEFT
+			)
+		{
+			cout <<"Player Y: " <<i32vec2PlayerPos.y << endl;
+			cout << "Box Y: "<<vec2Index.y<<endl;
+			cSoundController->PlaySoundByID(14);
+
+			glm::vec2 vec2OldIndex = vec2Index;
+
+			// Calculate the new position to the left
+			if (vec2Index.x >= 0)
+			{
+				vec2NumMicroSteps.x-= 10;
+				if (vec2NumMicroSteps.x < 0)
+				{
+					vec2NumMicroSteps.x = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
+					vec2Index.x--;
+				}
+			}
+			// Constraint the player's position within the screen boundary
+			Constraint(LEFT);
+
+			// If the new position is not feasible, then revert to old position
+			if (CheckPosition(LEFT) == false)
+			{
+				vec2Index = vec2OldIndex;
+				vec2NumMicroSteps.x = 0;
+			}
+			iframeElapsed = 0;
+			iFSMCounter = 0;
+			return true;
+		}
+		else if (((vec2Index.x >= i32vec2PlayerPos.x - 0.5) &&
 			(vec2Index.x <= i32vec2PlayerPos.x + 0.5))
 			&&
 			((vec2Index.y >= i32vec2PlayerPos.y - 0.5) &&
-				(vec2Index.y <= i32vec2PlayerPos.y + 0.5)))
+				(vec2Index.y <= i32vec2PlayerPos.y + 0.5))
+			&&
+			cPlayer2D->dir == DIRECTION::RIGHT
+			)
 		{
-			/*cPlayer2D->DamagePlayer(dir);*/
+			cSoundController->PlaySoundByID(14);
 
-			//return true;
-		}
-	}
-
-
-	if (((vec2Index.x >= i32vec2PlayerPos.x - 0.2) &&
-		(vec2Index.x <= i32vec2PlayerPos.x))
-		&&
-		((vec2Index.y >= i32vec2PlayerPos.y - 0.5) &&
-			(vec2Index.y <= i32vec2PlayerPos.y + 0.5))
-		&&
-		cPlayer2D->dir == DIRECTION::LEFT
-		)
-	{
-		cout << "Player Y: " << i32vec2PlayerPos.y << endl;
-		cout << "Box Y: " << vec2Index.y << endl;
-		cSoundController->PlaySoundByID(14);
-
-		glm::vec2 vec2OldIndex = vec2Index;
-
-		// Calculate the new position to the left
-		if (vec2Index.x >= 0)
-		{
-			vec2NumMicroSteps.x -= 10;
-			if (vec2NumMicroSteps.x < 0)
+			// Calculate the new position to the right
+			if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
 			{
-				vec2NumMicroSteps.x = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
-				vec2Index.x--;
+				vec2NumMicroSteps.x += 10;
+
+				if (vec2NumMicroSteps.x >= cSettings->NUM_STEPS_PER_TILE_XAXIS)
+				{
+					vec2NumMicroSteps.x = 0;
+					vec2Index.x++;
+				}
 			}
-		}
-		// Constraint the player's position within the screen boundary
-		Constraint(LEFT);
+			// Constraint the player's position within the screen boundary
+			Constraint(RIGHT);
 
-		// If the new position is not feasible, then revert to old position
-		if (CheckPosition(LEFT) == false)
-		{
-			vec2Index = vec2OldIndex;
-			vec2NumMicroSteps.x = 0;
-		}
-		iframeElapsed = 0;
-		iFSMCounter = 0;
-		return true;
-	}
-	else if (((vec2Index.x - 0.2 >= i32vec2PlayerPos.x) &&
-		(vec2Index.x - 0.2 <= i32vec2PlayerPos.x + 0.8))
-		&&
-		((vec2Index.y >= i32vec2PlayerPos.y - 0.5) &&
-			(vec2Index.y <= i32vec2PlayerPos.y + 0.5))
-		&&
-		cPlayer2D->dir == DIRECTION::RIGHT
-		)
-	{
-		cSoundController->PlaySoundByID(14);
-
-		// Calculate the new position to the right
-		if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
-		{
-			vec2NumMicroSteps.x += 10;
-
-			if (vec2NumMicroSteps.x >= cSettings->NUM_STEPS_PER_TILE_XAXIS)
+			// If the new position is not feasible, then revert to old position
+			if (CheckPosition(RIGHT) == false)
 			{
 				vec2NumMicroSteps.x = 0;
-				vec2Index.x++;
 			}
+
+			iframeElapsed = 0;
+			iFSMCounter = 0;
+			return true;
 		}
-		// Constraint the player's position within the screen boundary
-		Constraint(RIGHT);
-
-		// If the new position is not feasible, then revert to old position
-		if (CheckPosition(RIGHT) == false)
-		{
-			vec2NumMicroSteps.x = 0;
-		}
-
-		iframeElapsed = 0;
-		iFSMCounter = 0;
-		return true;
-	}
-
-	//****** UP & DOWN *********
-	if (((vec2Index.x >= i32vec2PlayerPos.x) &&
-		(vec2Index.x - 0.2<= i32vec2PlayerPos.x + 0.2))
-		&&
-		((vec2Index.y >= i32vec2PlayerPos.y - 1) &&
-			(vec2Index.y <= i32vec2PlayerPos.y + 0.5))
-		&&
-		cPlayer2D->dir == DIRECTION::UP
-		)
-	{
-		cSoundController->PlaySoundByID(14);
-
-		// Calculate the new position to the right
-		if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
-		{
-			vec2NumMicroSteps.y += 10;
-
-			if (vec2NumMicroSteps.y >= cSettings->NUM_STEPS_PER_TILE_YAXIS)
-			{
-				vec2NumMicroSteps.y = 0;
-				vec2Index.y++;
-			}
-		}
-		// Constraint the player's position within the screen boundary
-		Constraint(UP);
-
-		// If the new position is not feasible, then revert to old position
-		if (CheckPosition(UP) == false)
-		{
-			vec2NumMicroSteps.y = 0;
-		}
-
-		iframeElapsed = 0;
-		iFSMCounter = 0;
-		return true;
-	}
-	else if (((vec2Index.x >= i32vec2PlayerPos.x - 0.5) &&
-		(vec2Index.x <= i32vec2PlayerPos.x + 0.5))
-		&&
-		((vec2Index.y >= i32vec2PlayerPos.y - 0.5) &&
-			(vec2Index.y <= i32vec2PlayerPos.y + 0.5))
-		&&
-		cPlayer2D->dir == DIRECTION::DOWN
-		)
-	{
-		cout << "Player Y: " << i32vec2PlayerPos.y << endl;
-		cout << "Box Y: " << vec2Index.y << endl;
-		cSoundController->PlaySoundByID(14);
-
-		glm::vec2 vec2OldIndex = vec2Index;
-
-		// Calculate the new position to the left
-		if (vec2Index.y >= 0)
-		{
-			vec2NumMicroSteps.y -= 10;
-			if (vec2NumMicroSteps.y < 0)
-			{
-				vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_YAXIS) - 1;
-				vec2Index.y--;
-			}
-		}
-		// Constraint the player's position within the screen boundary
-		Constraint(DOWN);
-
-		// If the new position is not feasible, then revert to old position
-		if (CheckPosition(DOWN) == false)
-		{
-			vec2Index = vec2OldIndex;
-			vec2NumMicroSteps.x = 0;
-		}
-		iframeElapsed = 0;
-		iFSMCounter = 0;
-		return true;
-	}
 	return false;
 }
 

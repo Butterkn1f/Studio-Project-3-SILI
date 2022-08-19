@@ -131,11 +131,6 @@ protected:
 	//Focus delay, resets each time trying to focus, and auto ends after a couple seconds
 	double focusElapsed;
 
-
-	//******************* SP3 stuff ************************************
-	//Short cooldown for the box to be pushed cos im an a hole. 
-	double boxElapsed;
-	//If all collectibles are collected, make this shiz true
 	bool AllNumbersCollected;
 
 	// Constructor
