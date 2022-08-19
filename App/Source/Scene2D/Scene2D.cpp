@@ -183,17 +183,6 @@ bool CScene2D::Init(void)
 		}
 	}
 
-	// Make rays
-	//for (float a = 0; a < glm::two_pi<float>(); a += step)
-	//{
-	//	const float x = glm::cos(a);
-	//	const float y = glm::sin(a);
-
-	//	rays.push_back(Ray(x, y));
-	//}
-
-	// Draw rays
-
 	// Load sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
 
