@@ -177,7 +177,7 @@ bool CPlayer2D::Init(void)
 	cInventoryItem->vec2Size = glm::vec2(200, 100);
 
 	//Inventory item Papers
-	cInventoryItem = cInventoryManager->Add("Paper", "Image/paper.png", 10, 0);
+	cInventoryItem = cInventoryManager->Add("Paper", "Image/paper.png", 15, 0);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
 	// Get handler for sound controller
@@ -982,6 +982,8 @@ void CPlayer2D::InteractWithMap(void)
 		break;
 	case 75:
 		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
+		cInventoryItem = cInventoryManager->GetItem("Paper");
+		cInventoryItem->Add(1);
 		break;
 	default:
 		break;

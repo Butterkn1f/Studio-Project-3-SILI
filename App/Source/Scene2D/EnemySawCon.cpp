@@ -98,7 +98,7 @@ CEnemySawCon::~CEnemySawCon(void)
   */
 bool CEnemySawCon::Init(void)
 {
-	// Get the handler to the CSettings instance
+	//CSettings instance
 	cSettings = CSettings::GetInstance();
 
 	// Get handler for camera
@@ -156,6 +156,8 @@ bool CEnemySawCon::Init(void)
 	armour = 50;
 	iFSMCounter = 0;
 	lastAttackElapsed = 0;
+	atkRange = 3.5f;
+	movementspeed = 1.0;
 
 	// Create the quad mesh for the player
 	glGenVertexArrays(1, &VAO);
@@ -172,6 +174,9 @@ bool CEnemySawCon::Init(void)
 	dir = DIRECTION::LEFT;
 
 	spotDestination = glm::vec2(0,0);
+
+
+
 
 	test = false;
 	collect1 = false;
@@ -194,10 +199,11 @@ bool CEnemySawCon::Init(void)
  */
 void CEnemySawCon::Update(const double dElapsedTime)
 {
+	//cout << "x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
 	if (!bIsActive)
 		return;
 	/*cout << cPlayer2D->vec2Index.x << cPlayer2D->vec2Index.y << endl;*/
-
+		
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
 
 	//change volume based on distance of enemy to player
@@ -265,7 +271,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			iFSMCounter = 0;
 			cout << "Switching to Idle State" << endl;
 		}
-		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < 5.0f)
+		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkRange)
 		{
 			cout << "Switching to Attack State" <<endl;
 			sCurrentFSM = ATTACK;
@@ -279,11 +285,11 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		break;
 	case ATTACK://help check if no LOS
 		//close to player, atk
-		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < 5.0f)
+		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkRange)
 		{
 			 /*Attack
 			 Update direction to move towards for attack*/
-			UpdateDirection();
+			//UpdateDirection();
 			//cout << "startpos: " << vec2Index.x << ", " << vec2Index.y << endl;
 
 			/*pathfind(enemysawcon position,player position)
@@ -301,7 +307,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 				{
 					/* Set a destination*/
 					i32vec2Destination = coord;
-					/* Calculate the direction between enemy2D and this destination*/
+					/* Calculate the direction between EnemySawCon and this destination*/
 					i32vec2Direction = i32vec2Destination - vec2Index;
 					bFirstPosition = false;
 				}
@@ -316,7 +322,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 						break;
 				}
 			}
-			/* Update the Enemy2D's position for attack*/
+			/* Update the EnemySawCon's position for attack*/
 			UpdatePosition();
 		}
 		//go on cooldown abit till go back to patrol
@@ -333,7 +339,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		break;
 	case INVESTIGATE:
 		//close to player, go atk
-		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < 5.0f)
+		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkRange)
 		{
 			cout << "Switching to Attack State" << endl;
 			sCurrentFSM = ATTACK;
@@ -358,7 +364,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 					{
 						// Set a destination
 						i32vec2Destination = coord;
-						// Calculate the direction between enemy2D and this destination
+						// Calculate the direction between EnemySawCon and this destination
 						i32vec2Direction = i32vec2Destination - vec2Index;
 						bFirstPosition = false;
 					}
@@ -374,18 +380,15 @@ void CEnemySawCon::Update(const double dElapsedTime)
 					}
 				}
 		}
-			// Update the Enemy2D's position
-			UpdatePosition();
-			break;
+		// Update the EnemySawCon's position
+		UpdatePosition();
+		break;
 	default:
 		break;
 	}
 
 	// Update the animated sprite
 	animatedSprites->Update(dElapsedTime);
-
-	// Update Jump or Fall
-	UpdateJumpFall(dElapsedTime);
 
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, i32vec2NumMicroSteps.x * cSettings->MICRO_STEP_XAXIS);
@@ -662,136 +665,14 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 	return true;
 }
 
-// Check if the EnemySawCon is in mid-air
-//bool CEnemySawCon::IsMidAir(void)
-//{
-//	// if the player is at the bottom row, then he is not in mid-air for sure
-//	if ((vec2Index.y - 1) == 0)
-//		return false;
-//
-//	// Check if the tile below the player's current position is empty
-//	if ((i32vec2NumMicroSteps.x == 0) &&
-//		((cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x) < 100) ||
-//		(cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x + 1) < 100)))
-//	{
-//		return true;
-//	}
-//
-//	return false;
-//}
-
 // Update Jump or Fall
-void CEnemySawCon::UpdateJumpFall(const double dElapsedTime)
-{
-	//if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::JUMP)
-	//{
-	//	// Update the elapsed time to the physics engine
-	//	cPhysics2D.SetTime((float)dElapsedTime);
-	//	// Call the physics engine update method to calculate the final velocity and displacement
-	//	cPhysics2D.Update();
-	//	// Get the displacement from the physics engine
-	//	glm::vec2 v2Displacement = cPhysics2D.GetDisplacement();
-
-	//	// Store the current vec2Index.y
-	//	int iIndex_YAxis_OLD = vec2Index.y;
-
-	//	int iDisplacement_MicroSteps = (int)(v2Displacement.y / cSettings->MICRO_STEP_YAXIS); //DIsplacement divide by distance for 1 microstep
-	//	if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
-	//	{
-	//		i32vec2NumMicroSteps.y += iDisplacement_MicroSteps;
-	//		if (i32vec2NumMicroSteps.y > cSettings->NUM_STEPS_PER_TILE_YAXIS)
-	//		{
-	//			i32vec2NumMicroSteps.y -= cSettings->NUM_STEPS_PER_TILE_YAXIS;
-	//			if (i32vec2NumMicroSteps.y < 0)
-	//				i32vec2NumMicroSteps.y = 0;
-	//			vec2Index.y++;
-	//		}
-	//	}
-
-	//	// Constraint the player's position within the screen boundary
-	//	Constraint(UP);
-
-	//	// Iterate through all rows until the proposed row
-	//	// Check if the player will hit a tile; stop jump if so.
-	//	int iIndex_YAxis_Proposed = vec2Index.y;
-	//	for (int i = iIndex_YAxis_OLD; i <= iIndex_YAxis_Proposed; i++)
-	//	{
-	//		// Change the player's index to the current i value
-	//		vec2Index.y = i;
-	//		// If the new position is not feasible, then revert to old position
-	//		if (CheckPosition(UP) == false)
-	//		{
-	//			// Align with the row
-	//			i32vec2NumMicroSteps.y = 0;
-	//			// Set the Physics to fall status
-	//			cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-	//			break;
-	//		}
-	//	}
-
-	//	// If the player is still jumping and the initial velocity has reached zero or below zero, 
-	//	// then it has reach the peak of its jump
-	//	if ((cPhysics2D.GetStatus() == CPhysics2D::STATUS::JUMP) && (cPhysics2D.GetInitialVelocity().y <= 0.0f))
-	//	{
-	//		// Set status to fall
-	//		cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-	//	}
-	//}
-	//else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::FALL)
-	//{
-	//	// Update the elapsed time to the physics engine
-	//	cPhysics2D.SetTime((float)dElapsedTime);
-	//	// Call the physics engine update method to calculate the final velocity and displacement
-	//	cPhysics2D.Update();
-	//	// Get the displacement from the physics engine
-	//	glm::vec2 v2Displacement = cPhysics2D.GetDisplacement();
-
-	//	// Store the current vec2Index.y
-	//	int iIndex_YAxis_OLD = vec2Index.y;
-
-	//	// Translate the displacement from pixels to indices
-	//	int iDisplacement_MicroSteps = (int)(v2Displacement.y / cSettings->MICRO_STEP_YAXIS);
-
-	//	if (vec2Index.y >= 0)
-	//	{
-	//		i32vec2NumMicroSteps.y -= fabs(iDisplacement_MicroSteps);
-	//		if (i32vec2NumMicroSteps.y < 0)
-	//		{
-	//			i32vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_YAXIS) - 1;
-	//			vec2Index.y--;
-	//		}
-	//	}
-
-	//	// Constraint the player's position within the screen boundary
-	//	Constraint(DOWN);
-
-	//	// Iterate through all rows until the proposed row
-	//	// Check if the player will hit a tile; stop fall if so.
-	//	int iIndex_YAxis_Proposed = vec2Index.y;
-	//	for (int i = iIndex_YAxis_OLD; i >= iIndex_YAxis_Proposed; i--)
-	//	{
-	//		// Change the player's index to the current i value
-	//		vec2Index.y = i;
-	//		// If the new position is not feasible, then revert to old position
-	//		if (CheckPosition(DOWN) == false)
-	//		{
-	//			// Revert to the previous position
-	//			if (i != iIndex_YAxis_OLD)
-	//				vec2Index.y = i + 1;
-	//			// Set the Physics to idle status
-	//			cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
-	//			i32vec2NumMicroSteps.y = 0;
-	//			break;
-	//		}
-	//	}
-	//}
-}
 
 /**
  @brief Let EnemySawCon interact with the player.
  */
 bool CEnemySawCon::InteractWithPlayer(void)
 {
+
 	/*	cPhysics2D.SetStatus(CPhysics2D::STATUS::JUMP);
 	cPhysics2D.SetInitialVelocity(glm::vec2(0.0f, 3.5f));
 
@@ -926,7 +807,7 @@ void CEnemySawCon::UpdatePosition(void)
 		const int iOldIndex = vec2Index.x;
 		if (vec2Index.x >= 0)
 		{
-			i32vec2NumMicroSteps.x -= 0.5;
+			i32vec2NumMicroSteps.x -= movementspeed;
 			if (i32vec2NumMicroSteps.x < 0)
 			{
 				i32vec2NumMicroSteps.x = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
@@ -934,10 +815,10 @@ void CEnemySawCon::UpdatePosition(void)
 			}
 		}
 
-		// Constraint the EnemyCrawlid's position within the screen boundary
+		// Constraint the EnemySawCon's position within the screen boundary
 		Constraint(LEFT);
 
-		// Find a feasible position for the EnemyCrawlid's current position
+		// Find a feasible position for the EnemySawCon's current position
 		if (CheckPosition(LEFT) == false)
 		{
 			FlipHorizontalDirection();
@@ -945,7 +826,7 @@ void CEnemySawCon::UpdatePosition(void)
 			i32vec2NumMicroSteps.x = 0;
 		}
 
-		//// Check if EnemyCrawlid is in mid-air, such as walking off a platform
+		//// Check if EnemySawCon is in mid-air, such as walking off a platform
 		//if (IsMidAir() == true)
 		//{
 		//	cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
@@ -964,7 +845,7 @@ void CEnemySawCon::UpdatePosition(void)
 		const int iOldIndex = vec2Index.x;
 		if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
 		{
-			i32vec2NumMicroSteps.x += 0.5;
+			i32vec2NumMicroSteps.x += movementspeed;
 
 			if (i32vec2NumMicroSteps.x >= cSettings->NUM_STEPS_PER_TILE_XAXIS)
 			{
@@ -973,10 +854,10 @@ void CEnemySawCon::UpdatePosition(void)
 			}
 		}
 
-		// Constraint the EnemyCrawlid's position within the screen boundary
+		// Constraint the EnemySawCon's position within the screen boundary
 		Constraint(RIGHT);
 
-		// Find a feasible position for the EnemyCrawlid's current position
+		// Find a feasible position for the EnemySawCon's current position
 		if (CheckPosition(RIGHT) == false)
 		{
 			FlipHorizontalDirection();
@@ -984,7 +865,7 @@ void CEnemySawCon::UpdatePosition(void)
 			i32vec2NumMicroSteps.x = 0;
 		}
 
-		//// Check if EnemyCrawlid is in mid-air, such as walking off a platform
+		//// Check if EnemySawCon is in mid-air, such as walking off a platform
 		//if (IsMidAir() == true)
 		//{
 		//	cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
@@ -1003,21 +884,21 @@ void CEnemySawCon::UpdatePosition(void)
 		const int iOldIndex = vec2Index.y;
 		if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
 		{
-			i32vec2NumMicroSteps.y += 0.5;
+			i32vec2NumMicroSteps.y += movementspeed;
 			if (i32vec2NumMicroSteps.y >= cSettings->NUM_STEPS_PER_TILE_YAXIS)
 			{
 				i32vec2NumMicroSteps.y = 0;
 				vec2Index.y++;
 			}
 		}
-		// Constraint the EnemyCrawlid's position within the screen boundary
+		// Constraint the EnemySawCon's position within the screen boundary
 		Constraint(UP);
 
-		// Find a feasible position for the EnemyCrawlid's current position
+		// Find a feasible position for the EnemySawCon's current position
 		if (CheckPosition(UP) == false)
 		{
-		
-			vec2Index = i32vec2OldIndex;
+			FlipVerticleDirection();
+			//vec2Index = i32vec2OldIndex;
 			i32vec2NumMicroSteps.y = 0;
 		}
 		InteractWithPlayer();
@@ -1032,7 +913,7 @@ void CEnemySawCon::UpdatePosition(void)
 		const int iOldIndex = vec2Index.y;
 		if (vec2Index.y >= 0)
 		{
-			i32vec2NumMicroSteps.y -= 0.5;
+			i32vec2NumMicroSteps.y -= movementspeed;
 			if (i32vec2NumMicroSteps.y < 0)
 			{
 				i32vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
@@ -1040,24 +921,16 @@ void CEnemySawCon::UpdatePosition(void)
 			}
 		}
 
-		// Constraint the EnemyCrawlid's position within the screen boundary
+		// Constraint the EnemySawCon's position within the screen boundary
 		Constraint(DOWN);
 
-		// Find a feasible position for the EnemyCrawlid's current position
+		// Find a feasible position for the EnemySawCon's current position
 		if (CheckPosition(DOWN) == false)
 		{
-			
+			FlipVerticleDirection();
 			vec2Index = i32vec2OldIndex;
 			i32vec2NumMicroSteps.y = 0;
 		}
-
-		//// Check if EnemyCrawlid is in mid-air, such as walking off a platform
-		//if (IsMidAir() == true)
-		//{
-		//	cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-		//}
-
-		// Interact with the Player
 		InteractWithPlayer();
 	}
 }
@@ -1066,9 +939,9 @@ void CEnemySawCon::UpdatePosition(void)
 void CEnemySawCon::combineCheckPlayerCollect()
 {
 	//97 is the id for the collectable
-	checkCollectable(collect1, 6, 6, 97);
-	checkCollectable(collect2, 17, 4, 97);
-	checkCollectable(collect3, 14, 4, 75);
+	checkCollectable(collect1, 14, 7, 75);
+	//checkCollectable(collect2, 17, 4, 75);
+	//checkCollectable(collect3, 14, 4, 75);
 	/*checkCollectable(collect3, sawPlayer3);
 	checkCollectable(collect4, sawPlayer4);
 	checkCollectable(collect5, sawPlayer5);*/
@@ -1078,11 +951,11 @@ void CEnemySawCon::combineCheckPlayerCollect()
 //value is the id number of the object u wan player to collect
 void CEnemySawCon::checkCollectable(bool &Papercollect, int y,int x, int value)
 {
-	if (cMap2D->GetMapInfo(x, y) != value && !Papercollect)
+	if (cMap2D->GetMapInfo(y, x) != value && !Papercollect)
 	{
 		{
 			Papercollect = true;
-			spotDestination = glm::vec2(y, x);
+			spotDestination = glm::vec2(x, y);
 			cout << "x" << y << "y" << x << endl;
 
 		}

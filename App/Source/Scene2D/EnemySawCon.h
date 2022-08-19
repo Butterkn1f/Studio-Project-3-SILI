@@ -182,12 +182,6 @@ protected:
 	// Check if a position is possible to move into
 	bool CheckPosition(DIRECTION eDirection);
 
-	// Check if the EnemyFalseKnight is in mid-air
-	bool IsMidAir(void);
-
-	// Update Jump or Fall
-	void UpdateJumpFall(const double dElapsedTime = 0.0166666666666667);
-
 	// Let EnemyFalseKnight interact with the player
 	bool InteractWithPlayer(void);
 
@@ -206,7 +200,8 @@ protected:
 	void UpdatePosition(void);
 
 	int dir; //Store current direction for animation
-
+	float atkRange;//range for the enemy to atk the player
+	double movementspeed;//change via the microsteps 
 	bool test;
 	bool collect1;
 	bool collect2;

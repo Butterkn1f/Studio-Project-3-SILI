@@ -87,7 +87,7 @@ bool CSoundController::LoadSound(string filename,
 	// Trivial Rejection : Invalid pointer provided
 	if (pSoundSource == nullptr)
 	{
-		cout << "Unable to load sound " << filename.c_str() << endl;
+		//cout << "Unable to load sound " << filename.c_str() << endl;
 		return false;
 	}
 
@@ -126,7 +126,7 @@ void CSoundController::PlaySoundByID(const int ID)
 	}
 	else if (cSoundEngine->isCurrentlyPlaying(pSoundInfo->GetSound()))
 	{
-		cout << "Sound #" << ID << " is currently being played." << endl;
+		//cout << "Sound #" << ID << " is currently being played." << endl;
 		return;
 	}
 

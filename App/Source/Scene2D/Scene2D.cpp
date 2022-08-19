@@ -242,7 +242,7 @@ bool CScene2D::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Warrior_Sword.wav"), 17, true);
 
 	//Boss
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_BGM.wav"), 18, true, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_BGM.wav"), 18, true, true); 
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_ArmourBreak.wav"), 19, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_ArmourBreakFinal.wav"), 20, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_Damage.wav"), 21, true);
