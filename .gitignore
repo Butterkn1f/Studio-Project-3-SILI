@@ -5,6 +5,6 @@
 /.vs/NYP_Framework/v16/ipch/AutoPCH
 /.vs/NYP_Framework/v16
 /.vs
-App/Debug
-Debug
-Library/Debug
+/App/Debug
+/Debug
+/Library/Debug
