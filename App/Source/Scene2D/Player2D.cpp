@@ -158,8 +158,11 @@ bool CPlayer2D::Init(void)
 	iframeElapsed = 1.0;
 	deadElapsed = 0;
 	focusElapsed = 0;
+
 	dir = DIRECTION::RIGHT;
-	
+
+	//*********** SP3 STUFF ************
+	boxElapsed = 0;
 	//Variables
 	AllNumbersCollected = false;
 
@@ -246,7 +249,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	{
 		runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
 	}
-
+	
 	// Get keyboard updates, disable movement while focusing or dead
 	if (cPhysics2D.GetStatus() != CPhysics2D::STATUS::FOCUS && deadElapsed == 0)
 	{
@@ -464,14 +467,101 @@ void CPlayer2D::Update(const double dElapsedTime)
 	}
 
 
-	if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1, 110))
-		UpdateBox(glm::vec2(vec2Index.y, vec2Index.x - 1));
-	if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1, 110))
-		UpdateBox(glm::vec2(vec2Index.y, vec2Index.x + 1));
-	if (cMap2D->GetMapInfo(vec2Index.y+1, vec2Index.x, 110))
-		UpdateBox(glm::vec2(vec2Index.y + 1, vec2Index.x));
-	if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x, 110))
-		UpdateBox(glm::vec2(vec2Index.y - 1, vec2Index.x));
+	boxElapsed += 0.01;
+	int offsetX = 8;	//The offset for X microsteps for the player to be in the middle of two tiles, i.e player looks like hes above a object but his index is one lesser/higher than the object.
+	int offsetY = 6;	//The offset for Y microsteps for the player to be in the middle of two tiles, i.e player looks like hes to the right of an object but his index is one lesser/higher than the object.
+
+	//cout <<"X microsteps: "<< vec2NumMicroSteps.x << endl;
+	//cout <<"Y microsteps: " <<vec2NumMicroSteps.y << endl;
+	if (cKeyboardController->IsKeyDown(GLFW_KEY_E) && boxElapsed > 0.5)
+	{
+		//If box is on the left of character
+		if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1) == 110 &&				//if player is directly towards the left
+			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 2) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x - 2, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x - 1, 0);
+			boxElapsed = 0;
+		}
+		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x - 1) == 110 &&		//if player is halfway below
+			vec2NumMicroSteps.y >= offsetY &&
+			cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x - 2) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x - 2, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x - 1, 0);
+			boxElapsed = 0;
+		}
+
+		//If box is on the right of character
+		else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 110 &&			//if player is directly towards the right
+			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 2) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 2, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 1, 0);
+			boxElapsed = 0;
+		}
+		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&		//if player is halfway below
+			vec2NumMicroSteps.y >= offsetY &&
+			cMap2D->GetMapInfo(vec2Index.y+1, vec2Index.x + 2) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y+1, vec2Index.x + 2, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y+1, vec2Index.x + 1, 0);
+			boxElapsed = 0;
+		}
+
+		//If box is below player
+		else if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x) == 110 &&		//if player directly above
+			vec2NumMicroSteps.x <= offsetX &&					
+			cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y - 2, vec2Index.x, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x, 0);
+			boxElapsed = 0;
+		}
+		else if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x + 1) == 110 &&		//if player is on the top left
+				vec2NumMicroSteps.x >= offsetX &&			
+				cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x + 1) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y - 2, vec2Index.x+1, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x+1, 0);
+			boxElapsed = 0;
+		}
+
+
+		//If box is above player
+		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 110 &&			//if player directly below
+			vec2NumMicroSteps.x <= offsetX &&
+			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y + 2, vec2Index.x, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x, 0);
+			boxElapsed = 0;
+		}
+		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&			//if player is on bottom left
+			vec2NumMicroSteps.x >= offsetX &&
+			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x + 1) == 0)
+		{
+			//Set box into new position
+			cMap2D->SetMapInfo(vec2Index.y + 2, vec2Index.x + 1, 110);
+			//Remove box from original position
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 0);
+			boxElapsed = 0;
+		}
+	}
 
 
 	//Win condition
@@ -959,6 +1049,7 @@ void CPlayer2D::UpdateBreakables(glm::vec2 pos)
 
 void CPlayer2D::UpdateBox(glm::vec2 pos)
 {
+	//Ignore this whole thing i change l8r 
 	switch (cMap2D->GetMapInfo(pos.y, pos.x))
 	{
 	case 110:
