@@ -48,7 +48,6 @@ public:
 
 	void Init(const glm::vec3& pos, const glm::vec3& target, const glm::vec3& up);
 	glm::mat4 GetMVP();
-	glm::mat4 GetMV();
 	void Reset();
 	void Update(const glm::vec3& pos, const glm::vec3& target, const glm::vec3& up);
 
@@ -63,7 +62,6 @@ protected:
 	std::vector<glm::mat4> viewStack;
 	std::vector<glm::mat4> projectionStack;
 	glm::mat4 MVP;
-	glm::mat4 MV;
 
 	// Constructor
 	Camera(void);

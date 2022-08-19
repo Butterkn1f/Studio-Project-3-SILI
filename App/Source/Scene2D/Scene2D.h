@@ -104,9 +104,5 @@ protected:
 	CScene2D(void);
 	// Destructor
 	virtual ~CScene2D(void);
-
-	// For rays
-	//std::vector<Ray> rays;
-	//const float step = 1.f / 1000; //1000 is the ray density
 };
 
