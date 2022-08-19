@@ -203,8 +203,6 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	if (!bIsActive)
 		return;
 	/*cout << cPlayer2D->vec2Index.x << cPlayer2D->vec2Index.y << endl;*/
-		
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
 
 	//change volume based on distance of enemy to player
 	if (cPlayer2D->vec2Index.y >= vec2Index.y && cPlayer2D->vec2Index.y <= vec2Index.y + 3 ||
@@ -215,15 +213,18 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		//Player is to the right of the enemy
 		else if (cPlayer2D->vec2Index.x > vec2Index.x && cPlayer2D->vec2Index.x <= vec2Index.x + 3)
 			cSoundController->SetVolume(26, 1);
-
-		//If enemy is below or above player
-		if (cPlayer2D->vec2Index.x == vec2Index.x)
-			cSoundController->SetSoundType(26, 2);
-		else
-			cSoundController->SetSoundType(26, 3);
+		else 
+			cSoundController->SetVolume(26, 0.5);
 	}
 	else
-		cSoundController->SetVolume(26, 0.5);
+		//Sound is very soft as 
+		cSoundController->SetVolume(26, 0.25);
+
+	//If enemy is below or above player
+	if (cPlayer2D->vec2Index.x == vec2Index.x)
+		cSoundController->SetSoundType(26, 2);
+	else
+		cSoundController->SetSoundType(26, 3);
 
 	//Update sound position based on enemy position
 	if (cSoundController->GetSoundType(26) == 3)
@@ -393,7 +394,6 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, i32vec2NumMicroSteps.x * cSettings->MICRO_STEP_XAXIS);
 	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, i32vec2NumMicroSteps.y * cSettings->MICRO_STEP_YAXIS);
-
 }
 
 /**

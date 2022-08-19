@@ -98,9 +98,9 @@ bool CLoseState::Init(void)
 	// Load sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
 
-	cSoundController->StopSoundByID(3);
-	cSoundController->StopSoundByID(18);
-	cSoundController->PlaySoundByID(26);
+	//cSoundController->StopSoundByID(3);
+	//cSoundController->StopSoundByID(18);
+	cSoundController->PlaySoundByID(3);
 
 	cSettings = CSettings::GetInstance();
 

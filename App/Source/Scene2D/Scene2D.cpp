@@ -147,40 +147,6 @@ bool CScene2D::Init(void)
 	cGameManager->Init();
 
 	enemyVector.clear();
-	while (true)
-	{
-		CEnemyCrawlid* cEnemyCrawlid = new CEnemyCrawlid();
-		//Pass shader to cEnemyCrawlid
-		cEnemyCrawlid->SetShader("Shader2D_Colour");
-		//Initalise the instance
-		if (cEnemyCrawlid->Init() == true)
-		{
-			cEnemyCrawlid->SetPlayer2D(cPlayer2D);
-			enemyVector.push_back(cEnemyCrawlid);
-		}
-		else
-		{
-			//Break out of this loop if the enemy has all been loaded
-			break;
-		}
-	}
-	while (true)
-	{
-		CEnemyWarrior* cEnemyWarrior = new CEnemyWarrior();
-		//Pass shader to cEnemyWarrior
-		cEnemyWarrior->SetShader("Shader2D_Colour");
-		//Initalise the instance
-		if (cEnemyWarrior->Init() == true)
-		{
-			cEnemyWarrior->SetPlayer2D(cPlayer2D);
-			enemyVector.push_back(cEnemyWarrior);
-		}
-		else
-		{
-			//Break out of this loop if the enemy has all been loaded
-			break;
-		}
-	}
 	//for sawcon 
 	while (true)
 	{
@@ -231,43 +197,17 @@ bool CScene2D::Init(void)
 	// Load sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
 
-	//Game
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CrossroadsMainBGM.wav"), 3, true, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_walk.wav"), 4, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_jump.wav"), 5, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_falling.wav"), 6, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_land.wav"), 7, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\sword.wav"), 8, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_damage.wav"), 9, true);
-	//TODO: Figure out how to get player's position from here
-	//cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_death.wav"), 10, true, false, CSoundInfo::_3D);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_death.wav"), 10, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\hero_focus.wav"), 11, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\breakable_wall.wav"), 12, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\geoHit.wav"), 13, true);
+	//Game BGM
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\GameBGM.wav"), 5, true, true);
 
-	//Enemies
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\enemy_damage.wav"), 14, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\enemy_death.wav"), 15, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\ShieldHit.wav"), 16, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Warrior_Sword.wav"), 17, true);
-
-	//Boss
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_BGM.wav"), 18, true, true); 
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_ArmourBreak.wav"), 19, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_ArmourBreakFinal.wav"), 20, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_Damage.wav"), 21, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_Jump.wav"), 22, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_Land.wav"), 23, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_Smash.wav"), 24, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\FKnight_Death.wav"), 25, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
 
 	//Set BGM and SFX volume to be same as menu state's, since they haven't been set since they haven't been loaded yet
 	cSoundController->SetBGMVolume(cSoundController->getCurrentVolume(1));
 	cSoundController->SetSFXVolume(cSoundController->getCurrentVolume(2));
 
 	cSoundController->StopSoundByID(1);
-	cSoundController->PlaySoundByID(3);
+	cSoundController->PlaySoundByID(5);
 
 	return true;
 }
@@ -322,40 +262,6 @@ bool CScene2D::Update(const double dElapsedTime)
 		}
 		enemyVector.clear();
 
-		while (true)
-		{
-			CEnemyCrawlid* cEnemyCrawlid = new CEnemyCrawlid();
-			//Pass shader to cEnemyCrawlid
-			cEnemyCrawlid->SetShader("Shader2D_Colour");
-			//Initalise the instance
-			if (cEnemyCrawlid->Init() == true)
-			{
-				cEnemyCrawlid->SetPlayer2D(cPlayer2D);
-				enemyVector.push_back(cEnemyCrawlid);
-			}
-			else
-			{
-				//Break out of this loop if the enemy has all been loaded
-				break;
-			}
-		}
-		while (true)
-		{
-			CEnemyWarrior* cEnemyWarrior = new CEnemyWarrior();
-			//Pass shader to cEnemyWarrior
-			cEnemyWarrior->SetShader("Shader2D_Colour");
-			//Initalise the instance
-			if (cEnemyWarrior->Init() == true)
-			{
-				cEnemyWarrior->SetPlayer2D(cPlayer2D);
-				enemyVector.push_back(cEnemyWarrior);
-			}
-			else
-			{
-				//Break out of this loop if the enemy has all been loaded
-				break;
-			}
-		}
 
 		while (true)
 		{
@@ -374,19 +280,6 @@ bool CScene2D::Update(const double dElapsedTime)
 				break;
 			}
 		}
-
-		CEnemyFalseKnight* cEnemyFalseKnight = new CEnemyFalseKnight();
-		//Pass shader to cEnemyFalseKnight
-		cEnemyFalseKnight->SetShader("Shader2D_Colour");
-		//Initalise the instance
-		if (cEnemyFalseKnight->Init() == true)
-		{
-			cEnemyFalseKnight->SetPlayer2D(cPlayer2D);
-			enemyVector.push_back(cEnemyFalseKnight);
-		}
-
-		cGameManager->bLevelCompleted = false;
-		cPlayer2D->Reset();
 	}
 
 	// Check if the game has been won by the player

@@ -310,8 +310,8 @@ bool CSoundController::SetBGMVolume(const float volume)
 {
 	SetVolume(1, volume);
 	SetVolume(3, volume);
-	SetVolume(18, volume);
-	//SetVolume(27, volume);
+	SetVolume(4, volume);
+	SetVolume(5, volume);
 	
 	return true;
 }
@@ -319,28 +319,6 @@ bool CSoundController::SetBGMVolume(const float volume)
 bool CSoundController::SetSFXVolume(const float volume)
 {
 	SetVolume(2, volume);
-	SetVolume(4, volume);
-	SetVolume(5, volume);
-	SetVolume(6, volume);
-	SetVolume(7, volume);
-	SetVolume(8, volume);
-	SetVolume(9, volume);
-	SetVolume(10, volume);
-	SetVolume(11, volume);
-	SetVolume(12, volume);
-	SetVolume(13, volume);
-	SetVolume(14, volume);
-	SetVolume(15, volume);
-	SetVolume(16, volume);
-	SetVolume(17, volume);
-	SetVolume(19, volume);
-	SetVolume(20, volume);
-	SetVolume(21, volume);
-	SetVolume(22, volume);
-	SetVolume(23, volume);
-	SetVolume(24, volume);
-	SetVolume(25, volume);
-	SetVolume(26, volume);
 
 	return true;
 }

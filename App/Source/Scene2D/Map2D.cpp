@@ -265,10 +265,10 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(110, iTextureID));
 	}
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/paper.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/passcode.png", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/paper.png" << endl;
+		cout << "Unable to load Image/passcode.png" << endl;
 		return false;
 	}
 	else

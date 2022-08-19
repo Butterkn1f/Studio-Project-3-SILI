@@ -39,13 +39,8 @@
 // Game Manager
 #include "GameManager.h"
 
-#include "EnemyCrawlid.h"
-
 #include "EnemySawCon.h"
 
-#include "EnemyWarrior.h"
-
-#include "EnemyFalseKnight.h"
 
 #include "Crate.h"
 

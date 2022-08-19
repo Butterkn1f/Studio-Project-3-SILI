@@ -174,7 +174,7 @@ bool CPlayer2D::Init(void)
 	cInventoryItem->vec2Size = glm::vec2(200, 100);
 
 	//Inventory item Papers
-	cInventoryItem = cInventoryManager->Add("Paper", "Image/paper.png", 15, 0);
+	cInventoryItem = cInventoryManager->Add("Paper", "Image/passcode.png", 15, 0);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
 	// Get handler for sound controller

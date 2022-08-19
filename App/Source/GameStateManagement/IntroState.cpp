@@ -101,8 +101,8 @@ bool CIntroState::Init(void)
 	// Menu
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\MenuBGM.wav"), 1, true, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\ui_button_confirm.wav"), 2, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\LoseBGM.wav"), 26, true, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\BossDefeatBGM.wav"), 27, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\LoseBGM.wav"), 3, true, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\WinBGM.wav"), 4, true, true);
 
 	cSoundController->PlaySoundByID(1);
 

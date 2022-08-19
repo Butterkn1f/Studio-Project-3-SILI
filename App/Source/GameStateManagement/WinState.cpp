@@ -99,9 +99,7 @@ bool CWinState::Init(void)
 	// Load sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
 
-	
-
-	cSoundController->PlaySoundByID(27);
+	cSoundController->PlaySoundByID(4);
 
 	cSettings = CSettings::GetInstance();
 
