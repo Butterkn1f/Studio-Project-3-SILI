@@ -119,7 +119,6 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 
 	//CS: Create the Quad Mesh using the mesh builder
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
-
 	// Load and create textures
 	
 	// Load the ground texture
@@ -326,9 +325,19 @@ void CMap2D::Render(void)
 {
 	// get matrix's uniform location and set matrix
 	unsigned int transformLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "transform");
+	unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
+	unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
+	//unsigned int lightLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "lightEnabled");
+	//glUniform1i(lightLoc, 1);
+
 	glm::mat4 MVP = camera->GetMVP();
 	glm::mat4 transformMVP = MVP;
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
+	glm::mat4 MV = camera->GetMV();
+	glm::mat4 transformMV = MV;
+	glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
+	glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
+	glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
 
 	// Render
 	for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
@@ -345,6 +354,16 @@ void CMap2D::Render(void)
 			//												0.0f));
 			// Update the shaders with the latest transform
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
+
+			transformMV = glm::mat4(1.0f); //initialize matrix to identity matrix first
+			transformMV = MV; // init to original matrix
+			transformMV = glm::translate(transformMV, glm::vec3(cSettings->ConvertIndexToUVSpace(cSettings->x, uiCol, false, 0),
+				cSettings->ConvertIndexToUVSpace(cSettings->y, uiRow, true, 0),
+				0.0f));
+			glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
+
+			glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
+			glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
 
 			// Render a tile
 			RenderTile(uiRow, uiCol);
@@ -556,11 +575,20 @@ unsigned int CMap2D::GetCurrentLevel(void) const
  */
 void CMap2D::RenderTile(const unsigned int uiRow, const unsigned int uiCol)
 {
+	//Material
+	unsigned int ambientLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kAmbient");
+	unsigned int diffuseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kDiffuse");
+	unsigned int specularLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kSpecular");
+	unsigned int shininessLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kShininess");
 	if ((arrMapInfo[uiCurLevel][uiRow][uiCol].value > 0) &&
 		(arrMapInfo[uiCurLevel][uiRow][uiCol].value < 200))
 	{
 		//if (arrMapInfo[uiCurLevel][uiRow][uiCol].value < 3)
 		glBindTexture(GL_TEXTURE_2D, MapOfTextureIDs.at(arrMapInfo[uiCurLevel][uiRow][uiCol].value));
+		glUniform3fv(ambientLoc, 1, &quadMesh->material.kAmbient.r);
+		glUniform3fv(diffuseLoc, 1, &quadMesh->material.kDiffuse.r);
+		glUniform3fv(specularLoc, 1, &quadMesh->material.kSpecular.r);
+		glUniform1f(shininessLoc, quadMesh->material.kShininess);
 
 		glBindVertexArray(VAO);
 		//CS: Render the tile

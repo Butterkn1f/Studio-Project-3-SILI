@@ -518,6 +518,13 @@ void CPlayer2D::Render(void)
 	// get matrix's uniform location and set matrix
 	unsigned int transformLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "transform");
 	unsigned int colorLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "runtimeColour");
+	unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
+	unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
+	unsigned int ambientLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kAmbient");
+	unsigned int diffuseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kDiffuse");
+	unsigned int specularLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kSpecular");
+	unsigned int shininessLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kShininess");
+
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
 	glm::mat4 MVP = camera->GetMVP();
@@ -535,10 +542,24 @@ void CPlayer2D::Render(void)
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
 	glUniform4fv(colorLoc, 1, glm::value_ptr(runtimeColour));
 
+	glm::mat4 MV = camera->GetMV();
+	glm::mat4 transformMV = MV; // init to original matrix
+	transformMV = glm::translate(transformMV, glm::vec3(vec2UVCoordinate.x,
+		vec2UVCoordinate.y,
+		0.0f));
+	glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
+
+	glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
+	glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
+
 	// bind textures on corresponding texture units
 	glActiveTexture(GL_TEXTURE0);
 	// Get the texture to be rendered
 	glBindTexture(GL_TEXTURE_2D, iTextureID);
+	glUniform3fv(ambientLoc, 1, &quadMesh->material.kAmbient.r);
+	glUniform3fv(diffuseLoc, 1, &quadMesh->material.kDiffuse.r);
+	glUniform3fv(specularLoc, 1, &quadMesh->material.kSpecular.r);
+	glUniform1f(shininessLoc, quadMesh->material.kShininess);
 
 	//CS: Render the animated sprite
 	glBindVertexArray(VAO);

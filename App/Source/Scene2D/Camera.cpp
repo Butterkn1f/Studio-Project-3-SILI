@@ -15,7 +15,7 @@ Camera::~Camera()
 
 void Camera::Init(const glm::vec3& pos, const glm::vec3& target, const glm::vec3& up)
 {
-
+	MV = glm::mat4(1.0f);
 	this->position = pos;
 	this->target = target;
 	this->up = up;
@@ -57,6 +57,9 @@ glm::mat4 Camera::GetMVP()
 
 	//unsigned int MVPLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MVP");
 
+	MV = glm::mat4(1.0f); //initialize matrix to identity matrix first
+	MV = viewStack.back() * modelStack.back();
+
 	MVP = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 	MVP = projectionStack.back() * viewStack.back() * modelStack.back();
 
@@ -64,12 +67,17 @@ glm::mat4 Camera::GetMVP()
 	//MVP[1][1] = 1;
 	//MVP[2][2] = 1;
 
-	//cout << "[" << MVP[0][0] << ", " << MVP[0][1] << ", " << MVP[0][2] << endl;
-	//cout << MVP[1][0] << ", " << MVP[1][1] << ", " << MVP[1][2] << endl;
-	//cout << MVP[2][0] << ", " << MVP[2][1] << ", " << MVP[2][2] << "]" << endl;
-	//cout << endl;
+	//std::cout << "[" << viewMatrix[0][0] << ", " << viewMatrix[0][1] << ", " << viewMatrix[0][2] << std::endl;
+	//std::cout << viewMatrix[1][0] << ", " << viewMatrix[1][1] << ", " << viewMatrix[1][2] << std::endl;
+	//std::cout << viewMatrix[2][0] << ", " << viewMatrix[2][1] << ", " << viewMatrix[2][2] << "]" << std::endl;
+	//std::cout << std::endl;
 	//glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr(MVP));
 	return MVP;
+}
+
+glm::mat4 Camera::GetMV()
+{
+	return MV;
 }
 
 void Camera::Reset()
