@@ -327,7 +327,7 @@ void CMap2D::Render(void)
 	// get matrix's uniform location and set matrix
 	unsigned int transformLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "transform");
 	unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
-	unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
+	//unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
 
 	glm::mat4 MVP = camera->GetMVP();
 	glm::mat4 transformMVP = MVP;
@@ -335,8 +335,8 @@ void CMap2D::Render(void)
 	glm::mat4 MV = camera->GetMV();
 	glm::mat4 transformMV = MV;
 	glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
-	glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
-	glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
+	//glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
+	//glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
 
 	// Render
 	for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
@@ -361,8 +361,8 @@ void CMap2D::Render(void)
 				0.0f));
 			glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
 
-			glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
-			glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
+	/*		glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
+			glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));*/
 
 			// Render a tile
 			RenderTile(uiRow, uiCol);
