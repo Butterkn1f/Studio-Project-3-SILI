@@ -609,10 +609,10 @@ void CPlayer2D::Render(void)
 	unsigned int colorLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "runtimeColour");
 	unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
 	unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
-	unsigned int ambientLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kAmbient");
-	unsigned int diffuseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kDiffuse");
-	unsigned int specularLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kSpecular");
-	unsigned int shininessLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kShininess");
+	//unsigned int ambientLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kAmbient");
+	//unsigned int diffuseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kDiffuse");
+	//unsigned int specularLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kSpecular");
+	//unsigned int shininessLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kShininess");
 
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
@@ -646,10 +646,10 @@ void CPlayer2D::Render(void)
 	// Get the texture to be rendered
 	glBindTexture(GL_TEXTURE_2D, iTextureID);
 
-	glUniform3fv(ambientLoc, 1, &quadMesh->material.kAmbient.r);
-	glUniform3fv(diffuseLoc, 1, &quadMesh->material.kDiffuse.r);
-	glUniform3fv(specularLoc, 1, &quadMesh->material.kSpecular.r);
-	glUniform1f(shininessLoc, quadMesh->material.kShininess);
+	//glUniform3fv(ambientLoc, 1, &quadMesh->material.kAmbient.r);
+	//glUniform3fv(diffuseLoc, 1, &quadMesh->material.kDiffuse.r);
+	//glUniform3fv(specularLoc, 1, &quadMesh->material.kSpecular.r);
+	//glUniform1f(shininessLoc, quadMesh->material.kShininess);
 
 	//CS: Render the animated sprite
 	glBindVertexArray(VAO);

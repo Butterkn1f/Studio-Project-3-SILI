@@ -577,19 +577,19 @@ void CMap2D::RenderTile(const unsigned int uiRow, const unsigned int uiCol)
 	if ((arrMapInfo[uiCurLevel][uiRow][uiCol].value > 0) &&
 		(arrMapInfo[uiCurLevel][uiRow][uiCol].value < 200))
 	{
-		unsigned int ambientLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kAmbient");
+		/*unsigned int ambientLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kAmbient");
 		unsigned int diffuseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kDiffuse");
 		unsigned int specularLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kSpecular");
-		unsigned int shininessLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kShininess");
+		unsigned int shininessLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kShininess");*/
 		//if (arrMapInfo[uiCurLevel][uiRow][uiCol].value < 3)
 		glBindTexture(GL_TEXTURE_2D, MapOfTextureIDs.at(arrMapInfo[uiCurLevel][uiRow][uiCol].value));
 
 		glBindVertexArray(VAO);
 
-		glUniform3fv(ambientLoc, 1, &quadMesh->material.kAmbient.r);
-		glUniform3fv(diffuseLoc, 1, &quadMesh->material.kDiffuse.r);
-		glUniform3fv(specularLoc, 1, &quadMesh->material.kSpecular.r);
-		glUniform1f(shininessLoc, quadMesh->material.kShininess);
+		//glUniform3fv(ambientLoc, 1, &quadMesh->material.kAmbient.r);
+		//glUniform3fv(diffuseLoc, 1, &quadMesh->material.kDiffuse.r);
+		//glUniform3fv(specularLoc, 1, &quadMesh->material.kSpecular.r);
+		//glUniform1f(shininessLoc, quadMesh->material.kShininess);
 		//CS: Render the tile
 		quadMesh->Render();
 		glBindVertexArray(0);
