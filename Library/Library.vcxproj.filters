@@ -104,6 +104,9 @@
     <ClCompile Include="Source\Primitives\CollisionManager.cpp">
       <Filter>Primitives</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Primitives\Material.cpp">
+      <Filter>Primitives</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\TimeControl\FPSCounter.h">
@@ -179,6 +182,9 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="Source\Primitives\CollisionManager.h">
+      <Filter>Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Primitives\Material.h">
       <Filter>Primitives</Filter>
     </ClInclude>
   </ItemGroup>

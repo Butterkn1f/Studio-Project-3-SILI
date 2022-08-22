@@ -230,9 +230,9 @@ bool Application::Init(void)
 
 	// Add the shaders to the ShaderManager
 	// General shader
-	CShaderManager::GetInstance()->Add("Shader2D", "Shader//Shader2D.vs", "Shader//Shader2D.fs");
+	CShaderManager::GetInstance()->Add("Shader2D", "Shader//Shader2D_Ray.vs", "Shader//Shader2D_Ray.fs");
 	// Allows tinting of textures
-	CShaderManager::GetInstance()->Add("Shader2D_Colour", "Shader//Shader2D_Colour.vs", "Shader//Shader2D_Colour.fs");
+	CShaderManager::GetInstance()->Add("Shader2D_Colour", "Shader//Shader2D_Ray.vs", "Shader//Shader2D_Ray.fs");
 
 	// Initialise the CFPSCounter instance
 	cFPSCounter = CFPSCounter::GetInstance();

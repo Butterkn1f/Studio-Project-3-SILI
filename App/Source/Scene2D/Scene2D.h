@@ -50,6 +50,8 @@
 
 #include "Physics2D.h"
 
+#include "Light.h"
+
 #include <vector>
 
 class CScene2D : public CSingletonTemplate<CScene2D>
@@ -72,6 +74,29 @@ public:
 	void PostRender(void);
 
 protected:
+	enum UNIFORM_TYPE
+	{
+		U_LIGHT0_POSITION,
+		U_LIGHT0_COLOR,
+		U_LIGHT0_POWER,
+		U_LIGHT0_KC,
+		U_LIGHT0_KL,
+		U_LIGHT0_KQ,
+		U_LIGHTENABLED,
+		U_LIGHT0_TYPE,
+		U_LIGHT0_SPOTDIRECTION,
+		U_LIGHT0_COSCUTOFF,
+		U_LIGHT0_COSINNER,
+		U_LIGHT0_EXPONENT,
+
+		U_NUMLIGHTS,
+		U_TOTAL
+	};
+
+	Light light[1];
+	unsigned m_programID;
+	unsigned m_parameters[U_TOTAL];
+
 	CMap2D* cMap2D;
 	//Handler containing the instance of CPlayer2D
 	CPlayer2D* cPlayer2D;

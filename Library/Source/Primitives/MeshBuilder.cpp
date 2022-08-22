@@ -16,21 +16,25 @@ CMesh* CMeshBuilder::GenerateQuad(glm::vec4 color, float width, float height)
 
 	v.position = glm::vec3(-0.5f * width, -0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(0, 0);
 	vertex_buffer_data.push_back(v);
 
 	v.position = glm::vec3(0.5f * width, -0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(1.0f, 0);
 	vertex_buffer_data.push_back(v);
 
 	v.position = glm::vec3(0.5f * width, 0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(1.0f, 1.0f);
 	vertex_buffer_data.push_back(v);
 
 	v.position = glm::vec3(-0.5f * width, 0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(0, 1.0f);
 	vertex_buffer_data.push_back(v);
 
@@ -70,18 +74,22 @@ CSpriteAnimation* CMeshBuilder::GenerateSpriteAnimation(unsigned numRow, unsigne
 			float u1 = j * width;
 			float v1 = 1.f - height - i * height;
 			v.position = glm::vec3(-0.5f * tile_width, -0.5f * tile_height, 0);
+			v.normal = glm::vec3(0, 0, 1);
 			v.texCoord = glm::vec2(u1, v1);
 			vertex_buffer_data.push_back(v);
 
 			v.position = glm::vec3(0.5f * tile_width, -0.5f * tile_height, 0);
+			v.normal = glm::vec3(0, 0, 1);
 			v.texCoord = glm::vec2(u1 + width, v1);
 			vertex_buffer_data.push_back(v);
 
 			v.position = glm::vec3(0.5f * tile_width, 0.5f * tile_height, 0);
+			v.normal = glm::vec3(0, 0, 1);
 			v.texCoord = glm::vec2(u1 + width, v1 + height);
 			vertex_buffer_data.push_back(v);
 
 			v.position = glm::vec3(-0.5f * tile_width, 0.5f * tile_height, 0);
+			v.normal = glm::vec3(0, 0, 1);
 			v.texCoord = glm::vec2(u1, v1 + height);
 			vertex_buffer_data.push_back(v);
 
@@ -108,11 +116,11 @@ CSpriteAnimation* CMeshBuilder::GenerateSpriteAnimation(unsigned numRow, unsigne
 	return mesh;
 }
 
-CMesh* CMeshBuilder::GenerateQuadWithPosition(	const glm::vec4 color,
-												const float x, 
-												const float y,
-												const float width, 
-												const float height)
+CMesh* CMeshBuilder::GenerateQuadWithPosition(const glm::vec4 color,
+	const float x,
+	const float y,
+	const float width,
+	const float height)
 {
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;
@@ -120,21 +128,25 @@ CMesh* CMeshBuilder::GenerateQuadWithPosition(	const glm::vec4 color,
 
 	v.position = glm::vec3(x - 0.5f * width, y - 0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(0, 0);
 	vertex_buffer_data.push_back(v);
 
 	v.position = glm::vec3(x + 0.5f * width, y - 0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(1.0f, 0);
 	vertex_buffer_data.push_back(v);
 
 	v.position = glm::vec3(x + 0.5f * width, y + 0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(1.0f, 1.0f);
 	vertex_buffer_data.push_back(v);
 
 	v.position = glm::vec3(x - 0.5f * width, y + 0.5f * height, 0);
 	v.color = color;
+	v.normal = glm::vec3(0, 0, 1);
 	v.texCoord = glm::vec2(0, 1.0f);
 	vertex_buffer_data.push_back(v);
 
@@ -158,10 +170,10 @@ CMesh* CMeshBuilder::GenerateQuadWithPosition(	const glm::vec4 color,
 	return mesh;
 }
 
-CMesh* CMeshBuilder::GenerateBox(	const glm::vec4 color, 
-									const float width, 
-									const float height, 
-									const float depth)
+CMesh* CMeshBuilder::GenerateBox(const glm::vec4 color,
+	const float width,
+	const float height,
+	const float depth)
 {
 	Vertex v;
 	std::vector<Vertex> vertex_buffer_data;

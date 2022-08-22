@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Primitives\Entity2D.cpp" />
     <ClCompile Include="Source\Primitives\Entity3D.cpp" />
     <ClCompile Include="Source\Primitives\LevelOfDetails.cpp" />
+    <ClCompile Include="Source\Primitives\Material.cpp" />
     <ClCompile Include="Source\Primitives\Mesh.cpp" />
     <ClCompile Include="Source\Primitives\MeshBuilder.cpp" />
     <ClCompile Include="Source\Primitives\SpriteAnimation.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="Source\Primitives\Entity2D.h" />
     <ClInclude Include="Source\Primitives\Entity3D.h" />
     <ClInclude Include="Source\Primitives\LevelOfDetails.h" />
+    <ClInclude Include="Source\Primitives\Material.h" />
     <ClInclude Include="Source\Primitives\Mesh.h" />
     <ClInclude Include="Source\Primitives\MeshBuilder.h" />
     <ClInclude Include="Source\Primitives\SpriteAnimation.h" />

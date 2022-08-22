@@ -80,20 +80,11 @@
     <ClCompile Include="Source\Scene2D\Camera.cpp">
       <Filter>Scene2D</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene2D\EnemyCrawlid.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\EnemyWarrior.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
     <ClCompile Include="Source\GameStateManagement\OptionsState.cpp">
       <Filter>GameStateManagement</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameStateManagement\LoseState.cpp">
       <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\EnemyFalseKnight.cpp">
-      <Filter>Scene2D</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameStateManagement\WinState.cpp">
       <Filter>GameStateManagement</Filter>
@@ -102,6 +93,9 @@
       <Filter>Scene2D</Filter>
     </ClCompile>
     <ClCompile Include="Source\Scene2D\EnemySawCon.cpp">
+      <Filter>Scene2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene2D\Light.cpp">
       <Filter>Scene2D</Filter>
     </ClCompile>
   </ItemGroup>
@@ -166,20 +160,11 @@
     <ClInclude Include="Source\Scene2D\Camera.h">
       <Filter>Scene2D</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scene2D\EnemyCrawlid.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\EnemyWarrior.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
     <ClInclude Include="Source\GameStateManagement\OptionsState.h">
       <Filter>GameStateManagement</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameStateManagement\LoseState.h">
       <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\EnemyFalseKnight.h">
-      <Filter>Scene2D</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameStateManagement\WinState.h">
       <Filter>GameStateManagement</Filter>
@@ -188,6 +173,9 @@
       <Filter>Scene2D</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scene2D\EnemySawCon.h">
+      <Filter>Scene2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene2D\Light.h">
       <Filter>Scene2D</Filter>
     </ClInclude>
   </ItemGroup>

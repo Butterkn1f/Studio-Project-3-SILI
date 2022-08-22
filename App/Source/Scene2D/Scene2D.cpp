@@ -95,6 +95,63 @@ bool CScene2D::Init(void)
 	camera = Camera::GetInstance();
 	camera->Init(glm::vec3(-1, 0, 1), glm::vec3(-1, 0, 0), glm::vec3(0, 1, 0));
 
+	// Get uniform location of lighting from shader
+	m_programID = CShaderManager::GetInstance()->activeShader->ID;
+
+	//LIGHT 1
+	m_parameters[U_LIGHT0_POSITION] =
+		glGetUniformLocation(m_programID,
+			"lights[0].position_cameraspace");
+	m_parameters[U_LIGHT0_COLOR] =
+		glGetUniformLocation(m_programID, "lights[0].color");
+	m_parameters[U_LIGHT0_POWER] =
+		glGetUniformLocation(m_programID, "lights[0].power");
+	m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID,
+		"lights[0].kC");
+	m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID,
+		"lights[0].kL");
+	m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID,
+		"lights[0].kQ");
+	m_parameters[U_LIGHTENABLED] =
+		glGetUniformLocation(m_programID, "lightEnabled");
+	m_parameters[U_LIGHT0_TYPE] =
+		glGetUniformLocation(m_programID, "lights[0].type");
+	m_parameters[U_LIGHT0_SPOTDIRECTION] =
+		glGetUniformLocation(m_programID, "lights[0].spotDirection");
+	m_parameters[U_LIGHT0_COSCUTOFF] =
+		glGetUniformLocation(m_programID, "lights[0].cosCutoff");
+	m_parameters[U_LIGHT0_COSINNER] =
+		glGetUniformLocation(m_programID, "lights[0].cosInner");
+	m_parameters[U_LIGHT0_EXPONENT] =
+		glGetUniformLocation(m_programID, "lights[0].exponent");
+
+	// Set num of lights in shader to 1
+	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
+	// Enable light, to turn off, set to 0
+	glUniform1i(m_parameters[U_LIGHTENABLED], 0);
+
+	light[0].type = Light::LIGHT_SPOT;
+	light[0].position = glm::vec3(0, 0, 0);
+	light[0].color = glm::vec4(1, 1, 1, 1);
+	light[0].power = 2;
+	light[0].kC = 0.1f;
+	light[0].kL = 0.00001f;
+	light[0].kQ = 0.000001f;
+	light[0].cosCutoff = cos(glm::radians(30.f));
+	light[0].cosInner = cos(glm::radians(25.f));
+	light[0].exponent = 3.f;
+	light[0].spotDirection = glm::vec3(0.f, 1.f, 0.f);
+	// Pass uniform parameters
+	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+	glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+	glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+	glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+
 	// Create and initialise the Map 2D
 	cMap2D = CMap2D::GetInstance();
 	// Set a shader to this class
@@ -238,6 +295,9 @@ bool CScene2D::Update(const double dElapsedTime)
 	// Call the cGUI_Scene2D's update method
 	cGUI_Scene2D->Update(dElapsedTime);
 
+	// Move light with player
+	light[0].position = glm::vec3(cPlayer2D->vec2Index.x, cPlayer2D->vec2Index.y, 0.0f);
+
 	// Check if the game should go to the next level
 	if (cGameManager->bLevelCompleted == true)
 	{
@@ -331,6 +391,23 @@ void CScene2D::Render(void)
 		glm::vec3(xTranslate, yTranslate, 0.f),
 		glm::vec3(0.f, 1, 0.f)
 	);
+
+	glm::mat4 viewMatrix;
+	viewMatrix = glm::lookAt(
+		glm::vec3(xTranslate, yTranslate, 0.5f),
+		glm::vec3(xTranslate, yTranslate, 0.f),
+		glm::vec3(0.f, 1, 0.f)
+	);
+
+	if (light[0].type == Light::LIGHT_SPOT)
+	{
+		glm::vec3 lightPosition_cameraspace = viewMatrix * glm::vec4(light[0].position.x, light[0].position.y, light[0].position.z, 0);
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+		glm::vec3 spotDirection_cameraspace = viewMatrix * glm::vec4(light[0].spotDirection.x, light[0].spotDirection.y, light[0].spotDirection.z, 0);
+		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+		glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+		glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	}
 
 	cMap2D->PreRender();
 	cMap2D->Render();
