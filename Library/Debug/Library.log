@@ -1,9 +1,0 @@
-﻿  Entity2D.cpp
-  Entity3D.cpp
-  Material.cpp
-  Mesh.cpp
-  MeshBuilder.cpp
-  SpriteAnimation.cpp
-C:\Users\princ\Pictures\1 School Stuff\Game Dev\SP3\Studio-Project-3-SILI\Library\Source\Primitives\SpriteAnimation.cpp(75,62): warning C4244: 'argument': conversion from 'double' to 'const unsigned int', possible loss of data
-  Generating Code...
-  Library.vcxproj -> C:\Users\princ\Pictures\1 School Stuff\Game Dev\SP3\Studio-Project-3-SILI\Debug\Library.lib
