@@ -42,9 +42,15 @@ class Camera : public CSingletonTemplate<Camera>
 {
 	friend CSingletonTemplate<Camera>;
 public:
+	// Constructor
+	Camera(void);
+	// Destructor
+	virtual ~Camera(void);
+
 	glm::vec3 position;
 	glm::vec3 target;
 	glm::vec3 up;
+
 
 	void Init(const glm::vec3& pos, const glm::vec3& target, const glm::vec3& up);
 	glm::mat4 GetMVP();
@@ -65,10 +71,5 @@ protected:
 	std::vector<glm::mat4> projectionStack;
 	glm::mat4 MVP;
 	glm::mat4 MV;
-
-	// Constructor
-	Camera(void);
-	// Destructor
-	virtual ~Camera(void);
 };
 

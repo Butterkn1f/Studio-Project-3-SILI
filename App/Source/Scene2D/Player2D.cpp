@@ -252,7 +252,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	// Get keyboard updates, disable movement while focusing or dead
 	if (cPhysics2D.GetStatus() != CPhysics2D::STATUS::FOCUS && deadElapsed == 0)
 	{
-		if (cKeyboardController->IsKeyDown(GLFW_KEY_LEFT))
+		if (cKeyboardController->IsKeyDown(GLFW_KEY_A))
 		{
 			dir = DIRECTION::LEFT;
 			/*cSoundController->PlaySoundByID(4);*/
@@ -280,12 +280,13 @@ void CPlayer2D::Update(const double dElapsedTime)
 			animatedSprites->PlayAnimation("left", -1, 0.2f);
 			
 		}
-		else if (cKeyboardController->IsKeyDown(GLFW_KEY_RIGHT))
+		else if (cKeyboardController->IsKeyReleased(GLFW_KEY_D))
 		{
 			dir = DIRECTION::RIGHT;
+			vec2Index.x++;
 			/*cSoundController->PlaySoundByID(4);*/
 			// Calculate the new position to the right
-			if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
+			/*if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
 			{
 				vec2NumMicroSteps.x++;
 
@@ -294,7 +295,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 					vec2NumMicroSteps.x = 0;
 					vec2Index.x++;
 				}
-			}
+			}*/
 			// Constraint the player's position within the screen boundary
 			Constraint(RIGHT);
 
@@ -315,7 +316,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 				animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
 		}
 
-		if (cKeyboardController->IsKeyDown(GLFW_KEY_UP))
+		if (cKeyboardController->IsKeyDown(GLFW_KEY_W))
 		{
 			dir = DIRECTION::UP;
 			/*cSoundController->PlaySoundByID(4);*/
@@ -344,7 +345,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//CS: Play the "left" animation
 			animatedSprites->PlayAnimation("left", -1, 0.2f);
 		}
-		else if (cKeyboardController->IsKeyDown(GLFW_KEY_DOWN))
+		else if (cKeyboardController->IsKeyDown(GLFW_KEY_S))
 		{
 			dir = DIRECTION::DOWN;
 			/*cSoundController->PlaySoundByID(4);*/
@@ -381,7 +382,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	}
 
 	//If stopped walking, stop the walking sound and go back to idle state
-	if (cKeyboardController->IsKeyReleased(GLFW_KEY_LEFT) || cKeyboardController->IsKeyReleased(GLFW_KEY_RIGHT))
+	if (cKeyboardController->IsKeyReleased(GLFW_KEY_A) || cKeyboardController->IsKeyReleased(GLFW_KEY_D))
 	{
 		cSoundController->StopSoundByID(4);
 	}
@@ -607,8 +608,8 @@ void CPlayer2D::Render(void)
 	// get matrix's uniform location and set matrix
 	unsigned int transformLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "transform");
 	unsigned int colorLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "runtimeColour");
-	unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
-	unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
+	//unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
+	//unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
 	//unsigned int ambientLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kAmbient");
 	//unsigned int diffuseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kDiffuse");
 	//unsigned int specularLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kSpecular");
@@ -631,15 +632,15 @@ void CPlayer2D::Render(void)
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
 	glUniform4fv(colorLoc, 1, glm::value_ptr(runtimeColour));
 
-	glm::mat4 MV = camera->GetMV();
-	glm::mat4 transformMV = MV; // init to original matrix
-	transformMV = glm::translate(transformMV, glm::vec3(vec2UVCoordinate.x,
-		vec2UVCoordinate.y,
-		0.0f));
-	glUniformMatrix4fv(MVLoc, 1, GL_FALSE, &transformMV[0][0]);
+	//glm::mat4 MV = camera->GetMV();
+	//glm::mat4 transformMV = MV; // init to original matrix
+	//transformMV = glm::translate(transformMV, glm::vec3(vec2UVCoordinate.x,
+	//	vec2UVCoordinate.y,
+	//	0.0f));
+	//glUniformMatrix4fv(MVLoc, 1, GL_FALSE, &transformMV[0][0]);
 
-	glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
-	glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, &MV_inverse_transpose[0][0]);
+	//glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
+	//glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, &MV_inverse_transpose[0][0]);
 
 	// bind textures on corresponding texture units
 	glActiveTexture(GL_TEXTURE0);
