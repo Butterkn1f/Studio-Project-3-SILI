@@ -9,6 +9,9 @@
 //For allowing creating of Quad Mesh 
 #include "Primitives/MeshBuilder.h"
 
+// Include Shader Manager
+#include "RenderControl\ShaderManager.h"
+
 // Include ImageLoader
 #include "System\ImageLoader.h"
 
@@ -48,6 +51,9 @@ bool CBackgroundEntity::Init()
 
 	//CS: Create the Quad Mesh using the mesh builder
 	mesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), 2.5, 2);
+
+	unsigned int colorLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "runtimeColour");
+	glUniform4fv(colorLoc, 1, glm::value_ptr(glm::vec4(1.0, 1.0, 1.0, 1.0)));
 
 	return true;
 }

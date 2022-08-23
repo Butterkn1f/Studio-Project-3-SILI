@@ -91,6 +91,8 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	// Get the handler to the camera instance
 	camera = Camera::GetInstance();
 
+	flashlight.Init();
+
 	// Create the arrMapInfo and initialise to 0
 	// Start by initialising the number of levels
 	arrMapInfo = new Grid** [uiNumLevels];
@@ -103,6 +105,7 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 			for (unsigned uiCol = 0; uiCol < uiNumCols; uiCol++)
 			{
 				arrMapInfo[uiLevel][uiRow][uiCol].value = 0;
+				arrMapInfo[uiLevel][uiRow][uiCol].runtimeColour = glm::vec4(0.3, 0.3, 0.3, 1.0);
 			}
 		}
 	}
@@ -293,6 +296,13 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	m_cameFromList.resize(cSettings->NUM_TILES_YAXIS* cSettings->NUM_TILES_XAXIS);
 	m_closedList.resize(cSettings->NUM_TILES_YAXIS* cSettings->NUM_TILES_XAXIS, false);
 
+	for (int i = 0; i < (sizeof(rays) / sizeof(rays[0])); i++)
+	{
+		//Maybe change this to like -100 then -200 depending on i
+		rays[i].length = 100.f;
+		rays[i].direction = glm::vec3(0.f, 0.f, 0.f);
+	}
+
 	return true;
 }
 
@@ -301,6 +311,8 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 */
 void CMap2D::Update(const double dElapsedTime)
 {
+	flashlight.Update();
+	rays[0].direction = flashlight.getCurrentRay();
 }
 
 /**
@@ -326,15 +338,15 @@ void CMap2D::Render(void)
 {
 	// get matrix's uniform location and set matrix
 	unsigned int transformLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "transform");
-	unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
+	//unsigned int MVLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV");
 	//unsigned int inverseLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "MV_inverse_transpose");
 
 	glm::mat4 MVP = camera->GetMVP();
 	glm::mat4 transformMVP = MVP;
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
-	glm::mat4 MV = camera->GetMV();
-	glm::mat4 transformMV = MV;
-	glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
+	//glm::mat4 MV = camera->GetMV();
+	//glm::mat4 transformMV = MV;
+	//glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
 	//glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
 	//glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
 
@@ -354,15 +366,31 @@ void CMap2D::Render(void)
 			// Update the shaders with the latest transform
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
 
-			transformMV = glm::mat4(1.0f); //initialize matrix to identity matrix first
-			transformMV = MV; // init to original matrix
-			transformMV = glm::translate(transformMV, glm::vec3(cSettings->ConvertIndexToUVSpace(cSettings->x, uiCol, false, 0),
-				cSettings->ConvertIndexToUVSpace(cSettings->y, uiRow, true, 0),
-				0.0f));
-			glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
+			//transformMV = glm::mat4(1.0f); //initialize matrix to identity matrix first
+			//transformMV = MV; // init to original matrix
+			//transformMV = glm::translate(transformMV, glm::vec3(cSettings->ConvertIndexToUVSpace(cSettings->x, uiCol, false, 0),
+			//	cSettings->ConvertIndexToUVSpace(cSettings->y, uiRow, true, 0),
+			//	0.0f));
+			//glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
 
 	/*		glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
 			glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));*/
+
+			if (uiRow <= cPlayer2D->vec2Index.y + 3 && uiRow >= cPlayer2D->vec2Index.y - 3 &&
+				uiCol <= cPlayer2D->vec2Index.x + 3 && uiCol >= cPlayer2D->vec2Index.x - 3)
+			{
+				glm::mat4 tileTransform = glm::mat4(1.f);
+				// Ratio, converting indexes to OpenGL coordinates
+				// One tile is 
+				//tileTransform = glm::translate(tileTransform, )
+				//if (flashlight.TestRayOBBIntersection(camera->position, rays[0].direction, glm::vec3(-5.f, -5.f, -1.f), glm::vec3(5.f, 5.f, 1.f), )
+					SetMapColour(uiRow, uiCol, glm::vec4(1.f, 1.f, 1.f, 1.f));
+				
+			}
+			else
+			{
+				SetMapColour(uiRow, uiCol, glm::vec4(0.3f, 0.3f, 0.3f, 1.f));
+			}
 
 			// Render a tile
 			RenderTile(uiRow, uiCol);
@@ -448,9 +476,31 @@ void CMap2D::SetNumSteps(const CSettings::AXIS sAxis, const unsigned int uiValue
 void CMap2D::SetMapInfo(const unsigned int uiRow, const unsigned int uiCol, const int iValue, const bool bInvert)
 {
 	if (bInvert)
+	{
 		arrMapInfo[uiCurLevel][cSettings->NUM_TILES_YAXIS - uiRow - 1][uiCol].value = iValue;
+	}
 	else
+	{
 		arrMapInfo[uiCurLevel][uiRow][uiCol].value = iValue;
+	}
+}
+
+/**
+ @brief Set the runtime colour at certain indices in the arrMapInfo, used for lighting
+ @param iRow A const int variable containing the row index of the element to set to
+ @param iCol A const int variable containing the column index of the element to set to
+ @param runtimeColour The colour to set the tile at this position to
+ */
+void CMap2D::SetMapColour(const unsigned int uiRow, const unsigned int uiCol, const glm::vec4 runtimeColour, const bool bInvert)
+{
+	if (bInvert)
+	{
+		arrMapInfo[uiCurLevel][cSettings->NUM_TILES_YAXIS - uiRow - 1][uiCol].runtimeColour = runtimeColour;
+	}
+	else
+	{
+		arrMapInfo[uiCurLevel][uiRow][uiCol].runtimeColour = runtimeColour;
+	}
 }
 
 /**
@@ -583,6 +633,9 @@ void CMap2D::RenderTile(const unsigned int uiRow, const unsigned int uiCol)
 		unsigned int shininessLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "material.kShininess");*/
 		//if (arrMapInfo[uiCurLevel][uiRow][uiCol].value < 3)
 		glBindTexture(GL_TEXTURE_2D, MapOfTextureIDs.at(arrMapInfo[uiCurLevel][uiRow][uiCol].value));
+
+		unsigned int colorLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "runtimeColour");
+		glUniform4fv(colorLoc, 1, glm::value_ptr(arrMapInfo[uiCurLevel][uiRow][uiCol].runtimeColour));
 
 		glBindVertexArray(VAO);
 

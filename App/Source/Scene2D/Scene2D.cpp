@@ -364,7 +364,7 @@ void CScene2D::PreRender(void)
 	glLoadIdentity();
 
 	// Clear the screen and buffer
-	glClearColor(0.282, 0.239, 0.345, 1.00f);
+	glClearColor(0.000, 0.000, 0.000, 1.00f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Enable 2D texture rendering
@@ -376,7 +376,6 @@ void CScene2D::PreRender(void)
  */
 void CScene2D::Render(void)
 {
-
 	// Hacky, but it works `\("/)/`
 	// Would be better to target camera to middle of player, but due to time contraints decided to go to roundabout way of reverse engineering. Sorry D:
 
