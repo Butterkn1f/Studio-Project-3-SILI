@@ -112,7 +112,7 @@ bool CPlayer2D::Init(void)
 	glBindVertexArray(VAO);
 	
 	// Load the player texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/scene2d_player.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/scene2d_player2.png", true);
 	if (iTextureID == 0)
 	{
 		cout << "Unable to load Image/scene2d_player.png" << endl;
@@ -121,20 +121,15 @@ bool CPlayer2D::Init(void)
 
 	//CS: Create the animated sprite and setup the animation
 	//NOTE, TODO: FOR DOUBLE SPRITE HEIGHT JUST DO CSETTINGS->TILE_HEIGHT * 2
-	animatedSprites = CMeshBuilder::GenerateSpriteAnimation(7, 6, cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
-	animatedSprites->AddAnimation("right", 0, 2);
-	animatedSprites->AddAnimation("left", 3, 5);
-	animatedSprites->AddAnimation("atkRight", 6, 9);
-	animatedSprites->AddAnimation("atkLeft", 10, 13);
-	animatedSprites->AddAnimation("jumpRight", 14, 17);
-	animatedSprites->AddAnimation("fallRight", 18, 20);
-	animatedSprites->AddAnimation("jumpLeft", 21, 24);
-	animatedSprites->AddAnimation("fallLeft", 25, 27);
-	animatedSprites->AddAnimation("idleRight", 28, 29);
-	animatedSprites->AddAnimation("idleLeft", 30, 31);
-	animatedSprites->AddAnimation("death", 32, 37);
-	animatedSprites->AddAnimation("focusRight", 38, 39);
-	animatedSprites->AddAnimation("focusLeft", 40, 41);
+	animatedSprites = CMeshBuilder::GenerateSpriteAnimation(8, 20, cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
+	animatedSprites->AddAnimation("right", 0, 19);
+	animatedSprites->AddAnimation("left", 20, 39);
+	animatedSprites->AddAnimation("up", 40, 59);
+	animatedSprites->AddAnimation("down", 60, 79);
+	animatedSprites->AddAnimation("idleRight", 80, 99);
+	animatedSprites->AddAnimation("idleLeft", 100, 119);
+	animatedSprites->AddAnimation("idleDown", 120, 139);
+	animatedSprites->AddAnimation("idleUp", 140, 159);
 	//CS: Play the "idle" animation as default
 	// PlayAnimation(animName, loopCount, every ? seconds). Eg, "down", 5, 1.0f means loop anim 5 times every 1s. -1 loops infinitely/
 	animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
@@ -214,7 +209,7 @@ bool CPlayer2D::Reset()
 
 	//CS: Play the "down" animation as default
 	// PlayAnimation(animName, loopCount, every ? seconds). Eg, "down", 5, 1.0f means loop anim 5 times every 1s. -1 loops infinitely/
-	animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
+	animatedSprites->PlayAnimation("idleRight", -1, 1.f);
 
 	//Reset attack
 	iAttackCount = 0;
@@ -305,15 +300,15 @@ void CPlayer2D::Update(const double dElapsedTime)
 			}
 
 			//CS: Play the "right" animation
-			animatedSprites->PlayAnimation("right", -1, 0.2f);
+			animatedSprites->PlayAnimation("right", -1, 0.1f);
 		}
-		else {
-			//CS: Play the "idle" animation by default, if not jumping/falling as well
-			if (dir == DIRECTION::LEFT)
-				animatedSprites->PlayAnimation("idleLeft", -1, 0.8f);
-			else
-				animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
-		}
+		//else {
+		//	//CS: Play the "idle" animation by default, if not jumping/falling as well
+		//	if (dir == DIRECTION::LEFT)
+		//		animatedSprites->PlayAnimation("idleLeft", -1, 0.8f);
+		//	else
+		//		animatedSprites->PlayAnimation("idleRight", -1, 0.1f);
+		//}
 
 		if (cKeyboardController->IsKeyDown(GLFW_KEY_UP))
 		{
@@ -342,7 +337,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			}
 
 			//CS: Play the "left" animation
-			animatedSprites->PlayAnimation("left", -1, 0.2f);
+			animatedSprites->PlayAnimation("up", -1, 0.2f);
 		}
 		else if (cKeyboardController->IsKeyDown(GLFW_KEY_DOWN))
 		{
@@ -369,16 +364,24 @@ void CPlayer2D::Update(const double dElapsedTime)
 			}
 
 			//CS: Play the "right" animation
-			animatedSprites->PlayAnimation("right", -1, 0.2f);
+			animatedSprites->PlayAnimation("down", -1, 0.2f);
 		}
-		else {
-			//CS: Play the "idle" animation by default, if not jumping/falling as well
-			if (dir == DIRECTION::DOWN)
-				animatedSprites->PlayAnimation("idleLeft", -1, 0.8f);
-			else
-				animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
-		}
+
 	}
+	if (cKeyboardController->IsKeyReleased(GLFW_KEY_LEFT) || cKeyboardController->IsKeyReleased(GLFW_KEY_RIGHT) || cKeyboardController->IsKeyReleased(GLFW_KEY_UP) || cKeyboardController->IsKeyReleased(GLFW_KEY_DOWN))
+	{
+		//CS: Play the "idle" animation by default, if not jumping/falling as well
+		if (dir == DIRECTION::LEFT)
+			animatedSprites->PlayAnimation("idleLeft", -1, 1.f);
+		else if (dir == DIRECTION::RIGHT)
+			animatedSprites->PlayAnimation("idleRight", -1, 1.f);
+		else if (dir == DIRECTION::UP)
+			animatedSprites->PlayAnimation("idleUp", -1, 1.f);
+		else if (dir == DIRECTION::DOWN)
+			animatedSprites->PlayAnimation("idleDown", -1, 1.f);
+
+	}
+	
 
 	//If stopped walking, stop the walking sound and go back to idle state
 	if (cKeyboardController->IsKeyReleased(GLFW_KEY_LEFT) || cKeyboardController->IsKeyReleased(GLFW_KEY_RIGHT))
@@ -386,96 +389,18 @@ void CPlayer2D::Update(const double dElapsedTime)
 		cSoundController->StopSoundByID(4);
 	}
 
-	if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::IDLE)
-	{
-		if (cKeyboardController->IsKeyPressed(GLFW_KEY_A) && cInventoryManager->GetItem("Soul")->GetCount() >= 25 && cInventoryManager->GetItem("Health")->GetCount() < 5)
-		{
-			cPhysics2D.SetStatus(CPhysics2D::STATUS::FOCUS);
-			focusElapsed = 0;
-
-			//Play the focus sound
-			cSoundController->PlaySoundByID(11);
-		}
-
-		if (cKeyboardController->IsKeyPressed(GLFW_KEY_Z))
-		{
-			cPhysics2D.SetStatus(CPhysics2D::STATUS::JUMP);
-			cPhysics2D.SetInitialVelocity(glm::vec2(0.0f, 2.f));
-			iJumpCount += 1;
-			//Play sound for jump
-			cSoundController->PlaySoundByID(5);
-		}
-		else if (cKeyboardController->IsKeyPressed(GLFW_KEY_X))
-		{
-			lastAttackElapsed = 0;
-			iAttackCount = 0;
-			cPhysics2D.SetStatus(CPhysics2D::STATUS::ATTACK);
-
-			//Play the attack sound
-			cSoundController->PlaySoundByID(8);
-		}
-	}
-
-	if (cKeyboardController->IsKeyReleased(GLFW_KEY_A) || focusElapsed >= 0.6)
-	{
-		cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
-
-		//Stop the focus sound
-		cSoundController->StopSoundByID(11);
-		focusElapsed = 0;
-	}
 
 
-
-
-	// Override animation if jump/falling/attacking
-	if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::JUMP)
-	{
-		//CS: Play the "jump" animation
-		if (dir == DIRECTION::LEFT)
-			animatedSprites->PlayAnimation("jumpLeft", -1, 0.8f);
-		else
-			animatedSprites->PlayAnimation("jumpRight", -1, 0.8f);
-	}
-	else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::FALL)
-	{
-		//CS: Play the "fall" animation
-		if (dir == DIRECTION::LEFT)
-			animatedSprites->PlayAnimation("fallLeft", -1, 0.2f);
-		else
-			animatedSprites->PlayAnimation("fallRight", -1, 0.2f);
-
-		//Play the fall sound
-		/*cSoundController->PlaySoundByID(6);*/
-	}
-	else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::ATTACK)
-	{
-		//CS: Play the "attack" animation
-		if (dir == DIRECTION::LEFT)
-			animatedSprites->PlayAnimation("atkLeft", -1, 0.3f);
-		else
-			animatedSprites->PlayAnimation("atkRight", -1, 0.3f);
-	}
-	else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::FOCUS)
-	{
-		//CS: Play the "focus" animation
-		if (dir == DIRECTION::LEFT)
-			animatedSprites->PlayAnimation("focusLeft", -1, 0.2f);
-		else
-			animatedSprites->PlayAnimation("focusRight", -1, 0.2f);
-	}
-
-
+	//ilan box nonsense hihihihi
 	boxElapsed += 0.01;
 	int offsetX = 8;	//The offset for X microsteps for the player to be in the middle of two tiles, i.e player looks like hes above a object but his index is one lesser/higher than the object.
 	int offsetY = 6;	//The offset for Y microsteps for the player to be in the middle of two tiles, i.e player looks like hes to the right of an object but his index is one lesser/higher than the object.
-
 	//cout <<"X microsteps: "<< vec2NumMicroSteps.x << endl;
 	//cout <<"Y microsteps: " <<vec2NumMicroSteps.y << endl;
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_E) && boxElapsed > 0.5)
 	{
 		//If box is on the left of character
-		if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1) == 110 &&				//if player is directly towards the left
+		if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1) == 110 &&				//if box is directly towards the left
 			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 2) == 0)
 		{
 			//Set box into new position
@@ -496,7 +421,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		}
 
 		//If box is on the right of character
-		else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 110 &&			//if player is directly towards the right
+		else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 110 &&			//if box is directly towards the right
 			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 2) == 0)
 		{
 			//Set box into new position
@@ -838,155 +763,6 @@ bool CPlayer2D::CheckPosition(DIRECTION eDirection)
 	return true;
 }
 
-// Update Jump or Fall
-void CPlayer2D::UpdateJumpFall(const double dElapsedTime)
-{
-	if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::JUMP)
-	{
-		// Update the elapsed time to the physics engine
-		cPhysics2D.SetTime((float)dElapsedTime);
-		// Call the physics engine update method to calculate the final velocity and displacement
-		cPhysics2D.Update();
-		// Get the displacement from the physics engine
-		glm::vec2 v2Displacement = cPhysics2D.GetDisplacement();
-
-		int iIndex_YAxis_OLD = vec2Index.y;
-		int iDisplacement_MicroSteps = (int)(v2Displacement.y / cSettings->MICRO_STEP_YAXIS);
-		if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
-		{
-			vec2NumMicroSteps.y += iDisplacement_MicroSteps;
-			if (vec2NumMicroSteps.y > cSettings->NUM_STEPS_PER_TILE_YAXIS)
-			{
-				vec2NumMicroSteps.y -= cSettings->NUM_STEPS_PER_TILE_YAXIS;
-				if (vec2NumMicroSteps.y < 0)
-					vec2NumMicroSteps.y = 0;
-				vec2Index.y++;
-			}
-		}
-
-		// Constraint the player's position within the screen boundary
-		Constraint(UP);
-
-		// Iterate through all rows until the proposed row
-		// Check if the player will hit a tile; stop jump if so.
-		int iIndex_YAxis_Proposed = vec2Index.y;
-		for (int i = iIndex_YAxis_OLD; i <= iIndex_YAxis_Proposed; i++)
-		{
-			// Change the player's index to the current i value
-			vec2Index.y = i;
-			// If the new position is not feasible, then revert to old position
-			if (CheckPosition(UP) == false)
-			{
-				// Align with the row
-				vec2NumMicroSteps.y = 0;
-				// Set the Physics to fall status
-				cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-				break;
-			}
-		}
-
-		// If the player is still jumping and the initial velocity has reached zero or below zero, 
-		// then it has reach the peak of its jump
-		if ((cPhysics2D.GetStatus() == CPhysics2D::STATUS::JUMP) && (cPhysics2D.GetDisplacement().y <= 0.0f))
-		{
-			// Set status to fall
-			cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-		}
-	}
-	else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::FALL)
-	{
-		// Update the elapsed time to the physics engine
-		cPhysics2D.SetTime((float)dElapsedTime);
-		// Call the physics engine update method to calculate the final velocity and displacement
-		cPhysics2D.Update();
-		// Get the displacement from the physics engine
-		glm::vec2 v2Displacement = cPhysics2D.GetDisplacement();
-
-		// Store the current vec2Index.y
-		int iIndex_YAxis_OLD = vec2Index.y;
-
-		// Translate the displacement from pixels to indices
-		int iDisplacement_MicroSteps = (int)(v2Displacement.y / cSettings->MICRO_STEP_YAXIS);
-
-		if (vec2Index.y >= 0)
-		{
-			//Slower fall speed
-			vec2NumMicroSteps.y -= fabs(iDisplacement_MicroSteps) * 0.3;
-			if (vec2NumMicroSteps.y < 0)
-			{
-				vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_YAXIS) - 1;
-				vec2Index.y--;
-			}
-		}
-
-		// Constraint the player's position within the screen boundary
-		Constraint(DOWN);
-
-		// Iterate through all rows until the proposed row
-		// Check if the player will hit a tile; stop fall if so.
-		int iIndex_YAxis_Proposed = vec2Index.y;
-		for (int i = iIndex_YAxis_OLD; i >= iIndex_YAxis_Proposed; i--)
-		{
-			// Change the player's index to the current i value
-			vec2Index.y = i;
-			// If the new position is not feasible, then revert to old position
-			if (CheckPosition(DOWN) == false)
-			{
-				// Revert to the previous position
-				if (i != iIndex_YAxis_OLD)
-					vec2Index.y = i + 1;
-				// Set the Physics to idle status
-				cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
-				iJumpCount = 0;
-				vec2NumMicroSteps.y = 0;
-				
-				//Play land sound
-				cSoundController->StopSoundByID(6);
-				cSoundController->PlaySoundByID(7);
-				break;
-			}
-		}
-	}
-	else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::ATTACK)
-	{
-		lastAttackElapsed += 0.01;
-		if (lastAttackElapsed >= 0.3)
-			cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
-		if (vec2NumMicroSteps.x == 0 && iAttackCount == 0)
-		{
-			if (dir == DIRECTION::LEFT)
-				UpdateBreakables(glm::vec2(vec2Index.y, vec2Index.x - 1));
-			else
-				UpdateBreakables(glm::vec2(vec2Index.y, vec2Index.x + 1));
-		}
-	}
-	else if (cPhysics2D.GetStatus() == CPhysics2D::STATUS::FOCUS)
-	{
-		focusElapsed += 0.01;
-		if (focusElapsed >= 0.6)
-		{
-			cInventoryManager->GetItem("Soul")->Remove(25);
-			cInventoryManager->GetItem("Health")->Add(1);
-		}
-	}
-}
-
-// Check if the player is in mid-air
-bool CPlayer2D::IsMidAir(void)
-{
-	// if the player is at the bottom row, then he is not in mid-air for sure
-	if (vec2Index.y == 0)
-		return false;
-
-	// Check if the tile below the player's current position is empty
-	if ((vec2NumMicroSteps.x == 0) &&
-		((cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x) < 100) || (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x) > 300)))
-	{
-		return true;
-	}
-
-	return false;
-}
 
 /**
  @brief Let player interact with the map. You can add collectibles such as powerups and health here.
@@ -1036,74 +812,6 @@ void CPlayer2D::UpdateHealthLives(void)
 
 }
 
-void CPlayer2D::UpdateBreakables(glm::vec2 pos)
-{
-	switch (cMap2D->GetMapInfo(pos.x, pos.y))
-	{
-	//blocks
-	case 103:
-		cMap2D->SetMapInfo(pos.x, pos.y, 104, true);
-		cSoundController->StopSoundByID(12); //restart sound if it's playing before
-		cSoundController->PlaySoundByID(12);
-		break;
-	case 104:
-		cMap2D->SetMapInfo(pos.x, pos.y, 0, true);
-		cSoundController->StopSoundByID(12);
-		cSoundController->PlaySoundByID(12);
-		break;
-
-	//geo
-	case 106:
-		cMap2D->SetMapInfo(pos.x, pos.y, 107, true);
-		cSoundController->StopSoundByID(13);
-		cSoundController->PlaySoundByID(13);
-		break;
-	case 107:
-		cMap2D->SetMapInfo(pos.x, pos.y, 0, true);
-		cSoundController->StopSoundByID(13);
-		cSoundController->PlaySoundByID(13);
-		cInventoryManager->GetItem("Geo")->Add(300);
-		break;
-	}
-	iAttackCount = 1;
-}
-
-void CPlayer2D::UpdateBox(glm::vec2 pos)
-{
-	switch (cMap2D->GetMapInfo(pos.y, pos.x))
-	{
-	case 110:
-		if (dir == LEFT)
-		{
-			//Set box into new position
-			cMap2D->SetMapInfo(pos.y, pos.x - 1, 110);
-			//Remove box from original position
-			cMap2D->SetMapInfo(pos.y, pos.x, 0);
-		}
-		if (dir == RIGHT)
-		{
-			//Set box into new position
-			cMap2D->SetMapInfo(pos.y, pos.x + 1, 110);
-			//Remove box from original position
-			cMap2D->SetMapInfo(pos.y, pos.x, 0);
-		}
-		if (dir == UP)
-		{
-			//Set box into new position
-			cMap2D->SetMapInfo(pos.y + 1, pos.x, 110);
-			//Remove box from original position
-			cMap2D->SetMapInfo(pos.y, pos.x, 0);
-		}
-		if (dir == DOWN)
-		{
-			//Set box into new position
-			cMap2D->SetMapInfo(pos.y -1, pos.x, 110);
-			//Remove box from original position
-			cMap2D->SetMapInfo(pos.y, pos.x, 0);
-		}
-		break;
-	}
-}
 
 void CPlayer2D::DamagePlayer(int eDirection)
 {
