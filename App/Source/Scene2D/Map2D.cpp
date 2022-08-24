@@ -350,7 +350,7 @@ void CMap2D::Render(void)
 	//glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
 	//glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
 
-	// Render
+	// Render 
 	for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
 	{
 		for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)

@@ -74,6 +74,9 @@ public:
 	//Damage enemies
 	bool isAttacking(void);
 
+	void setEBox(bool pressE);
+	bool getEBox();
+
 protected:
 	enum DIRECTION
 	{
@@ -161,6 +164,8 @@ protected:
 	void UpdateHealthLives(void);
 
 	// Update breakable objects when player attacks
+
+	bool eBox;
 
 };
 

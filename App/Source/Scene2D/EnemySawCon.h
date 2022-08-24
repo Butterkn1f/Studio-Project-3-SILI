@@ -200,8 +200,17 @@ protected:
 	void UpdatePosition(void);
 
 	int dir; //Store current direction for animation
-	float atkRange;//range for the enemy to atk the player
+	float chaseRange;//range for the enemy to chase the player
+	float atkrange;//range for the enemy to atk the player
 	double movementspeed;//change via the microsteps 
+	int AtkCounter; // atk counter - count how many frames it has been in this FSM
+	const int MaxAtkCounter = 120;// Max count in a state
+	int ScaredCounter; // atk counter - count how many frames it has been in this FSM
+	const int MaxScaredCounter = 120;// Max count in a state
+	int InvestigateCounter; // investigate counter - count how many frames it has been in this FSM
+	const int MaxInvestigateCounter = 60;// Max count in a state
+	bool playerInteractWithBox;//interact with box
+	bool shun;
 	bool test;
 	bool collect1;
 	bool collect2;
