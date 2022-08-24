@@ -275,13 +275,13 @@ void CPlayer2D::Update(const double dElapsedTime)
 			animatedSprites->PlayAnimation("left", -1, 0.2f);
 			
 		}
-		else if (cKeyboardController->IsKeyReleased(GLFW_KEY_D))
+		else if (cKeyboardController->IsKeyDown(GLFW_KEY_D))
 		{
 			dir = DIRECTION::RIGHT;
-			vec2Index.x++;
+			//vec2Index.x++;
 			/*cSoundController->PlaySoundByID(4);*/
 			// Calculate the new position to the right
-			/*if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
+			if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
 			{
 				vec2NumMicroSteps.x++;
 
@@ -290,7 +290,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 					vec2NumMicroSteps.x = 0;
 					vec2Index.x++;
 				}
-			}*/
+			}
 			// Constraint the player's position within the screen boundary
 			Constraint(RIGHT);
 
@@ -369,7 +369,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 		}
 
 	}
-	if (cKeyboardController->IsKeyReleased(GLFW_KEY_LEFT) || cKeyboardController->IsKeyReleased(GLFW_KEY_RIGHT) || cKeyboardController->IsKeyReleased(GLFW_KEY_UP) || cKeyboardController->IsKeyReleased(GLFW_KEY_DOWN))
+	if (cKeyboardController->IsKeyReleased(GLFW_KEY_A) || cKeyboardController->IsKeyReleased(GLFW_KEY_D) || cKeyboardController->IsKeyReleased(GLFW_KEY_W) || cKeyboardController->IsKeyReleased(GLFW_KEY_S))
 	{
 		//CS: Play the "idle" animation by default, if not jumping/falling as well
 		if (dir == DIRECTION::LEFT)
