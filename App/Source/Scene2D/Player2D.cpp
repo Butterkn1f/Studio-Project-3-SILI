@@ -182,6 +182,8 @@ bool CPlayer2D::Init(void)
 	// Get handler for sound controller
 	cSoundController = CSoundController::GetInstance();
 
+	eBox = false;
+
 	return true;
 }
 
@@ -475,9 +477,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_E) && boxElapsed > 0.5)
 	{
 		//If box is on the left of character
-		if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1) == 110 &&				//if player is directly towards the left
+		if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1) == 110 &&				//if box is directly towards the left of player
 			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 2) == 0)
 		{
+			cout << "player push box left" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x - 2, 110);
 			//Remove box from original position
@@ -488,6 +492,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 			vec2NumMicroSteps.y >= offsetY &&
 			cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x - 2) == 0)
 		{
+			cout << "player push box left" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x - 2, 110);
 			//Remove box from original position
@@ -496,9 +502,11 @@ void CPlayer2D::Update(const double dElapsedTime)
 		}
 
 		//If box is on the right of character
-		else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 110 &&			//if player is directly towards the right
+		else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 110 &&			//if box is directly towards the right of player
 			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 2) == 0)
 		{
+			cout << "player push box right" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 2, 110);
 			//Remove box from original position
@@ -509,6 +517,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 			vec2NumMicroSteps.y >= offsetY &&
 			cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 2) == 0)
 		{
+			cout << "player push box right" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 2, 110);
 			//Remove box from original position
@@ -517,10 +527,12 @@ void CPlayer2D::Update(const double dElapsedTime)
 		}
 
 		//If box is below player
-		else if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x) == 110 &&		//if player directly above
+		else if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x) == 110 &&		//if box directly above
 			vec2NumMicroSteps.x <= offsetX &&
 			cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x) == 0)
 		{
+			cout << "player push box down" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y - 2, vec2Index.x, 110);
 			//Remove box from original position
@@ -531,6 +543,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 			vec2NumMicroSteps.x >= offsetX &&
 			cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x + 1) == 0)
 		{
+			cout << "player push box down" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y - 2, vec2Index.x + 1, 110);
 			//Remove box from original position
@@ -540,20 +554,24 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 
 		//If box is above player
-		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 110 &&			//if player directly below
+		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 110 &&			//if box directly above player
 			vec2NumMicroSteps.x <= offsetX &&
 			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x) == 0)
 		{
+			cout << "player push box up" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 2, vec2Index.x, 110);
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x, 0);
 			boxElapsed = 0;
 		}
-		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&			//if player is on bottom left
+		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&			//if player is on bottom left of the box
 			vec2NumMicroSteps.x >= offsetX &&
 			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x + 1) == 0)
 		{
+			cout << "player push box up" << endl;
+			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 2, vec2Index.x + 1, 110);
 			//Remove box from original position
@@ -1103,6 +1121,16 @@ void CPlayer2D::UpdateBox(glm::vec2 pos)
 		}
 		break;
 	}
+}
+
+void CPlayer2D::setEBox(bool pressE)
+{
+	eBox = pressE;
+}
+
+bool CPlayer2D::getEBox()
+{
+	return eBox;
 }
 
 void CPlayer2D::DamagePlayer(int eDirection)

@@ -74,6 +74,9 @@ public:
 	//Damage enemies
 	bool isAttacking(void);
 
+	void setEBox(bool pressE);
+	bool getEBox();
+
 protected:
 	enum DIRECTION
 	{
@@ -166,5 +169,8 @@ protected:
 	void UpdateBreakables(glm::vec2 pos);
 
 	void UpdateBox(glm::vec2 pos);
+
+	bool eBox;
+
 };
 

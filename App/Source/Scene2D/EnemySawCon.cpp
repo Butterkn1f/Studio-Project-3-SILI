@@ -154,10 +154,7 @@ bool CEnemySawCon::Init(void)
 	iframeElapsed = 0.4;
 	health = 50;
 	armour = 50;
-	iFSMCounter = 0;
 	lastAttackElapsed = 0;
-	atkRange = 3.5f;
-	movementspeed = 1.0;
 
 	// Create the quad mesh for the player
 	glGenVertexArrays(1, &VAO);
@@ -166,18 +163,11 @@ bool CEnemySawCon::Init(void)
 
 	// Set the Physics to fall status by default
 	cPhysics2D.Init();
-	cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-
-	// If this class is initialised properly, then set the bIsActive to true
-	bIsActive = true;
-
+	cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
 	dir = DIRECTION::LEFT;
 
-	spotDestination = glm::vec2(0,0);
-
-
-
-
+	spotDestination = glm::vec2(0, 0);
+	shun = false;
 	test = false;
 	collect1 = false;
 	collect2 = false;
@@ -191,6 +181,20 @@ bool CEnemySawCon::Init(void)
 	sawPlayer3 = false;
 	sawPlayer4 = false;
 	sawPlayer5 = false;
+
+	chaseRange = 3.5f;
+	atkrange = .05f;
+	movementspeed = 0.9;
+	iFSMCounter = 0;
+	AtkCounter = 0;
+	ScaredCounter = 0;
+	playerInteractWithBox = false;
+
+
+
+	// If this class is initialised properly, then set the bIsActive to true
+	bIsActive = true;
+
 	return true;
 }
 
@@ -199,6 +203,9 @@ bool CEnemySawCon::Init(void)
  */
 void CEnemySawCon::Update(const double dElapsedTime)
 {
+	playerInteractWithBox = cPlayer2D->getEBox();
+
+	//cout << "x: " <<vec2Index.y << "y: "<< vec2Index.x << endl;
 	//cout << "x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
 	if (!bIsActive)
 		return;
@@ -235,12 +242,19 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		cSoundController->SetListenerPosition(cPlayer2D->vec2Index.x, cPlayer2D->vec2Index.y, 0);
 	}
 	cSoundController->PlaySoundByID(26);
-
+	
 	//check if player collect the collectable
 	combineCheckPlayerCollect();
 	switch (sCurrentFSM)
 	{
 	case IDLE:
+	
+		//kena shun by light
+		if (shun)
+		{
+			ScaredCounter = 0;
+			sCurrentFSM = SCARED;
+		}
 		//player picked up collectable
 		//prolly have to add move if theres more of them
 		if (collect1 && !sawPlayer1)
@@ -266,13 +280,25 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case PATROL:
-		if (iFSMCounter > iMaxFSMCounter)
+		//player interact with the box
+		if (playerInteractWithBox)
+		{
+			InvestigateCounter = 0;
+			sCurrentFSM = INVESTIGATE;
+		}
+		//kena shun by light
+		if (shun)
+		{
+			ScaredCounter = 0;
+			sCurrentFSM = SCARED;
+		}
+		else if (iFSMCounter > iMaxFSMCounter)
 		{
 			sCurrentFSM = IDLE;
 			iFSMCounter = 0;
 			cout << "Switching to Idle State" << endl;
 		}
-		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkRange)
+		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 		{
 			cout << "Switching to Attack State" <<endl;
 			sCurrentFSM = ATTACK;
@@ -285,16 +311,30 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		iFSMCounter++;
 		break;
 	case ATTACK://help check if no LOS
-		//close to player, atk
-		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkRange)
+		//kena shun by light
+		if (shun)
 		{
+			ScaredCounter = 0;
+			sCurrentFSM = SCARED;
+		}
+		//close to player, atk
+		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkrange)
+		{		
+			cout << "atk player" << endl;
+			AtkCounter = 0;
+			sCurrentFSM = COOLDOWN;
+			cout << "switch to cooldown state" << endl;
+
+		}
+		//close to player, chase
+		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+		{
+			cout << "chase player" << endl;
 			 /*Attack
 			 Update direction to move towards for attack*/
 			//UpdateDirection();
 			//cout << "startpos: " << vec2Index.x << ", " << vec2Index.y << endl;
 
-			/*pathfind(enemysawcon position,player position)
-			calculate a path to player*/
 			auto path = cMap2D->PathFind(vec2Index,
 				cPlayer2D->vec2Index,
 				heuristic::euclidean,
@@ -312,21 +352,23 @@ void CEnemySawCon::Update(const double dElapsedTime)
 					i32vec2Direction = i32vec2Destination - vec2Index;
 					bFirstPosition = false;
 				}
+				//else
+				//{
+				//	if ((coord - i32vec2Destination) == i32vec2Direction)
+				//	{
+				//		/*Set a destination*/
+				//		i32vec2Destination = coord;
+				//	}
+				//	else
+				//		break;
+				//}
 				else
-				{
-					if ((coord - i32vec2Destination) == i32vec2Direction)
-					{
-						/*Set a destination*/
-						i32vec2Destination = coord;
-					}
-					else
-						break;
-				}
+					break;
 			}
 			/* Update the EnemySawCon's position for attack*/
 			UpdatePosition();
 		}
-		//go on cooldown abit till go back to patrol
+
 		else
 		{
 			if (iFSMCounter > iMaxFSMCounter)
@@ -339,8 +381,14 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		}
 		break;
 	case INVESTIGATE:
+		//kena shun by light
+		if (shun)
+		{
+			ScaredCounter = 0;
+			sCurrentFSM = SCARED;
+		}
 		//close to player, go atk
-		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkRange)
+		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 		{
 			cout << "Switching to Attack State" << endl;
 			sCurrentFSM = ATTACK;
@@ -348,6 +396,55 @@ void CEnemySawCon::Update(const double dElapsedTime)
 				sawPlayer1 = true;
 			if (collect2)
 				sawPlayer2 = true;
+		}
+		//player interactwithbox
+		if (playerInteractWithBox)
+		{
+			
+			cout << InvestigateCounter << endl;
+			if (InvestigateCounter > MaxInvestigateCounter)
+			{
+				playerInteractWithBox = false;
+				cPlayer2D->setEBox(playerInteractWithBox);
+				sCurrentFSM = PATROL;
+			}
+			else
+			{
+				/*Attack
+			Update direction to move towards for attack
+			//UpdateDirection();
+			//cout << "startpos: " << vec2Index.x << ", " << vec2Index.y << endl;*/
+
+				auto path = cMap2D->PathFind(vec2Index,
+					cPlayer2D->vec2Index,
+					heuristic::euclidean,
+					10);
+
+				/*calculate new destination*/
+				bool bFirstPosition = true;
+				for (const auto& coord : path)
+				{
+					if (bFirstPosition == true)
+					{
+						/* Set a destination*/
+						i32vec2Destination = coord;
+						/* Calculate the direction between EnemySawCon and this destination*/
+						i32vec2Direction = i32vec2Destination - vec2Index;
+						bFirstPosition = false;
+					}
+					else
+					{
+						if ((coord - i32vec2Destination) == i32vec2Direction)
+						{
+							/*Set a destination*/
+							i32vec2Destination = coord;
+						}
+						else
+							break;
+					}
+				}
+			}
+			InvestigateCounter++;
 		}
 		//go to the spotdestination
 		else
@@ -383,6 +480,42 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		}
 		// Update the EnemySawCon's position
 		UpdatePosition();
+		break;
+	case COOLDOWN:
+		//kena shun by light
+		if (shun)
+		{
+			ScaredCounter = 0;
+			sCurrentFSM = SCARED;
+		}
+		//wait for 2 sec
+		else if (AtkCounter > MaxAtkCounter)
+		{
+			if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+			{
+				cout << "Switching to Attack State" << endl;
+				sCurrentFSM = ATTACK;
+				AtkCounter = 0;
+				break;
+			}
+			sCurrentFSM = PATROL;
+			AtkCounter = 0;
+			cout << "Switching to patrol State" << endl;
+		}
+		AtkCounter++;
+		break;
+	case SCARED:
+		if (ScaredCounter > MaxScaredCounter)
+		{
+			shun = false;
+			sCurrentFSM = IDLE;
+		}
+		else
+		{
+
+		//negative direction to player
+		}
+		ScaredCounter++;
 		break;
 	default:
 		break;
