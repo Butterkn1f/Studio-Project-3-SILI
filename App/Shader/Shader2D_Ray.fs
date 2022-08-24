@@ -114,6 +114,7 @@ void main()
 	else
 	{
 		FragColour = texture(imageTexture, TexCoord);
+		FragColour *= runtimeColour;
 	}
 	//FragColour = texture(imageTexture, TexCoord);
 	//FragColour *= Colour;

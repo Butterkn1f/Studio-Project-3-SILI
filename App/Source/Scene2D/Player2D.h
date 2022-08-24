@@ -154,10 +154,8 @@ protected:
 	bool CheckPosition(DIRECTION eDirection);
 
 	// Update Jump or Fall
-	void UpdateJumpFall(const double dElapsedTime = 0.0166666666666667);
 
 	// Check if the player is in mid-air
-	bool IsMidAir(void);
 
 	// Let player interact with the map
 	void InteractWithMap(void);
@@ -166,9 +164,6 @@ protected:
 	void UpdateHealthLives(void);
 
 	// Update breakable objects when player attacks
-	void UpdateBreakables(glm::vec2 pos);
-
-	void UpdateBox(glm::vec2 pos);
 
 	bool eBox;
 

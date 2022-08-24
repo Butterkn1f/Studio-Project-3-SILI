@@ -34,6 +34,8 @@
 // Include Entity2D
 #include "Primitives/Entity2D.h"
 
+#include "Flashlight.h"
+
 //Include CPlayer2D
 #include "Player2D.h"
 #include "InventoryManager.h"
@@ -50,14 +52,15 @@ struct MapSize {
 // It includes data to be used for A* Path Finding
 struct Grid {
 	unsigned int value;
+	glm::vec4 runtimeColour;
 
-	Grid() 
-		: value(0), pos(0, 0), parent(-1, -1), f(0), g(0), h(0) {}
+	Grid()
+		: runtimeColour(0, 0, 0, 1), value(0), pos(0, 0), parent(-1, -1), f(0), g(0), h(0) {}
 	Grid(	const glm::vec2& pos, unsigned int f) 
-		: value(0), pos(pos), parent(-1, 1), f(f), g(0), h(0) {}
+		: runtimeColour(0, 0, 0, 1), value(0), pos(pos), parent(-1, 1), f(f), g(0), h(0) {}
 	Grid(	const glm::vec2& pos, const glm::vec2& parent, 
 			unsigned int f, unsigned int g, unsigned int h) 
-		: value(0), pos(pos), parent(parent), f(f), g(g), h(h) {}
+		: runtimeColour(0, 0, 0, 1), value(0), pos(pos), parent(parent), f(f), g(g), h(h) {}
 
 	glm::vec2 pos;
 	glm::vec2 parent;
@@ -75,6 +78,11 @@ namespace heuristic
 	unsigned int manhattan(const glm::vec2& v1, const glm::vec2& v2, int weight);
 	unsigned int euclidean(const glm::vec2& v1, const glm::vec2& v2, int weight);
 }
+
+struct Ray {
+	glm::vec3 direction;
+	float length;
+};
 
 class CMap2D : public CSingletonTemplate<CMap2D>, public CEntity2D
 {
@@ -103,6 +111,9 @@ public:
 
 	// Set the value at certain indices in the arrMapInfo
 	void SetMapInfo(const unsigned int uiRow, const unsigned int uiCol, const int iValue, const bool bInvert = true);
+
+	// Set the runtime colour at certain indices in the arrMapInfo
+	void SetMapColour(const unsigned int uiRow, const unsigned int uiCol, const glm::vec4 runtimeColour, const bool bInvert = true);
 
 	// Get the value at certain indices in the arrMapInfo
 	int GetMapInfo(const unsigned int uiRow, const unsigned int uiCol, const bool bInvert = true) const;
@@ -180,6 +191,9 @@ protected:
 
 	//CS: The quadMesh for drawing the tiles
 	CMesh* quadMesh;
+
+	Flashlight flashlight;
+	Ray rays[1];
 
 	//Handler containing the instance of CPlayer2D
 	CPlayer2D* cPlayer2D;
