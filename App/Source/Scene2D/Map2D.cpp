@@ -150,10 +150,10 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		MapOfTextureIDs.insert(pair<int, int>(101, iTextureID));
 	}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/stoneBG.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Black_Brick.png", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/stoneBG.png" << endl;
+		cout << "Unable to load Image/brick.png" << endl;
 		return false;
 	}
 	else

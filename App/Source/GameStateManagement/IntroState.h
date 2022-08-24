@@ -50,6 +50,7 @@ protected:
 
 	CBackgroundEntity* background;
 	ButtonData logoData;
+	ButtonData TextData;
 	CSoundController* cSoundController;
 	CSettings* cSettings;
 };

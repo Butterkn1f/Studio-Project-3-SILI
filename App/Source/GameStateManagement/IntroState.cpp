@@ -72,7 +72,7 @@ bool CIntroState::Init(void)
 	CShaderManager::GetInstance()->activeShader->setInt("texture1", 0);
 
 	//Create Background Entity
-	background = new CBackgroundEntity("Image/Background.png");
+	background = new CBackgroundEntity("Image/IntroBG.png");
 	background->SetShader("Shader2D");
 	background->Init();
 
@@ -94,6 +94,9 @@ bool CIntroState::Init(void)
 	CImageLoader* il = CImageLoader::GetInstance();
 	logoData.fileName = "Image\\GUI\\Logo.png";
 	logoData.textureID = il->LoadTextureGetID(logoData.fileName.c_str(), false);
+
+	TextData.fileName = "Image\\GUI\\Text.png";
+	TextData.textureID = il->LoadTextureGetID(TextData.fileName.c_str(), false);
 
 	// Load sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
@@ -132,12 +135,12 @@ bool CIntroState::Update(const double dElapsedTime)
 	window_flags |= ImGuiWindowFlags_NoBackground;
 	window_flags |= ImGuiWindowFlags_NoMove;
 	window_flags |= ImGuiWindowFlags_NoCollapse;
-	window_flags |= ImGuiWindowFlags_NoNav;
+	window_flags |= ImGuiWindowFlags_NoNav; 
 
 	ImGui::Begin("Logo", NULL, window_flags);
-	ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - 750, CSettings::GetInstance()->iWindowHeight / 5.0));				// Set the top-left of the window at (10,10)
+	ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - 450, 5));				// Set the top-left of the window at (10,10)
 	ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
-	ImGui::Image((ImTextureID)logoData.textureID, ImVec2(1500, 400), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
+	ImGui::Image((ImTextureID)logoData.textureID, ImVec2(800, 800), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
 	ImGui::End();
 
 	ImGuiWindowFlags helperwindow_flags = 0;
@@ -150,10 +153,9 @@ bool CIntroState::Update(const double dElapsedTime)
 	helperwindow_flags |= ImGuiWindowFlags_NoNav;
 	// Another window
 	ImGui::Begin("Helper Text", NULL, helperwindow_flags);
-	ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 4.0, CSettings::GetInstance()->iWindowHeight * 0.6));
+	ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 3.75, CSettings::GetInstance()->iWindowHeight * 0.6));
 	ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
-	ImGui::SetWindowFontScale(5.f * relativeScale_y);
-	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Press [SPACE] to begin.");
+	ImGui::Image((ImTextureID)TextData.textureID, ImVec2(900, 300), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
 	ImGui::End();
 
 	//cout << "CIntroState::Update()\n" << endl;

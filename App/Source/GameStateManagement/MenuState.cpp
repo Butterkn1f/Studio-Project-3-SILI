@@ -76,7 +76,7 @@ bool CMenuState::Init(void)
 	//CShaderManager::GetInstance()->activeShader->setInt("texture1", 0);
 
 	//Create Background Entity
-	background = new CBackgroundEntity("Image/Background.png");
+	background = new CBackgroundEntity("Image/MainMenu.png");
 	background->SetShader("Shader2D");
 	background->Init();
 
@@ -102,10 +102,10 @@ bool CMenuState::Init(void)
 	optionsButtonData.fileName = "Image\\GUI\\ButtonOptions.png";
 	optionsButtonData.textureID = il->LoadTextureGetID(optionsButtonData.fileName.c_str(), false);
 
-	exitButtonData.fileName = "Image\\GUI\\ExitButton.png";
+	exitButtonData.fileName = "Image\\GUI\\ButtonExit.png";
 	exitButtonData.textureID = il->LoadTextureGetID(exitButtonData.fileName.c_str(), false);
 
-	logoData.fileName = "Image\\GUI\\Logo.png";
+	logoData.fileName = "Image\\GUI\\MenuLogo.png";
 	logoData.textureID = il->LoadTextureGetID(logoData.fileName.c_str(), false);
 
 	// Enable the cursor
@@ -180,11 +180,18 @@ bool CMenuState::Update(const double dElapsedTime)
 		logowindow_flags |= ImGuiWindowFlags_NoCollapse;
 		logowindow_flags |= ImGuiWindowFlags_NoNav;
 
+		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.f, 0.f, 0.f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.f, 0.f, 0.f, 1.f));
+		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.f, 0.f, 0.f, 0.4f));
+	
+
 		ImGui::Begin("Logo", NULL, logowindow_flags);
 		ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - buttonWidth * 3, 10));				// Set the top-left of the window at (10,10)
 		ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
 		ImGui::Image((ImTextureID)logoData.textureID, ImVec2(buttonWidth * 6, buttonHeight * 3), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
 		ImGui::End();
+
+
 
 		// Create a window called "Hello, world!" and append into it.
 		ImGui::Begin("Main Menu", NULL, window_flags);
@@ -233,6 +240,7 @@ bool CMenuState::Update(const double dElapsedTime)
 
 			return false;
 		}
+		ImGui::PopStyleColor(3);
 		ImGui::End();
 	}
 
