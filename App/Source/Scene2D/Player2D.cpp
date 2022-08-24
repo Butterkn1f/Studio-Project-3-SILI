@@ -164,11 +164,11 @@ bool CPlayer2D::Init(void)
 	cInventoryManager = CInventoryManager::GetInstance();
 
 	// Add a Health icon as one of the inventory items
-	cInventoryItem = cInventoryManager->Add("Health", "Image/GUI_Health.png", 5, 5);
+	cInventoryItem = cInventoryManager->Add("Health", "Image/Heart.png", 3, 3);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
-	cInventoryItem = cInventoryManager->Add("Soul", "Image/GUI_Soul.png", 100, 0);
-	cInventoryItem->vec2Size = glm::vec2(200, 100);
+	//cInventoryItem = cInventoryManager->Add("Soul", "Image/GUI_Soul.png", 100, 0);
+	//cInventoryItem->vec2Size = glm::vec2(200, 100);
 
 	//Inventory item Papers
 	cInventoryItem = cInventoryManager->Add("Paper", "Image/passcode.png", 15, 0);

@@ -130,37 +130,54 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::PopStyleColor();*/
 
 	// Render Soul
-	ImGuiWindowFlags soulWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+	//ImGuiWindowFlags soulWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+	//	ImGuiWindowFlags_NoBackground |
+	//	ImGuiWindowFlags_NoTitleBar |
+	//	ImGuiWindowFlags_NoMove |
+	//	ImGuiWindowFlags_NoResize |
+	//	ImGuiWindowFlags_NoCollapse |
+	//	ImGuiWindowFlags_NoScrollbar;
+	//ImGui::Begin("Soul", NULL, soulWindowFlags);
+	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f,
+	//	cSettings->iWindowHeight * 0.03f));
+	//ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+	//ImGui::SetWindowFontScale(1.5f * relativeScale_y);
+	//cInventoryItem = cInventoryManager->GetItem("Soul");
+	//ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+	//	ImVec2(cInventoryItem->vec2Size.x * relativeScale_x,
+	//		cInventoryItem->vec2Size.y * relativeScale_y),
+	//	ImVec2(0, 1), ImVec2(1, 0));
+	//ImGui::End();
+
+
+	//ImGui::Begin("HealthBar", NULL, soulWindowFlags);
+	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.09f,
+	//	cSettings->iWindowHeight * 0.1f));
+	//ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+	//ImGui::SameLine();
+	//ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.000, 0.961, 0.933, 1.0f));
+	//ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.412, 0.412, 0.412, 1.0f));
+	//ImGui::ProgressBar(cInventoryItem->GetCount() /
+	//	(float)cInventoryItem->GetMaxCount(), ImVec2(300.0f *
+	//		relativeScale_x, 20.0f * relativeScale_y), "Health");
+	//ImGui::PopStyleColor();
+	//ImGui::PopStyleColor();
+	//ImGui::End();
+
+
+	// Display Lives left
+	ImGuiWindowFlags LivesWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoBackground |
 		ImGuiWindowFlags_NoTitleBar |
 		ImGuiWindowFlags_NoMove |
 		ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
-	ImGui::Begin("Soul", NULL, soulWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.03f,
-		cSettings->iWindowHeight * 0.03f));
-	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
-	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-	cInventoryItem = cInventoryManager->GetItem("Soul");
-	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
-		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x,
-			cInventoryItem->vec2Size.y * relativeScale_y),
-		ImVec2(0, 1), ImVec2(1, 0));
-	ImGui::End();
-
-	ImGui::Begin("SoulProgress", NULL, soulWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.11f,
-		cSettings->iWindowHeight * 0.1f));
-	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
-	ImGui::SameLine();
-	ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.000, 0.961, 0.933, 1.0f));
-	ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.412, 0.412, 0.412, 1.0f));
-	ImGui::ProgressBar(cInventoryItem->GetCount() /
-		(float)cInventoryItem->GetMaxCount(), ImVec2(300.0f *
-			relativeScale_x, 20.0f * relativeScale_y), "Soul");
-	ImGui::PopStyleColor();
-	ImGui::PopStyleColor();
+	ImGui::Begin("Text", NULL, LivesWindowFlags);
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.01f,
+			cSettings->iWindowHeight * 0.05f));
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Lives left: ");
+	ImGui::SetWindowFontScale(2.f * relativeScale_y);
 	ImGui::End();
 
 	// Render Health
@@ -172,12 +189,12 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
 	ImGui::Begin("Health", NULL, healthWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.12f,
-		cSettings->iWindowHeight * 0.05f));
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.01f,
+		cSettings->iWindowHeight * 0.1f));
 	ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
 	ImGui::SetWindowFontScale(1.5f * relativeScale_y);
-	cInventoryItem = cInventoryManager->GetItem("Health");
 
+	cInventoryItem = cInventoryManager->GetItem("Health");
 	for (int i = 0; i < cInventoryItem->GetCount(); i++)
 	{
 		ImGui::SameLine();
@@ -219,7 +236,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
 	ImGui::Begin("Image", NULL, PaperWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.8f));
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.015f, cSettings->iWindowHeight * 0.85f));
 	ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
 		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),

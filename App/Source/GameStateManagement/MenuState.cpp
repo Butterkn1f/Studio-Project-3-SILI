@@ -96,10 +96,10 @@ bool CMenuState::Init(void)
 
 	// Load the images for buttons
 	CImageLoader* il = CImageLoader::GetInstance();
-	startButtonData.fileName = "Image\\GUI\\PlayButton.png";
+	startButtonData.fileName = "Image\\GUI\\ButtonPlay.png";
 	startButtonData.textureID = il->LoadTextureGetID(startButtonData.fileName.c_str(), false);
-
-	optionsButtonData.fileName = "Image\\GUI\\OptionsButton.png";
+	
+	optionsButtonData.fileName = "Image\\GUI\\ButtonOptions.png";
 	optionsButtonData.textureID = il->LoadTextureGetID(optionsButtonData.fileName.c_str(), false);
 
 	exitButtonData.fileName = "Image\\GUI\\ExitButton.png";
