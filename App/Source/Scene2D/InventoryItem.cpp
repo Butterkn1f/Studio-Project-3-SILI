@@ -52,8 +52,8 @@ void CInventoryItem::Add(const int iNumItems)
 void CInventoryItem::Remove(const int iNumItems)
 {
 	iItemCount -= iNumItems;
-	if (iItemCount < 0)
-		iItemCount = 0;
+	//if (iItemCount < 0)
+	//	iItemCount = 0;
 }
 
 /**

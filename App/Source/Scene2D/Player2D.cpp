@@ -912,9 +912,10 @@ bool CPlayer2D::isAttacking(void)
 
 void CPlayer2D::setEBox(bool pressE)
 {
+	eBox = pressE;
 }
 
 bool CPlayer2D::getEBox()
 {
-	return false;
+	return eBox;
 }

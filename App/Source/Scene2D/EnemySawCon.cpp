@@ -169,18 +169,44 @@ bool CEnemySawCon::Init(void)
 	spotDestination = glm::vec2(0, 0);
 	shun = false;
 	test = false;
+	
+	
+	
 	collect1 = false;
 	collect2 = false;
 	collect3 = false;
 	collect4 = false;
 	collect5 = false;
 
+	collect6 = false;
+	collect7 = false;
+	collect8 = false;
+	collect9 = false;
+	collect10= false;
+	
+	collect11 = false;
+	collect12 = false;
+	collect13 = false;
+	collect14 = false;
+	collect15 = false;
+
 	sawPlayer = false;
-	sawPlayer1 = false;
-	sawPlayer2 = false;
-	sawPlayer3 = false;
-	sawPlayer4 = false;
-	sawPlayer5 = false;
+
+	sawPlayer1 = false; 
+	sawPlayer2 = false; 
+	sawPlayer3 = false; 
+	sawPlayer4 = false; 
+	sawPlayer5 = false; 
+	sawPlayer6 = false; 
+	sawPlayer7 = false; 
+	sawPlayer8 = false; 
+	sawPlayer9 = false; 
+	sawPlayer10 = false; 
+	sawPlayer11 = false; 
+	sawPlayer12 = false; 
+	sawPlayer13 = false; 
+	sawPlayer14 = false;
+	sawPlayer15 = false;
 
 	chaseRange = 3.5f;
 	atkrange = .05f;
@@ -248,29 +274,15 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	switch (sCurrentFSM)
 	{
 	case IDLE:
-	
+		
+		combineCheckSawPlayer();
 		//kena shun by light
 		if (shun)
 		{
 			ScaredCounter = 0;
 			sCurrentFSM = SCARED;
 		}
-		//player picked up collectable
-		//prolly have to add move if theres more of them
-		/*if (collect1 && !sawPlayer1)
-		{
-
-			cout << "Switching to Investigate State to collect1" << endl;
-			iFSMCounter = 0;
-			sCurrentFSM = INVESTIGATE;
-		}
-		if (collect2 && !sawPlayer2)
-		{
-			cout << "Switching to Investigate State to collect2" << endl;
-			iFSMCounter = 0;
-			sCurrentFSM = INVESTIGATE;
-		}*/
-
+	
 		else if (iFSMCounter > iMaxFSMCounter)
 		{
 			sCurrentFSM = PATROL;
@@ -320,6 +332,12 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		//close to player, atk
 		if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < atkrange)
 		{		
+			CInventoryItem* cInvenytoryItem;
+			cInvenytoryItem = cInventoryManager->GetItem("Health");
+			if (cInvenytoryItem->GetCount() >= 0)
+				cInvenytoryItem->Remove(1);
+			else
+				CGameManager::GetInstance()->bPlayerLost = true;
 			cout << "atk player" << endl;
 			AtkCounter = 0;
 			sCurrentFSM = COOLDOWN;
@@ -1076,12 +1094,117 @@ void CEnemySawCon::UpdatePosition(void)
 void CEnemySawCon::combineCheckPlayerCollect()
 {
 	//97 is the id for the collectable
-	checkCollectable(collect1, 14, 7, 75);
-	//checkCollectable(collect2, 17, 4, 75);
-	//checkCollectable(collect3, 14, 4, 75);
-	/*checkCollectable(collect3, sawPlayer3);
-	checkCollectable(collect4, sawPlayer4);
-	checkCollectable(collect5, sawPlayer5);*/
+	checkCollectable(collect1, 43, 6, 75);
+	checkCollectable(collect2, 34, 4, 75);
+	checkCollectable(collect3, 26, 6, 75);
+	checkCollectable(collect4, 19, 6, 75);
+	checkCollectable(collect5, 16, 4, 75);
+	checkCollectable(collect6, 33, 8, 75);
+	checkCollectable(collect7, 19, 15, 75);
+	checkCollectable(collect8, 29, 20, 75);
+	checkCollectable(collect9, 36, 15, 75);
+	checkCollectable(collect10, 39, 26, 75);
+	checkCollectable(collect11, 42, 20 , 75);
+	checkCollectable(collect12, 41, 12, 75);
+	checkCollectable(collect13, 21, 29, 75);
+	checkCollectable(collect14, 6, 27, 75);
+	checkCollectable(collect15, 5, 16, 75);
+	
+}
+
+void CEnemySawCon::combineCheckSawPlayer()
+{
+	if (collect1 && !sawPlayer1)
+	{
+
+		cout << "Switching to Investigate State to collect1" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect2 && !sawPlayer2)
+	{
+		cout << "Switching to Investigate State to collect2" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect3 && !sawPlayer3)
+	{
+		cout << "Switching to Investigate State to collect3" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect4 && !sawPlayer4)
+	{
+		cout << "Switching to Investigate State to collect4" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect5 && !sawPlayer5)
+	{
+		cout << "Switching to Investigate State to collect5" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect6 && !sawPlayer6)
+	{
+		cout << "Switching to Investigate State to collect6" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect7 && !sawPlayer7)
+	{
+		cout << "Switching to Investigate State to collect7" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect8 && !sawPlayer8)
+	{
+		cout << "Switching to Investigate State to collect8" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect9 && !sawPlayer9)
+	{
+		cout << "Switching to Investigate State to collect9" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect10 && !sawPlayer10)
+	{
+		cout << "Switching to Investigate State to collect10" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect11 && !sawPlayer11)
+	{
+		cout << "Switching to Investigate State to collect11" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect12 && !sawPlayer12)
+	{
+		cout << "Switching to Investigate State to collect12" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect13 && !sawPlayer13)
+	{
+		cout << "Switching to Investigate State to collect13" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect14 && !sawPlayer14)
+	{
+		cout << "Switching to Investigate State to collect14" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
+	if (collect15 && !sawPlayer15)
+	{
+		cout << "Switching to Investigate State to collect15" << endl;
+		iFSMCounter = 0;
+		sCurrentFSM = INVESTIGATE;
+	}
 }
 
 
