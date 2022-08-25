@@ -72,7 +72,7 @@ bool CLoseState::Init(void)
 	CShaderManager::GetInstance()->activeShader->setInt("texture1", 0);
 
 	//Create Background Entity
-	background = new CBackgroundEntity("Image/LoseBG.png");
+	background = new CBackgroundEntity("Image/SceneLose.png");
 	background->SetShader("Shader2D");
 	background->Init();
 
@@ -130,11 +130,11 @@ bool CLoseState::Update(const double dElapsedTime)
 	window_flags |= ImGuiWindowFlags_NoCollapse;
 	window_flags |= ImGuiWindowFlags_NoNav;
 
-	ImGui::Begin("Logo", NULL, window_flags);
-	ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - 750, CSettings::GetInstance()->iWindowHeight / 5.0));				// Set the top-left of the window at (10,10)
-	ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
-	ImGui::Image((ImTextureID)loseData.textureID, ImVec2(1500, 400), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
-	ImGui::End();
+	//ImGui::Begin("Logo", NULL, window_flags);
+	//ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - 750, CSettings::GetInstance()->iWindowHeight / 5.0));				// Set the top-left of the window at (10,10)
+	//ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
+	//ImGui::Image((ImTextureID)loseData.textureID, ImVec2(1500, 400), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
+	//ImGui::End();
 
 	//cout << "CLoseState::Update()\n" << endl;
 	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_SPACE))
