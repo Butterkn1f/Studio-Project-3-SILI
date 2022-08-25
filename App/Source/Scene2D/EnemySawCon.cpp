@@ -127,24 +127,29 @@ bool CEnemySawCon::Init(void)
 	glBindVertexArray(VAO);
 
 	// Load the EnemySawCon texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/FalseKnight.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/enemy3.png", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/FalseKnight.png" << endl;
+		cout << "Unable to load Image/enemy3.png" << endl;
 		return false;
 	}
-
-	animatedSprites = CMeshBuilder::GenerateSpriteAnimation(4, 8,cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
-	animatedSprites->AddAnimation("idleRight", 0, 3);
-	animatedSprites->AddAnimation("idleLeft", 4, 7);
-	animatedSprites->AddAnimation("jumpRight", 8, 9);
-	animatedSprites->AddAnimation("fallRight", 10, 11);
-	animatedSprites->AddAnimation("jumpLeft", 12, 13);
-	animatedSprites->AddAnimation("fallLeft", 14, 15);
-	animatedSprites->AddAnimation("smashRight", 16, 20);
-	animatedSprites->AddAnimation("smashLeft", 21, 25);
-	animatedSprites->AddAnimation("vulRight", 26, 28);
-	animatedSprites->AddAnimation("vulLeft", 29, 31);
+	//Down = 0 - 7
+	//idleDown = 8 - 10
+	//idleUp = 12 - 14
+	//Up = 16 - 23
+	//Left = 24 - 31
+	//idleLeft = 32 - 34
+	//Right = 36 - 43
+	//idleRight = 45 - 47
+	animatedSprites = CMeshBuilder::GenerateSpriteAnimation(12, 4,cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
+	animatedSprites->AddAnimation("idleRight", 45, 47);
+	animatedSprites->AddAnimation("idleLeft", 32, 34);
+	animatedSprites->AddAnimation("idleDown", 8, 10);
+	animatedSprites->AddAnimation("idleUp", 12, 14);
+	animatedSprites->AddAnimation("down", 0, 7);
+	animatedSprites->AddAnimation("up", 16, 23);
+	animatedSprites->AddAnimation("left", 24, 31);
+	animatedSprites->AddAnimation("right", 36, 43);
 
 	animatedSprites->PlayAnimation("idleLeft", -1, 0.5f);
 
@@ -956,7 +961,7 @@ void CEnemySawCon::UpdatePosition(void)
 	//left
 	if (i32vec2Direction.x < 0)
 	{
-		animatedSprites->PlayAnimation("idleLeft", -1, 0.5f);
+		animatedSprites->PlayAnimation("left", -1, 0.5f);
 		dir = DIRECTION::LEFT;
 		// Move left
 		const int iOldIndex = vec2Index.x;
@@ -994,7 +999,7 @@ void CEnemySawCon::UpdatePosition(void)
 	//right
 	else if (i32vec2Direction.x > 0)
 	{
-		animatedSprites->PlayAnimation("idleRight", -1, 0.5f);
+		animatedSprites->PlayAnimation("right", -1, 0.5f);
 		dir = DIRECTION::RIGHT;
 		// Move right
 		const int iOldIndex = vec2Index.x;
@@ -1033,6 +1038,7 @@ void CEnemySawCon::UpdatePosition(void)
 	// up
 	else if (i32vec2Direction.y > 0)
 	{
+		animatedSprites->PlayAnimation("up", -1, 0.5f);
 		//dir equal to up
 		dir = DIRECTION::UP;
 		//move upward
@@ -1062,6 +1068,7 @@ void CEnemySawCon::UpdatePosition(void)
 	//down
 	else if (i32vec2Direction.y < 0)
 	{
+	animatedSprites->PlayAnimation("down", -1, 0.5f);
 		//dir equal to down
 		dir = DIRECTION::DOWN;
 		// Move down
