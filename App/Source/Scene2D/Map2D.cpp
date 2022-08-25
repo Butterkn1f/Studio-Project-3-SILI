@@ -228,7 +228,7 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		cout << "Unable to load Image/doorClosed.png" << endl;
 		return false;
 	}
-	else
+	else 
 	{
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(90, iTextureID));

@@ -318,7 +318,15 @@ bool CSoundController::SetBGMVolume(const float volume)
 
 bool CSoundController::SetSFXVolume(const float volume)
 {
-	SetVolume(2, volume);
+	SetVolume(6, volume);
+	//Player
+	SetVolume(10, volume);
+	SetVolume(12, volume);
+	SetVolume(13, volume);
+	//Enemy
+	SetVolume(25, volume);
+	SetVolume(26, volume);
+	SetVolume(27, volume);
 
 	return true;
 }
