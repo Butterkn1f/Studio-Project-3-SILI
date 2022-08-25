@@ -10,6 +10,11 @@
 
 #include "Inputs\MouseController.h"
 
+#include "Primitives/Mesh.h"
+
+// Include CEntity2D
+#include "Primitives/Entity2D.h"
+
 class Flashlight
 {
 private:
@@ -17,6 +22,7 @@ private:
 	glm::mat4 projectionMatrix;
 	glm::mat4 viewMatrix;
 	Camera* camera;
+	CMesh* mesh;
 	glm::vec3 calculateMouseRay(glm::mat4 viewMatrix);
 	glm::vec3 getNormalizedDeviceCoords(float mouseX, float mouseY);
 	glm::vec4 toEyeCoords(glm::vec4 clipCoords);
@@ -29,6 +35,7 @@ public:
 	virtual void Init();
 	virtual void Update();
 	glm::vec3 getCurrentRay();
+	void SetRay(int rayNo, float origin, float length, float angle);
 	bool TestRayOBBIntersection(
 		glm::vec3 ray_origin, //Ray origin in world space
 		glm::vec3 ray_direction, //Ray direction in world space

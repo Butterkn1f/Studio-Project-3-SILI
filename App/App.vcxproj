@@ -35,6 +35,7 @@
     <ClCompile Include="Source\Scene2D\Map2D.cpp" />
     <ClCompile Include="Source\Scene2D\Physics2D.cpp" />
     <ClCompile Include="Source\Scene2D\Player2D.cpp" />
+    <ClCompile Include="Source\Scene2D\Rays.cpp" />
     <ClCompile Include="Source\Scene2D\Scene2D.cpp" />
     <ClCompile Include="Source\SoundController\SoundController.cpp" />
     <ClCompile Include="Source\SoundController\SoundInfo.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Source\Scene2D\Map2D.h" />
     <ClInclude Include="Source\Scene2D\Physics2D.h" />
     <ClInclude Include="Source\Scene2D\Player2D.h" />
+    <ClInclude Include="Source\Scene2D\Rays.h" />
     <ClInclude Include="Source\Scene2D\Scene2D.h" />
     <ClInclude Include="Source\SoundController\SoundController.h" />
     <ClInclude Include="Source\SoundController\SoundInfo.h" />

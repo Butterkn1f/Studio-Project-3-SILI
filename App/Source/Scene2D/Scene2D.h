@@ -36,6 +36,9 @@
 #include "Player2D.h"
 //Include GUI_Scene2D
 #include "GUI_Scene2D.h"
+
+//Include Rays
+#include "Rays.h"
 // Game Manager
 #include "GameManager.h"
 
@@ -110,6 +113,8 @@ protected:
 	CGameManager* cGameManager;
 
 	CPhysics2D* cPhysics2D;
+
+	Rays* cRays;
 
 	// A vector containing the instance of CEnemyCrawlids
 	vector<CEntity2D*> enemyVector;
