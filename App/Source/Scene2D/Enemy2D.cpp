@@ -121,7 +121,7 @@ bool CEnemy2D::Init(void)
 	}
 
 	//CS: Init the color to white
-	runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
+	runtimeColour = glm::vec4(0.3, 0.3, 0.3, 0.3);
 
 	// Set the Physics to fall status by default
 	cPhysics2D.Init();

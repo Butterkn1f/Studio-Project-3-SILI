@@ -1,5 +1,8 @@
 #include "Flashlight.h"
 
+// Include ImageLoader
+#include "System\ImageLoader.h"
+
 Flashlight::Flashlight()
 	: camera(NULL)
 {
@@ -50,14 +53,16 @@ glm::vec3 Flashlight::calculateMouseRay(glm::mat4 viewMatrix)
 	mouseX = CMouseController::GetInstance()->GetMousePositionX();
 	mouseY = CMouseController::GetInstance()->GetMousePositionY();
 
-	glm::vec3 normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);
-	//convert to homogeneous clip space, doesn't have w because it's 1
-	glm::vec4 clipCoords = glm::vec4(normalizedCoords.x, normalizedCoords.y, -1.f, 1.f);
-	//convert to eye space
-	glm::vec4 eyeCoords = toEyeCoords(clipCoords);
-	//convert to world space
-	glm::vec3 worldRay = toWorldCoords(eyeCoords, viewMatrix);
-	/*std::cout << worldRay.x << ", " << worldRay.y << ", " << worldRay.z << std::endl;*/
+	//glm::vec3 normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);
+	////convert to homogeneous clip space, doesn't have w because it's 1
+	//glm::vec4 clipCoords = glm::vec4(normalizedCoords.x, normalizedCoords.y, -1.f, 1.f);
+	////convert to eye space
+	//glm::vec4 eyeCoords = toEyeCoords(clipCoords);
+	////convert to world space
+	//glm::vec3 worldRay = toWorldCoords(eyeCoords, viewMatrix);
+	glm::vec3 directional = glm::vec3(mouseX - CSettings::GetInstance()->iWindowWidth * 0.5, CSettings::GetInstance()->iWindowHeight * 0.5 - mouseY, 0.f);
+	glm::vec3 worldRay = glm::normalize(directional);
+	//std::cout << worldRay.x << ", " << worldRay.y << ", " << worldRay.z << std::endl;
 	return worldRay;
 }
 
@@ -133,7 +138,7 @@ bool Flashlight::TestRayOBBIntersection(glm::vec3 ray_origin, glm::vec3 ray_dire
 		}
 	}
 
-	//Repeat the above method for Y/Z axes
+	//Repeat the above method for Y axes
 	{
 		glm::vec3 yaxis(ModelMatrix[1][0], ModelMatrix[1][1], ModelMatrix[1][2]);
 		float e = glm::dot(yaxis, delta);
@@ -166,37 +171,37 @@ bool Flashlight::TestRayOBBIntersection(glm::vec3 ray_origin, glm::vec3 ray_dire
 		}
 	}
 
-	{
-		glm::vec3 zaxis(ModelMatrix[2][0], ModelMatrix[2][1], ModelMatrix[2][2]);
-		float e = glm::dot(zaxis, delta);
-		float f = glm::dot(ray_direction, zaxis);
+	//{
+	//	glm::vec3 zaxis(ModelMatrix[2][0], ModelMatrix[2][1], ModelMatrix[2][2]);
+	//	float e = glm::dot(zaxis, delta);
+	//	float f = glm::dot(ray_direction, zaxis);
 
-		if (fabs(f) > 0.001f) //standard case
-		{
-			float t1 = (e + aabb_min.z) / f;
-			float t2 = (e + aabb_max.z) / f;
+	//	if (fabs(f) > 0.001f) //standard case
+	//	{
+	//		float t1 = (e + aabb_min.z) / f;
+	//		float t2 = (e + aabb_max.z) / f;
 
-			if (t1 > t2)
-			{
-				float w = t1;
-				t1 = t2;
-				t2 = w;
-			}
+	//		if (t1 > t2)
+	//		{
+	//			float w = t1;
+	//			t1 = t2;
+	//			t2 = w;
+	//		}
 
-			if (t2 < tMax)
-				tMax = t2;
+	//		if (t2 < tMax)
+	//			tMax = t2;
 
-			if (t1 > tMin)
-				tMin = t1;
+	//		if (t1 > tMin)
+	//			tMin = t1;
 
-			if (tMax < tMin)
-				return false;
-		}
-		else { //Rare case: ray is almost parallel to the planes, so don't have any intersections
-			if (-e + aabb_min.z > 0.0f || -e + aabb_max.z < 0.0f)
-				return false;
-		}
-	}
+	//		if (tMax < tMin)
+	//			return false;
+	//	}
+	//	else { //Rare case: ray is almost parallel to the planes, so don't have any intersections
+	//		if (-e + aabb_min.z > 0.0f || -e + aabb_max.z < 0.0f)
+	//			return false;
+	//	}
+	//}
 	intersection_distance = tMin;
 	return true;
 }

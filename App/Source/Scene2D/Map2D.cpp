@@ -228,7 +228,7 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		cout << "Unable to load Image/doorClosed.png" << endl;
 		return false;
 	}
-	else
+	else 
 	{
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(90, iTextureID));
@@ -329,6 +329,24 @@ void CMap2D::Update(const double dElapsedTime)
 {
 	flashlight.Update();
 	rays[0].direction = flashlight.getCurrentRay();
+
+	glm::mat4 tileTransform;
+	tileTransform = glm::mat4(1.f);
+	/*		tileTransform = glm::translate(tileTransform, glm::vec3(-0.9875, 0.977778, 0));*/
+			tileTransform = glm::translate(tileTransform, glm::vec3(-0.05, 0, 0));
+			//tileTransform = glm::scale(tileTransform, glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1));
+	float intersectionDist = 0;
+
+	if (flashlight.TestRayOBBIntersection(camera->position,
+		rays[0].direction,
+		glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
+		glm::vec3(cSettings->TILE_WIDTH * 0.5, cSettings->TILE_HEIGHT * 0.5, 1.f),
+		tileTransform,
+		intersectionDist))
+	{
+		//std::cout << "Hit!!" << std::endl;
+		//std::cout << intersectionDist << std::endl;
+	}
 }
 
 /**
@@ -413,31 +431,35 @@ void CMap2D::Render(void)
 			transformMVP = glm::translate(transformMVP, glm::vec3(cSettings->ConvertIndexToUVSpace(cSettings->x, uiCol, false, 0),
 				cSettings->ConvertIndexToUVSpace(cSettings->y, uiRow, true, 0),
 				0.0f));
-			//transform = glm::translate(transform, glm::vec3(cSettings->ConvertIndexToUVSpace(cSettings->x, uiCol, false, cPlayer2D->vec2Index.x * (cSettings->MICRO_STEP_XAXIS * vec2Index.x)),
-			//												cSettings->ConvertIndexToUVSpace(cSettings->y, uiRow, true, cPlayer2D->vec2Index.y * (cSettings->MICRO_STEP_YAXIS)),
-			//												0.0f));
 			// Update the shaders with the latest transform
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
-
-			//transformMV = glm::mat4(1.0f); //initialize matrix to identity matrix first
-			//transformMV = MV; // init to original matrix
-			//transformMV = glm::translate(transformMV, glm::vec3(cSettings->ConvertIndexToUVSpace(cSettings->x, uiCol, false, 0),
-			//	cSettings->ConvertIndexToUVSpace(cSettings->y, uiRow, true, 0),
-			//	0.0f));
-			//glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
-
-	/*		glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
-			glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));*/
 
 			if (uiRow <= cPlayer2D->vec2Index.y + 3 && uiRow >= cPlayer2D->vec2Index.y - 3 &&
 				uiCol <= cPlayer2D->vec2Index.x + 3 && uiCol >= cPlayer2D->vec2Index.x - 3)
 			{
-				glm::mat4 tileTransform = glm::mat4(1.f);
-				// Ratio, converting indexes to OpenGL coordinates
-				// One tile is 
-				//tileTransform = glm::translate(tileTransform, )
-				//if (flashlight.TestRayOBBIntersection(camera->position, rays[0].direction, glm::vec3(-5.f, -5.f, -1.f), glm::vec3(5.f, 5.f, 1.f), )
-					SetMapColour(uiRow, uiCol, glm::vec4(1.f, 1.f, 1.f, 1.f));
+				glm::mat4 tileTransform;
+				tileTransform = glm::mat4(1.f);
+				// Top left corner is (-0.9875, 0.977778, 0)
+				// Each tile is +0.0248 to X and -0.045 to Y
+				float xTranslate = -0.9875 + (uiCol * 0.0248);
+				float yTranslate = 0.977778 - ((45 - uiRow) * 0.045);
+				tileTransform = glm::translate(tileTransform, glm::vec3(xTranslate, yTranslate, 0));
+				float intersectionDist = 0;
+
+				if (flashlight.TestRayOBBIntersection(camera->position,
+					rays[0].direction,
+					glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
+					glm::vec3(cSettings->TILE_WIDTH * 0.5, cSettings->TILE_HEIGHT * 0.5, 1.f),
+					tileTransform,
+					intersectionDist))
+				{
+					SetMapColour(uiRow, uiCol, glm::vec4(1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f));
+					std::cout << intersectionDist << std::endl;
+				}
+				else
+				{
+					SetMapColour(uiRow, uiCol, glm::vec4(0.3f, 0.3f, 0.3f, 1.f));
+				}
 				
 			}
 			else

@@ -154,7 +154,7 @@ bool CEnemySawCon::Init(void)
 	animatedSprites->PlayAnimation("idleLeft", -1, 0.5f);
 
 	//CS: Init the color to white
-	runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
+	runtimeColour = glm::vec4(0.3, 0.3, 0.3, 1.0);
 
 	iframeElapsed = 0.4;
 	health = 50;
@@ -607,6 +607,16 @@ void CEnemySawCon::Render(void)
 		0.0f));
 	// Update the shaders with the latest transform
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
+
+	if (vec2Index.y <= cPlayer2D->vec2Index.y + 3 && vec2Index.y >= cPlayer2D->vec2Index.y - 3 &&
+		vec2Index.x <= cPlayer2D->vec2Index.x + 3 && vec2Index.x >= cPlayer2D->vec2Index.x - 3)
+	{
+		runtimeColour = glm::vec4(1.f, 1.f, 1.f, 1.f);
+	}
+	else
+	{
+		runtimeColour = glm::vec4(0.3f, 0.3f, 0.3f, 1.f);
+	}
 	glUniform4fv(colorLoc, 1, glm::value_ptr(runtimeColour));
 
 	// bind textures on corresponding texture units

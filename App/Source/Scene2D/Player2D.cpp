@@ -132,7 +132,7 @@ bool CPlayer2D::Init(void)
 	animatedSprites->AddAnimation("idleUp", 140, 159);
 	//CS: Play the "idle" animation as default
 	// PlayAnimation(animName, loopCount, every ? seconds). Eg, "down", 5, 1.0f means loop anim 5 times every 1s. -1 loops infinitely/
-	animatedSprites->PlayAnimation("idleRight", -1, 0.8f);
+	animatedSprites->PlayAnimation("idleUp", -1, 0.8f);
 
 
 	//CS: Init the color to white
@@ -155,7 +155,7 @@ bool CPlayer2D::Init(void)
 	focusElapsed = 0;
 	//*********** SP3 STUFF ************
 	boxElapsed = 0;
-	dir = DIRECTION::RIGHT;
+	dir = DIRECTION::UP;
 	
 	//Variables
 	AllNumbersCollected = false;
@@ -275,6 +275,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 			//CS: Play the "left" animation
 			animatedSprites->PlayAnimation("left", -1, 0.2f);
+			cSoundController->PlaySoundByID(10);
 			
 		}
 		else if (cKeyboardController->IsKeyDown(GLFW_KEY_D))
@@ -304,6 +305,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 			//CS: Play the "right" animation
 			animatedSprites->PlayAnimation("right", -1, 0.1f);
+			cSoundController->PlaySoundByID(10);
 		}
 		//else {
 		//	//CS: Play the "idle" animation by default, if not jumping/falling as well
@@ -341,6 +343,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 			//CS: Play the "left" animation
 			animatedSprites->PlayAnimation("up", -1, 0.2f);
+			cSoundController->PlaySoundByID(10);
 		}
 		else if (cKeyboardController->IsKeyDown(GLFW_KEY_S))
 		{
@@ -368,6 +371,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 			//CS: Play the "right" animation
 			animatedSprites->PlayAnimation("down", -1, 0.2f);
+			cSoundController->PlaySoundByID(10);
 		}
 
 	}
@@ -398,8 +402,8 @@ void CPlayer2D::Update(const double dElapsedTime)
 	boxElapsed += 0.01;
 	int offsetX = 8;	//The offset for X microsteps for the player to be in the middle of two tiles, i.e player looks like hes above a object but his index is one lesser/higher than the object.
 	int offsetY = 6;	//The offset for Y microsteps for the player to be in the middle of two tiles, i.e player looks like hes to the right of an object but his index is one lesser/higher than the object.
-	//cout <<"X microsteps: "<< vec2NumMicroSteps.x << endl;
-	//cout <<"Y microsteps: " <<vec2NumMicroSteps.y << endl;
+	//cout <<"X: "<< vec2Index.x << endl;
+	//cout <<"Y: " << vec2Index.y << endl;
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_E) && boxElapsed > 0.5)
 	{
 		//If box is on the left of character
@@ -413,6 +417,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x - 1, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x - 1) == 110 &&		//if player is halfway below
 			vec2NumMicroSteps.y >= offsetY &&
@@ -425,6 +430,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x - 1, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
 
 		//If box is on the right of character
@@ -438,6 +444,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 1, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&		//if player is halfway below
 			vec2NumMicroSteps.y >= offsetY &&
@@ -450,6 +457,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
 
 		//If box is below player
@@ -464,6 +472,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x + 1) == 110 &&		//if player is on the top left
 			vec2NumMicroSteps.x >= offsetX &&
@@ -476,6 +485,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x + 1, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
 
 
@@ -491,6 +501,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&			//if player is on bottom left of the box
 			vec2NumMicroSteps.x >= offsetX &&
@@ -503,7 +514,9 @@ void CPlayer2D::Update(const double dElapsedTime)
 			//Remove box from original position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 0);
 			boxElapsed = 0;
+			cSoundController->PlaySoundByID(6);
 		}
+
 	}
 
 
@@ -805,6 +818,7 @@ void CPlayer2D::InteractWithMap(void)
 		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);	
 		cInventoryItem = cInventoryManager->GetItem("Paper");
 		cInventoryItem->Add(1);
+		cSoundController->PlaySoundByID(13);
 		break;
 	default:
 		break;

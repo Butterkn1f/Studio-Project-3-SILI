@@ -25,6 +25,7 @@ CScene2D::CScene2D(void)
 	, cGameManager(NULL)
 	, cSoundController(NULL)
 	, camera(NULL)
+	, cRays(NULL)
 {
 }
 
@@ -80,6 +81,11 @@ CScene2D::~CScene2D(void)
 	if (camera)
 	{
 		camera = NULL;
+	}
+
+	if (cRays)
+	{
+		cRays = NULL;
 	}
 }
 
@@ -238,6 +244,14 @@ bool CScene2D::Init(void)
 			//Break out of this loop if the enemy has all been loaded
 			break;
 		}
+	}
+
+	cRays = Rays::GetInstance();
+
+	if (cRays->Init() == false)
+	{
+		cout << "Failed to load CRays" << endl;
+		return false;
 	}
 
 	// Load sounds into CSoundController
@@ -423,10 +437,6 @@ void CScene2D::Render(void)
 	cMap2D->Render();
 	cMap2D->PostRender();
 
-	cPlayer2D->PreRender();
-	cPlayer2D->Render();
-	cPlayer2D->PostRender();
-
 	for (int i = 0; i < enemyVector.size(); i++)
 	{
 		// Call the CEnemyCrawlid's preRender()
@@ -434,6 +444,14 @@ void CScene2D::Render(void)
 		enemyVector[i]->Render();
 		enemyVector[i]->PostRender();
 	}
+
+	cRays->PreRender();
+	cRays->Render();
+	cRays->PostRender();
+
+	cPlayer2D->PreRender();
+	cPlayer2D->Render();
+	cPlayer2D->PostRender();
 
 	// Call the cGUI_Scene2D's PreRender()
 	cGUI_Scene2D->PreRender();
