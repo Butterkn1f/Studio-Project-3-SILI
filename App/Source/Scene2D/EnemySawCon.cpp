@@ -257,7 +257,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		}
 		//player picked up collectable
 		//prolly have to add move if theres more of them
-		/*if (collect1 && !sawPlayer1)
+		if (collect1 && !sawPlayer1)
 		{
 
 			cout << "Switching to Investigate State to collect1" << endl;
@@ -269,7 +269,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			cout << "Switching to Investigate State to collect2" << endl;
 			iFSMCounter = 0;
 			sCurrentFSM = INVESTIGATE;
-		}*/
+		}
 
 		else if (iFSMCounter > iMaxFSMCounter)
 		{
@@ -329,7 +329,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		//close to player, chase
 		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 		{
-			//cout << "chase player" << endl;
+			cout << "chase player" << endl;
 			 /*Attack
 			 Update direction to move towards for attack*/
 			//UpdateDirection();
@@ -695,7 +695,6 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100)
 			{
-				cout << "left no" << endl;
 				return false;
 			}
 		}
@@ -706,7 +705,6 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 			if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100) ||
 				(cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) >= 100))
 			{
-				cout << "left no y++" << endl;
 				return false;
 			}
 		}
@@ -716,7 +714,6 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 		// If the new position is at the top row, then return true
 		if (vec2Index.x >= cSettings->NUM_TILES_XAXIS - 1)
 		{
-			cout << "right no" << endl;
 			i32vec2NumMicroSteps.x = 0;
 			return true;
 		}
@@ -727,7 +724,6 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) >= 100)
 			{
-				cout << "right no micro" << endl;
 				return false;
 			}
 		}
@@ -1093,7 +1089,7 @@ void CEnemySawCon::checkCollectable(bool &Papercollect, int y,int x, int value)
 		{
 			Papercollect = true;
 			spotDestination = glm::vec2(x, y);
-			//cout << "x" << y << "y" << x << endl;
+			cout << "x" << y << "y" << x << endl;
 
 		}
 	}
