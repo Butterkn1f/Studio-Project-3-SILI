@@ -183,6 +183,9 @@ protected:
 	// The number of levels
 	unsigned int uiNumLevels;
 
+	//to cycle between the collectibles spawn locations
+	int random;
+
 	// A 1-D array which stores the map sizes for each level
 	MapSize* arrMapSizes;
 

@@ -796,6 +796,9 @@ void CPlayer2D::InteractWithMap(void)
 	case 97:
 		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
 		break;
+
+	case 77:
+	case 76:
 	case 75:
 		setOldVec(vec2Index);
 		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;

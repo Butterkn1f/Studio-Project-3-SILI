@@ -269,7 +269,6 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(99, iTextureID));
 	}
-
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/crate.png", true);
 	if (iTextureID == 0)
 	{
@@ -281,6 +280,9 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(110, iTextureID));
 	}
+
+	srand(time(NULL));
+	random = rand() % 3 + 1;
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/passcode.png", true);
 	if (iTextureID == 0)
 	{
@@ -291,6 +293,8 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	{
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(75, iTextureID));
+		MapOfTextureIDs.insert(pair<int, int>(76, iTextureID));
+		MapOfTextureIDs.insert(pair<int, int>(77, iTextureID));
 	}
 
 
@@ -361,6 +365,43 @@ void CMap2D::Render(void)
 	//glUniformMatrix4fv(MVLoc, 1, GL_FALSE, glm::value_ptr(transformMV));
 	//glm::mat4 MV_inverse_transpose = glm::transpose(glm::inverse(transformMVP));
 	//glUniformMatrix4fv(inverseLoc, 1, GL_FALSE, glm::value_ptr(MV_inverse_transpose));
+
+	if (random == 1)
+	{
+		for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
+		{
+			for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)
+			{
+				if(GetMapInfo(uiRow,uiCol) == 76 || GetMapInfo(uiRow, uiCol) == 77)
+					SetMapInfo(uiRow, uiCol, 0);
+
+			}
+		}
+		
+	}
+	else if (random == 2)
+	{
+		for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
+		{
+			for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)
+			{
+				if (GetMapInfo(uiRow, uiCol) == 75 || GetMapInfo(uiRow, uiCol) == 77)
+					SetMapInfo(uiRow, uiCol, 0);
+
+			}
+		}
+	}
+	else
+	{
+		for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
+		{
+			for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)
+			{
+				if (GetMapInfo(uiRow, uiCol) == 75 || GetMapInfo(uiRow, uiCol) == 76)
+					SetMapInfo(uiRow, uiCol, 0);
+			}
+		}
+	}
 
 	// Render 
 	for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
