@@ -250,6 +250,8 @@ protected:
 	void checkCollectable(bool& Papercollect, int y, int x, int value);
 	void combineCheckPlayerCollect();
 	void combineCheckSawPlayer();
+	void SawPlayerCheck();
+	bool playerNewlyVec(glm::vec2 oldvec);
 	Camera* camera;
 };
 

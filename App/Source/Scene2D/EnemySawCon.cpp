@@ -213,9 +213,10 @@ bool CEnemySawCon::Init(void)
 	movementspeed = 0.9;
 	iFSMCounter = 0;
 	AtkCounter = 0;
+	InvestigateCounter = 0;
 	ScaredCounter = 0;
 	playerInteractWithBox = false;
-
+	
 
 
 	// If this class is initialised properly, then set the bIsActive to true
@@ -231,8 +232,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 {
 	playerInteractWithBox = cPlayer2D->getEBox();
 
-	//cout << "x: " <<vec2Index.y << "y: "<< vec2Index.x << endl;
-	//cout << "x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
+	//cout << "enemy - x " <<vec2Index.x << "y "<< vec2Index.y << endl;
+	//cout << "player - x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
 	if (!bIsActive)
 		return;
 	/*cout << cPlayer2D->vec2Index.x << cPlayer2D->vec2Index.y << endl;*/
@@ -269,20 +270,27 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	}
 	cSoundController->PlaySoundByID(26);
 	
-	//check if player collect the collectable
-	combineCheckPlayerCollect();
+	//check if player collect the collectable<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	//combineCheckPlayerCollect();
 	switch (sCurrentFSM)
 	{
 	case IDLE:
+		//combineCheckSawPlayer();<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+		 
 		
-		combineCheckSawPlayer();
 		//kena shun by light
 		if (shun)
 		{
 			ScaredCounter = 0;
 			sCurrentFSM = SCARED;
 		}
-	
+		//player collect a paper
+		else if (playerNewlyVec(cPlayer2D->getOldVec()))
+		{
+			sCurrentFSM = INVESTIGATE;
+			cout << "Switching to Investigate State :" << cPlayer2D->getOldVec().x << cPlayer2D->getOldVec().y << endl;
+		}
+		//counter thingy
 		else if (iFSMCounter > iMaxFSMCounter)
 		{
 			sCurrentFSM = PATROL;
@@ -304,12 +312,14 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			ScaredCounter = 0;
 			sCurrentFSM = SCARED;
 		}
+		//fsmcounter
 		else if (iFSMCounter > iMaxFSMCounter)
 		{
 			sCurrentFSM = IDLE;
 			iFSMCounter = 0;
 			cout << "Switching to Idle State" << endl;
 		}
+		//chase range
 		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 		{
 			cout << "Switching to Attack State" <<endl;
@@ -370,23 +380,22 @@ void CEnemySawCon::Update(const double dElapsedTime)
 					i32vec2Direction = i32vec2Destination - vec2Index;
 					bFirstPosition = false;
 				}
-				//else
-				//{
-				//	if ((coord - i32vec2Destination) == i32vec2Direction)
-				//	{
-				//		/*Set a destination*/
-				//		i32vec2Destination = coord;
-				//	}
-				//	else
-				//		break;
-				//}
 				else
-					break;
+				{
+					if ((coord - i32vec2Destination) == i32vec2Direction)
+					{
+						/*Set a destination*/
+						i32vec2Destination = coord;
+					}
+					else
+						break;
+				}
+				/*else
+					break;*/
 			}
 			/* Update the EnemySawCon's position for attack*/
 			UpdatePosition();
 		}
-
 		else
 		{
 			if (iFSMCounter > iMaxFSMCounter)
@@ -410,10 +419,6 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		{
 			cout << "Switching to Attack State" << endl;
 			sCurrentFSM = ATTACK;
-			if (collect1)
-				sawPlayer1 = true;
-			if (collect2)
-				sawPlayer2 = true;
 		}
 		//player interactwithbox
 		if (playerInteractWithBox)
@@ -713,7 +718,7 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100)
 			{
-				cout << "left no" << endl;
+				//cout << "left no" << endl;
 				return false;
 			}
 		}
@@ -724,7 +729,7 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 			if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x) >= 100) ||
 				(cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) >= 100))
 			{
-				cout << "left no y++" << endl;
+				//cout << "left no y++" << endl;
 				return false;
 			}
 		}
@@ -734,7 +739,7 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 		// If the new position is at the top row, then return true
 		if (vec2Index.x >= cSettings->NUM_TILES_XAXIS - 1)
 		{
-			cout << "right no" << endl;
+			//cout << "right no" << endl;
 			i32vec2NumMicroSteps.x = 0;
 			return true;
 		}
@@ -745,7 +750,7 @@ bool CEnemySawCon::CheckPosition(DIRECTION eDirection)
 			// If the grid is not accessible, then return false
 			if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) >= 100)
 			{
-				cout << "right no micro" << endl;
+				//cout << "right no micro" << endl;
 				return false;
 			}
 		}
@@ -1116,7 +1121,6 @@ void CEnemySawCon::combineCheckSawPlayer()
 {
 	if (collect1 && !sawPlayer1)
 	{
-
 		cout << "Switching to Investigate State to collect1" << endl;
 		iFSMCounter = 0;
 		sCurrentFSM = INVESTIGATE;
@@ -1205,6 +1209,25 @@ void CEnemySawCon::combineCheckSawPlayer()
 		iFSMCounter = 0;
 		sCurrentFSM = INVESTIGATE;
 	}
+}
+
+void CEnemySawCon::SawPlayerCheck()
+{
+	if (sCurrentFSM == ATTACK)
+	{
+		sawPlayer = true;
+	}
+}
+
+bool CEnemySawCon::playerNewlyVec(glm::vec2 oldvec)
+{
+	if (oldvec != spotDestination)  //meaning player get a new vec 
+	{
+		spotDestination = oldvec;
+	return true;
+	}
+	else
+		return false;
 }
 
 

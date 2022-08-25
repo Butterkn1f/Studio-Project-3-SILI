@@ -77,6 +77,9 @@ public:
 	void setEBox(bool pressE);
 	bool getEBox();
 
+	glm::vec2 getOldVec();
+	void setOldVec(glm::vec2 newVector);
+
 protected:
 	enum DIRECTION
 	{
@@ -166,6 +169,9 @@ protected:
 	// Update breakable objects when player attacks
 
 	bool eBox;
+
+	//old position of player
+	glm::vec2 tempOldVec;
 
 };
 

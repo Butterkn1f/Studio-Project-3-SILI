@@ -178,7 +178,7 @@ bool CPlayer2D::Init(void)
 	cSoundController = CSoundController::GetInstance();
 
 	eBox = false;
-
+	tempOldVec = glm::vec2(0, 0);
 	return true;
 }
 
@@ -797,7 +797,9 @@ void CPlayer2D::InteractWithMap(void)
 		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
 		break;
 	case 75:
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
+		setOldVec(vec2Index);
+		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);	
 		cInventoryItem = cInventoryManager->GetItem("Paper");
 		cInventoryItem->Add(1);
 		break;
@@ -918,4 +920,14 @@ void CPlayer2D::setEBox(bool pressE)
 bool CPlayer2D::getEBox()
 {
 	return eBox;
+}
+
+glm::vec2 CPlayer2D::getOldVec()
+{
+	return tempOldVec;
+}
+
+void CPlayer2D::setOldVec(glm::vec2 newVector)
+{
+	tempOldVec = newVector;
 }
