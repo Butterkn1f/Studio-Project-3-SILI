@@ -222,16 +222,28 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		MapOfTextureIDs.insert(pair<int, int>(107, iTextureID));
 	}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/doorMid.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/DoorClosed.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/doorMid.png" << endl;
+		cout << "Unable to load Image/doorClosed.png" << endl;
 		return false;
 	}
 	else
 	{
 		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(97, iTextureID));
+		MapOfTextureIDs.insert(pair<int, int>(90, iTextureID));
+	}
+
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/DoorOpen.tga", true);
+	if (iTextureID == 0)
+	{
+		cout << "Unable to load Image/DoorOpen.png" << endl;
+		return false;
+	}
+	else
+	{
+		// Store the texture ID into MapOfTextureIDs
+		MapOfTextureIDs.insert(pair<int, int>(91, iTextureID));
 	}
 
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/doorTop.png", true);
