@@ -39,7 +39,7 @@ void Flashlight::Update()
 		glm::vec3(camera->up.x, camera->up.y, camera->up.z)
 	);
 
-	std::cout << camera->position.x << ", " << camera->position.y << ", " << camera->position.z << std::endl;
+	//std::cout << camera->position.x << ", " << camera->position.y << ", " << camera->position.z << std::endl;
 	currentRay = calculateMouseRay(viewMatrix);
 }
 
