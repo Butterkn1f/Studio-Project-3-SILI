@@ -275,6 +275,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	}
 	cSoundController->PlaySoundByID(26);
 	
+
+	
 	//check if player collect the collectable<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	//combineCheckPlayerCollect();
 	switch (sCurrentFSM)
@@ -477,6 +479,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		//go to the spotdestination
 		else
 		{
+			playerNewlyVec(cPlayer2D->getOldVec());
+			cout << spotDestination.x << spotDestination.y << endl;
 				auto path = cMap2D->PathFind(vec2Index,
 					spotDestination,
 					heuristic::euclidean,
