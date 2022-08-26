@@ -270,6 +270,7 @@ bool CScene2D::Init(void)
 */
 bool CScene2D::Update(const double dElapsedTime)
 {
+	cRays->Update(dElapsedTime);
 	// Call the cPlayer2D's update method before Map2D
 	// as we want to capture the inputs before map2D update
 	cPlayer2D->Update(dElapsedTime);

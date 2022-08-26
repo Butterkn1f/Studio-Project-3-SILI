@@ -34,13 +34,13 @@
 // Include Entity2D
 #include "Primitives/Entity2D.h"
 
-#include "Flashlight.h"
-
 //Include CPlayer2D
 #include "Player2D.h"
 #include "InventoryManager.h"
 #include "Camera.h"
 #include "..\SoundController\SoundController.h"
+
+#include "Rays.h"
 
 // A structure storing information about Map Sizes
 struct MapSize {
@@ -79,11 +79,6 @@ namespace heuristic
 	unsigned int euclidean(const glm::vec2& v1, const glm::vec2& v2, int weight);
 }
 
-struct Ray {
-	glm::vec3 direction;
-	float length;
-};
-
 class CMap2D : public CSingletonTemplate<CMap2D>, public CEntity2D
 {
 	friend CSingletonTemplate<CMap2D>;
@@ -117,6 +112,9 @@ public:
 
 	// Get the value at certain indices in the arrMapInfo
 	int GetMapInfo(const unsigned int uiRow, const unsigned int uiCol, const bool bInvert = true) const;
+	
+	// Get the runtime colour at certain indices, used for enemies
+	glm::vec4 GetMapColour(const unsigned int uiRow, const unsigned int uiCol, const bool bInvert = true) const;
 
 	// Load a map
 	bool LoadMap(string filename, const unsigned int uiLevel = 0);
@@ -154,6 +152,7 @@ protected:
 
 	// Delete AStar lists
 	bool DeleteAStarLists(void);
+
 	// Reset AStar lists
 	bool ResetAStarLists(void);
 
@@ -195,16 +194,14 @@ protected:
 	//CS: The quadMesh for drawing the tiles
 	CMesh* quadMesh;
 
-	Flashlight flashlight;
-	Ray rays[5];
-	float raysNo;
-
 	//Handler containing the instance of CPlayer2D
 	CPlayer2D* cPlayer2D;
 	// Inventory Manager
 	CInventoryManager* cInventoryManager;
 	Camera* camera;
 	CSoundController* cSoundController;
+
+	Ray* rays;
 
 	// Constructor
 	CMap2D(void);

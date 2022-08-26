@@ -38,6 +38,8 @@ class CMap2D;
 
 #include "InventoryManager.h"
 
+#include "Rays.h"
+
 class CEnemySawCon : public CEntity2D
 {
 public:
@@ -155,6 +157,8 @@ protected:
 
 	//CS: Animated Sprite
 	CSpriteAnimation* animatedSprites;
+
+	Ray* rays;
 
 	// Current FSM
 	FSM sCurrentFSM;

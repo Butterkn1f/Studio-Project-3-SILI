@@ -27,6 +27,9 @@ using namespace std;
 
 #include "System\filesystem.h"
 
+//To get rays
+#include "Map2D.h"
+
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
@@ -154,7 +157,7 @@ bool CEnemySawCon::Init(void)
 	animatedSprites->PlayAnimation("idleLeft", -1, 0.5f);
 
 	//CS: Init the color to white
-	runtimeColour = glm::vec4(0.3, 0.3, 0.3, 1.0);
+	runtimeColour = glm::vec4(0.f, 0.f, 0.f, 1.0);
 
 	// Create the quad mesh for the player
 	glGenVertexArrays(1, &VAO);
@@ -196,6 +199,8 @@ bool CEnemySawCon::Init(void)
 	// If this class is initialised properly, then set the bIsActive to true
 	bIsActive = true;
 
+	rays = Rays::GetInstance()->GetRays();
+
 	return true;
 }
 
@@ -217,6 +222,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	}
 	if (!bIsActive)
 		return;
+
+	rays = Rays::GetInstance()->GetRays();
 
 	//change volume based on distance of enemy to player
 	if (cPlayer2D->vec2Index.y >= vec2Index.y && cPlayer2D->vec2Index.y <= vec2Index.y + 3 ||
@@ -599,14 +606,33 @@ void CEnemySawCon::Render(void)
 	// Update the shaders with the latest transform
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
 
-	if (vec2Index.y <= cPlayer2D->vec2Index.y + 3 && vec2Index.y >= cPlayer2D->vec2Index.y - 3 &&
-		vec2Index.x <= cPlayer2D->vec2Index.x + 3 && vec2Index.x >= cPlayer2D->vec2Index.x - 3)
+	if (vec2Index.y <= cPlayer2D->vec2Index.y + 10 && vec2Index.y >= cPlayer2D->vec2Index.y - 10 &&
+		vec2Index.x <= cPlayer2D->vec2Index.x + 10 && vec2Index.x >= cPlayer2D->vec2Index.x - 10)
 	{
-		runtimeColour = glm::vec4(1.f, 1.f, 1.f, 1.f);
+		runtimeColour = cMap2D->GetMapColour(vec2Index.y, vec2Index.x);
+		glm::mat4 enemyTransform;
+		enemyTransform = glm::mat4(1.f);
+		enemyTransform = glm::translate(enemyTransform, glm::vec3(vec2UVCoordinate.x, vec2UVCoordinate.y, 0));
+
+		float intersectionDist = 9999;
+
+		//Note: Doubled size of boundary box such that it is more forgiving and lights up more
+		if (Rays::GetInstance()->flashlight.TestRayOBBIntersection(camera->position,
+			rays[0].direction,
+			glm::vec3(-cSettings->TILE_WIDTH, -cSettings->TILE_HEIGHT * 0.5, -1.f),
+			glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1.f),
+			enemyTransform,
+			intersectionDist))
+		{
+			//Stun enemy here
+			// Add if statement on itnersection dist here
+		/*	runtimeColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
+			std::cout << "Stunned!" << std::endl;*/
+		}
 	}
 	else
 	{
-		runtimeColour = glm::vec4(0.3f, 0.3f, 0.3f, 1.f);
+		runtimeColour = glm::vec4(0.f, 0.f, 0.f, 0.f);
 	}
 	glUniform4fv(colorLoc, 1, glm::value_ptr(runtimeColour));
 
