@@ -105,7 +105,7 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 			for (unsigned uiCol = 0; uiCol < uiNumCols; uiCol++)
 			{
 				arrMapInfo[uiLevel][uiRow][uiCol].value = 0;
-				arrMapInfo[uiLevel][uiRow][uiCol].runtimeColour = glm::vec4(0.3, 0.3, 0.3, 1.0);
+				arrMapInfo[uiLevel][uiRow][uiCol].runtimeColour = glm::vec4(0.f, 0.f, 0.f, 1.0);
 			}
 		}
 	}
@@ -226,12 +226,14 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	m_cameFromList.resize(cSettings->NUM_TILES_YAXIS* cSettings->NUM_TILES_XAXIS);
 	m_closedList.resize(cSettings->NUM_TILES_YAXIS* cSettings->NUM_TILES_XAXIS, false);
 
-	for (int i = 0; i < (sizeof(rays) / sizeof(rays[0])); i++)
+	raysNo = sizeof(rays) / sizeof(rays[0]);
+
+	for (int i = 0; i < raysNo; i++)
 	{
-		//Maybe change this to like -100 then -200 depending on i
 		rays[i].length = 100.f;
 		rays[i].direction = glm::vec3(0.f, 0.f, 0.f);
 	}
+
 
 	return true;
 }
@@ -242,25 +244,46 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 void CMap2D::Update(const double dElapsedTime)
 {
 	flashlight.Update();
+
 	rays[0].direction = flashlight.getCurrentRay();
 
-	glm::mat4 tileTransform;
-	tileTransform = glm::mat4(1.f);
-	/*		tileTransform = glm::translate(tileTransform, glm::vec3(-0.9875, 0.977778, 0));*/
-			tileTransform = glm::translate(tileTransform, glm::vec3(-0.05, 0, 0));
-			//tileTransform = glm::scale(tileTransform, glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1));
-	float intersectionDist = 0;
+	// To draw the other flashlight rays around the player,
+	// Imagine a semicircle around the player, center-most point on the circle's circumference would be the mouse position.
+	// Radius of the circle would then be the distance from the mouse position to the player's position
+	// The coordinates for plotting points around the circumference of the semicircle would then be given by:
+	// x = centerX + radius * cos(Dynamically Changing Degree);
+	// y = y = centerY + radius * sin(Dynamically Changing Degree);
+	// Then, calculate the directional vector from this point and set it as the ray's direction.
+	// Repeat for opposite direction
+	float radius = glm::distance(
+		glm::vec3(CMouseController::GetInstance()->GetMousePositionX(), CMouseController::GetInstance()->GetMousePositionY(), 0.f),
+		glm::vec3(cSettings->iWindowWidth * 0.5, cSettings->iWindowHeight * 0.5, 0.f)
+	);
 
-	if (flashlight.TestRayOBBIntersection(camera->position,
-		rays[0].direction,
-		glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
-		glm::vec3(cSettings->TILE_WIDTH * 0.5, cSettings->TILE_HEIGHT * 0.5, 1.f),
-		tileTransform,
-		intersectionDist))
+	for (int i = 1; i < raysNo; i++)
 	{
-		//std::cout << "Hit!!" << std::endl;
-		//std::cout << intersectionDist << std::endl;
+		float x1 = cSettings->iWindowWidth * 0.5 + radius * glm::cos(2.f * i);
+		float y1 = cSettings->iWindowHeight * 0.5 + radius * sin(2.f * i);
+		rays[i].direction = flashlight.getDirectionalVector(glm::vec3(x1, y1, 0.f));
 	}
+
+	//glm::mat4 tileTransform;
+	//tileTransform = glm::mat4(1.f);
+	///*		tileTransform = glm::translate(tileTransform, glm::vec3(-0.9875, 0.977778, 0));*/
+	//		tileTransform = glm::translate(tileTransform, glm::vec3(-0.05, 0, 0));
+	//		//tileTransform = glm::scale(tileTransform, glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1));
+	//float intersectionDist = 0;
+
+	//if (flashlight.TestRayOBBIntersection(camera->position,
+	//	rays[0].direction,
+	//	glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
+	//	glm::vec3(cSettings->TILE_WIDTH * 0.5, cSettings->TILE_HEIGHT * 0.5, 1.f),
+	//	tileTransform,
+	//	intersectionDist))
+	//{
+	//	//std::cout << "Hit!!" << std::endl;
+	//	//std::cout << intersectionDist << std::endl;
+	//}
 }
 
 /**
@@ -348,8 +371,8 @@ void CMap2D::Render(void)
 			// Update the shaders with the latest transform
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
 
-			if (uiRow <= cPlayer2D->vec2Index.y + 3 && uiRow >= cPlayer2D->vec2Index.y - 3 &&
-				uiCol <= cPlayer2D->vec2Index.x + 3 && uiCol >= cPlayer2D->vec2Index.x - 3)
+			if (uiRow <= cPlayer2D->vec2Index.y + 10 && uiRow >= cPlayer2D->vec2Index.y - 10 &&
+				uiCol <= cPlayer2D->vec2Index.x + 10 && uiCol >= cPlayer2D->vec2Index.x - 10)
 			{
 				glm::mat4 tileTransform;
 				tileTransform = glm::mat4(1.f);
@@ -358,32 +381,74 @@ void CMap2D::Render(void)
 				float xTranslate = -0.9875 + (uiCol * 0.0248);
 				float yTranslate = 0.977778 - ((45 - uiRow) * 0.045);
 				tileTransform = glm::translate(tileTransform, glm::vec3(xTranslate, yTranslate, 0));
-				float intersectionDist = 0;
 
-				if (flashlight.TestRayOBBIntersection(camera->position,
-					rays[0].direction,
-					glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
-					glm::vec3(cSettings->TILE_WIDTH * 0.5, cSettings->TILE_HEIGHT * 0.5, 1.f),
-					tileTransform,
-					intersectionDist))
+				float intersectionDist = 9999;
+				float newIntersectDist = 9999;
+				bool litUp = false;
+
+				for (int i = 0; i < raysNo; i++)
+				{
+					//Note: Doubled size of boundary box such that it is more forgiving and lights up more
+					if (flashlight.TestRayOBBIntersection(camera->position,
+						rays[i].direction,
+						glm::vec3(-cSettings->TILE_WIDTH, -cSettings->TILE_HEIGHT * 0.5, -1.f),
+						glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1.f),
+						tileTransform,
+						newIntersectDist))
+					{
+						// Cut off ray when hit a wall, only highlight tiles that are within the distance
+						if (newIntersectDist <= rays[i].length)
+						{
+							litUp = true;
+							if (newIntersectDist < intersectionDist)
+								intersectionDist = newIntersectDist;
+
+							if (GetMapInfo(uiRow, uiCol) >= 100)
+							{
+								rays[i].length = newIntersectDist;
+							}
+						}
+					}
+				}
+
+				if (litUp)
 				{
 					SetMapColour(uiRow, uiCol, glm::vec4(1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f));
-			/*		std::cout << intersectionDist << std::endl;*/
 				}
 				else
 				{
-					SetMapColour(uiRow, uiCol, glm::vec4(0.3f, 0.3f, 0.3f, 1.f));
+					SetMapColour(uiRow, uiCol, glm::vec4(0.f, 0.f, 0.f, 1.f));
 				}
+
+				//if (flashlight.TestRayOBBIntersection(camera->position,
+				//	rays[0].direction,
+				//	glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
+				//	glm::vec3(cSettings->TILE_WIDTH * 0.5, cSettings->TILE_HEIGHT * 0.5, 1.f),
+				//	tileTransform,
+				//	intersectionDist))
+				//{
+				//	SetMapColour(uiRow, uiCol, glm::vec4(1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f));
+				//}
+				//else
+				//{
+				//	
+				//}
 				
 			}
 			else
 			{
-				SetMapColour(uiRow, uiCol, glm::vec4(0.3f, 0.3f, 0.3f, 1.f));
+				SetMapColour(uiRow, uiCol, glm::vec4(0.f, 0.f, 0.f, 1.f));
 			}
 
 			// Render a tile
 			RenderTile(uiRow, uiCol);
 		}
+	}
+
+	// Reset length of rays
+	for (int i = 0; i < raysNo; i++)
+	{
+		rays[i].length = 100.f;
 	}
 }
 

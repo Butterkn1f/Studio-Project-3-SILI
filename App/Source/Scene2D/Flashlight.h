@@ -23,6 +23,7 @@ private:
 	glm::mat4 viewMatrix;
 	Camera* camera;
 	CMesh* mesh;
+	CSettings* cSettings;
 	glm::vec3 calculateMouseRay(glm::mat4 viewMatrix);
 	glm::vec3 getNormalizedDeviceCoords(float mouseX, float mouseY);
 	glm::vec4 toEyeCoords(glm::vec4 clipCoords);
@@ -35,6 +36,8 @@ public:
 	virtual void Init();
 	virtual void Update();
 	glm::vec3 getCurrentRay();
+	// Get directional vector from player position to given position
+	glm::vec3 getDirectionalVector(glm::vec3 pos);
 	void SetRay(int rayNo, float origin, float length, float angle);
 	bool TestRayOBBIntersection(
 		glm::vec3 ray_origin, //Ray origin in world space

@@ -44,7 +44,7 @@ public:
 	// PostRender
 	void PostRender(void);
 
-	void SetRay(int rayNo, float angle, float length);
+	void SetRay(float angle, float length);
 
 protected:
 	//CS: The quadMesh for drawing the tiles
@@ -52,7 +52,7 @@ protected:
 
 	Camera* camera;
 
-	RenderRay rays[7];
+	RenderRay rays[3];
 
 	// Flashlight's colour, TODO: Allow flickering of flashlight when running out of light using this in the future. Maybe. If have time.
 	//glm::vec4 runtimeColour;
