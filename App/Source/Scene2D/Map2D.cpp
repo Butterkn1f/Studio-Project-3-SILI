@@ -454,7 +454,7 @@ void CMap2D::Render(void)
 					intersectionDist))
 				{
 					SetMapColour(uiRow, uiCol, glm::vec4(1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f));
-					std::cout << intersectionDist << std::endl;
+			/*		std::cout << intersectionDist << std::endl;*/
 				}
 				else
 				{
