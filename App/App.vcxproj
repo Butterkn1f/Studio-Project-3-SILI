@@ -23,7 +23,6 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Scene2D\BackgroundEntity.cpp" />
     <ClCompile Include="Source\Scene2D\Camera.cpp" />
-    <ClCompile Include="Source\Scene2D\Crate.cpp" />
     <ClCompile Include="Source\Scene2D\Enemy2D.cpp" />
     <ClCompile Include="Source\Scene2D\EnemySawCon.cpp" />
     <ClCompile Include="Source\Scene2D\Flashlight.cpp" />
@@ -53,7 +52,6 @@
     <ClInclude Include="Source\GameStateManagement\WinState.h" />
     <ClInclude Include="Source\Scene2D\BackgroundEntity.h" />
     <ClInclude Include="Source\Scene2D\Camera.h" />
-    <ClInclude Include="Source\Scene2D\Crate.h" />
     <ClInclude Include="Source\Scene2D\Enemy2D.h" />
     <ClInclude Include="Source\Scene2D\EnemySawCon.h" />
     <ClInclude Include="Source\Scene2D\Flashlight.h" />

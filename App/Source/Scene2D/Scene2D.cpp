@@ -228,23 +228,7 @@ bool CScene2D::Init(void)
 			break;
 		}
 	}
-	while (true)
-	{
-		CCrate* cCrate = new CCrate();
-		//Pass shader to cEnemyWarrior
-		cCrate->SetShader("Shader2D_Colour");
-		//Initalise the instance
-		if (cCrate->Init() == true)
-		{
-			cCrate->SetPlayer2D(cPlayer2D);
-			enemyVector.push_back(cCrate);
-		}
-		else
-		{
-			//Break out of this loop if the enemy has all been loaded
-			break;
-		}
-	}
+
 
 	cRays = Rays::GetInstance();
 
