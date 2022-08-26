@@ -1,0 +1,115 @@
+[Window][Debug##Default]
+Pos=3,581
+Size=32,35
+Collapsed=0
+
+[Window][Dear ImGui Demo]
+Pos=248,1
+Size=550,680
+Collapsed=1
+
+[Window][Hello, world!]
+Pos=0,0
+Size=800,600
+Collapsed=0
+
+[Window][Another Window]
+Pos=21,436
+Size=198,71
+Collapsed=0
+
+[Window][OpenGL Texture Text]
+Pos=60,60
+Size=66,85
+Collapsed=0
+
+[Window][Entire_Screen]
+Pos=0,0
+Size=800,600
+Collapsed=0
+
+[Window][Image]
+Pos=28,867
+Size=281,33
+Collapsed=0
+
+[Window][Invisible window]
+Pos=0,0
+Size=1920,1020
+Collapsed=0
+
+[Window][TestImage]
+Pos=25,350
+Size=200,100
+Collapsed=0
+
+[Window][TestImage2]
+Pos=60,60
+Size=100,15
+Collapsed=0
+
+[Window][Lives]
+Pos=680,18
+Size=100,25
+Collapsed=0
+
+[Window][Health]
+Pos=19,102
+Size=140,33
+Collapsed=0
+
+[Window][Main Menu]
+<<<<<<< HEAD
+Pos=704,490
+Size=1920,1020
+=======
+Pos=704,495
+Size=1920,1030
+>>>>>>> 7d6331f059fd4aa81f3c925bbcce8f0fbf309ee4
+Collapsed=0
+
+[Window][PlayerPos]
+Pos=600,540
+Size=200,25
+Collapsed=0
+
+[Window][Preview IMGUI]
+Pos=10,10
+Size=300,200
+Collapsed=0
+
+[Window][Logo]
+Pos=192,10
+Size=1920,1020
+Collapsed=0
+
+[Window][Soul]
+Pos=57,30
+Size=140,32
+Collapsed=0
+
+[Window][SoulProgress]
+Pos=211,100
+Size=140,32
+Collapsed=0
+
+[Window][Options Menu]
+Pos=300,150
+Size=1320,720
+Collapsed=0
+
+[Window][Save Button]
+Pos=555,509
+Size=1366,768
+Collapsed=0
+
+[Window][Helper Text]
+Pos=512,612
+Size=1920,1020
+Collapsed=0
+
+[Window][Text]
+Pos=19,51
+Size=240,50
+Collapsed=0
+

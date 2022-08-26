@@ -167,11 +167,8 @@ bool CPlayer2D::Init(void)
 	cInventoryItem = cInventoryManager->Add("Health", "Image/Heart.png", 3, 3);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
-	//cInventoryItem = cInventoryManager->Add("Soul", "Image/GUI_Soul.png", 100, 0);
-	//cInventoryItem->vec2Size = glm::vec2(200, 100);
-
 	//Inventory item Papers
-	cInventoryItem = cInventoryManager->Add("Paper", "Image/passcode.png", 10, 0);
+	cInventoryItem = cInventoryManager->Add("Paper", "Image/passcode.png", 1, 0);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
 	// Get handler for sound controller
@@ -510,7 +507,9 @@ void CPlayer2D::Update(const double dElapsedTime)
 	//Win condition
 	cInventoryItem = cInventoryManager->GetItem("Paper");
 	if (cInventoryItem->GetCount() == cInventoryItem->GetMaxCount())
-		CGameManager::GetInstance()->bPlayerWon = true;
+	{
+		cMap2D->SetMapInfo(43, 1, 91);
+	}
 
 	UpdateHealthLives();
 
@@ -790,15 +789,17 @@ void CPlayer2D::InteractWithMap(void)
 		DamagePlayer();
 		break;
 	case 97:
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 2);
 		break;
-
+	case 91:
+		CGameManager::GetInstance()->bPlayerWon = true;
+		break;
 	case 77:
 	case 76:
 	case 75:
 		setOldVec(vec2Index);
 		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);	
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 2);	
 		cInventoryItem = cInventoryManager->GetItem("Paper");
 		cInventoryItem->Add(1);
 		cSoundController->PlaySoundByID(13);
