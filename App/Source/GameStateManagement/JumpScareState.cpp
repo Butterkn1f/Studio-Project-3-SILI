@@ -45,7 +45,6 @@ JumpscareState::JumpscareState(void)
 	: cSoundController(NULL)
 	//: background(NULL)
 {
-
 }
 
 /**
@@ -71,12 +70,8 @@ bool JumpscareState::Init(void)
 
 	// Load the images for buttons
 	CImageLoader* il = CImageLoader::GetInstance();
-	ContinuteButtonData.fileName = "Image\\GUI\\ContinueButton.png";
-	ContinuteButtonData.textureID = il->LoadTextureGetID(ContinuteButtonData.fileName.c_str(), false);
-	OptionsButtonData.fileName = "Image\\GUI\\OptionsButton.png";
-	OptionsButtonData.textureID = il->LoadTextureGetID(OptionsButtonData.fileName.c_str(), false);
-	MenuButtonData.fileName = "Image\\GUI\\MenuButton.png";
-	MenuButtonData.textureID = il->LoadTextureGetID(MenuButtonData.fileName.c_str(), false);
+	BG.fileName = "Image\\GUI\\jumpscare2.png";
+	BG.textureID = il->LoadTextureGetID(BG.fileName.c_str(), false);
 
 	return true;
 }
@@ -97,39 +92,24 @@ bool JumpscareState::Update(const double dElapsedTime)
 
 	float buttonWidth = 256;
 	float buttonHeight = 128;
-
 	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
-	{
-		static float f = 0.0f;
-		static int counter = 0;
+	static float f = 0.0f;
+	static int counter = 0;
 
-		// Create a window called "Hello, world!" and append into it.
-		ImGui::Begin("Main Menu", NULL, window_flags);
-		ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth/2.0 - buttonWidth, 
-			CSettings::GetInstance()->iWindowHeight/3.0));				// Set the top-left of the window at (10,10)
-		ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
+	// Create a window called "Hello, world!" and append into it.
+	ImGui::Begin("Main Menu", NULL, window_flags);
+	ImGui::SetWindowPos(ImVec2(0, 0)); // Set the top-left of the window at (10,10)
+	ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
 
-		//Added rounding for nicer effect
-		ImGuiStyle& style = ImGui::GetStyle();
-		style.FrameRounding = 200.0f;
+	ImGui::Image((ImTextureID)BG.textureID, ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
 
-		// Display the FPS
-		ImGui::TextColored(ImVec4(1, 1, 1, 1), "In-Game Menu");
+	// Display the FPS
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), "In-Game Menu");
 
-		ImGui::End();
-	}
-
-	//For keyboard controls
-	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE) && CGameStateManager::GetInstance()->OptionsGameStateClosed())
-	{
-		// Reset the CKeyboardController
-		CKeyboardController::GetInstance()->Reset();
-
-		// Load the menu state
-		cout << "UnLoading PauseState" << endl;
-		CGameStateManager::GetInstance()->SetPauseGameState(nullptr);
-		return true;
-	}
+	ImGui::End();
+	
+	//// Reset the CKeyboardController
+	//CKeyboardController::GetInstance()->Reset();
 
 	return true;
 }

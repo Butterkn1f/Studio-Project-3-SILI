@@ -29,10 +29,16 @@ public:
 	bool SetPauseGameState(const std::string& _name);
 	void OffPauseGameState(void);
 
+	//Set jumpscarestate
+	bool SetJumpscareState(const std::string& _name);
+	void OffJumpscareState(void);
+
 	bool SetOptionsGameState(const std::string& _name);
 	void OffOptionsGameState(void);
 
 	bool OptionsGameStateClosed(void); //returns if options state is open, if yes, disable being able to toggle pause screen
+
+	bool CheckCurrentGameState(const std::string& _name);
 
 protected:
 	// Constructor
@@ -43,5 +49,5 @@ protected:
 	// The map of CGameStates
 	std::map<std::string, CGameStateBase*> GameStateMap;
 	// The handlers containing the active and next CGameState
-	CGameStateBase* activeGameState, *nextGameState, *prevGameState, *pauseGameState, *optionsGameState;
+	CGameStateBase* activeGameState, *nextGameState, *prevGameState, *pauseGameState, *optionsGameState, *jumpscareState;
 };

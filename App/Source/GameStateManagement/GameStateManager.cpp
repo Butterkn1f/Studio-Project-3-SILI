@@ -13,6 +13,7 @@ CGameStateManager::CGameStateManager(void)
 	, prevGameState(nullptr)
 	, pauseGameState(nullptr)
 	, optionsGameState(nullptr)
+	, jumpscareState(nullptr)
 {
 }
 
@@ -34,6 +35,7 @@ void CGameStateManager::Destroy(void)
 	prevGameState = nullptr;
 	pauseGameState = nullptr;
 	optionsGameState = nullptr;
+	jumpscareState = nullptr;
 
 	// Delete all scenes stored and empty the entire map
 	std::map<std::string, CGameStateBase*>::iterator it, end;
@@ -85,9 +87,13 @@ bool CGameStateManager::Update(const double dElapsedTime)
 			{
 				optionsGameState->Update(dElapsedTime);
 			}
+			else if (jumpscareState)
+			{
+
+				jumpscareState->Update(dElapsedTime);
+			}
 		}
 	}
-
 
 	return true;
 }
@@ -103,7 +109,8 @@ void CGameStateManager::Render(void)
 		pauseGameState->Render();
 	if (optionsGameState)
 		optionsGameState->Render();
-
+	if (jumpscareState)
+		jumpscareState->Render();
 }
 
 /**
@@ -218,6 +225,36 @@ void CGameStateManager::OffPauseGameState(void)
 	pauseGameState = nullptr;
 }
 
+bool CGameStateManager::SetJumpscareState(const std::string& _name)
+{
+	// Toggle to nullptr if pauseGameState already is in use
+	//if (jumpscareState != nullptr)
+	//{
+	//	jumpscareState = nullptr;
+	//	return true;
+	//}
+
+	// Check if this _name does not exists in the map...
+	if (!CheckGameStateExist(_name))
+	{
+		// If it does not exist, then unable to proceed
+		cout << "CGameStateManager::SetPauseGameState - scene name does not exists" << endl;
+		return false;
+	}
+
+	// Scene exist, set the next scene pointer to that scene
+	jumpscareState = GameStateMap[_name];
+	// Init the new pause CGameState
+	jumpscareState->Init();
+
+	return true;
+}
+
+void CGameStateManager::OffJumpscareState(void)
+{
+	jumpscareState = nullptr;
+}
+
 bool CGameStateManager::SetOptionsGameState(const std::string& _name)
 {
 	// Toggle to nullptr if optionsGameState already is in use
@@ -251,4 +288,13 @@ void CGameStateManager::OffOptionsGameState(void)
 bool CGameStateManager::OptionsGameStateClosed(void)
 {
 	return optionsGameState == nullptr;
+}
+
+bool CGameStateManager::CheckCurrentGameState(const std::string& _name)
+{
+
+	for (int i = 0; i < GameStateMap.size(); i++)
+	{
+	}
+	return true;
 }

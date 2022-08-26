@@ -38,6 +38,8 @@ class CMap2D;
 
 #include "InventoryManager.h"
 
+#include "Rays.h"
+
 class CEnemySawCon : public CEntity2D
 {
 public:
@@ -156,6 +158,8 @@ protected:
 	//CS: Animated Sprite
 	CSpriteAnimation* animatedSprites;
 
+	Ray* rays;
+
 	// Current FSM
 	FSM sCurrentFSM;
 
@@ -205,7 +209,7 @@ protected:
 	double movementspeed;//change via the microsteps 
 
 	int AtkCounter; // atk counter - count how many frames it has been in this FSM
-	const int MaxAtkCounter = 60;// Max count in a state
+	const int MaxAtkCounter = 150;// Max count in a state
 	int ScaredCounter; // atk counter - count how many frames it has been in this FSM
 	const int MaxScaredCounter = 60;// Max count in a state
 	int InvestigateCounter; // investigate counter - count how many frames it has been in this FSM
