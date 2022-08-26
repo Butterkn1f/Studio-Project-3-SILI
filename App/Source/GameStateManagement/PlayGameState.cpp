@@ -51,6 +51,7 @@ bool CPlayGameState::Init(void)
 	} 
 
 	screentimer = 10;
+	jsElapsed = 0;
 	return true;
 }
 
@@ -70,6 +71,7 @@ bool CPlayGameState::Update(const double dElapsedTime)
 		CGameStateManager::GetInstance()->SetPauseGameState("PauseState");
 	}
 
+
 	if (CGameManager::GetInstance()->bPLayerJumpscared == true)
 	{
 		screentimer--;
@@ -80,7 +82,6 @@ bool CPlayGameState::Update(const double dElapsedTime)
 		// Load the menu state
 		cout << "Loading Jumpscarestate" << endl;
 		CGameStateManager::GetInstance()->SetJumpscareState("JumpscareState");
-
 		if (screentimer <= 0)
 		{
 			CGameStateManager::GetInstance()->OffJumpscareState();
@@ -88,6 +89,28 @@ bool CPlayGameState::Update(const double dElapsedTime)
 			CSoundController::GetInstance()->StopSoundByID(27);
 			screentimer = 20;
 		}
+
+
+		//if (screentimer > 0)
+		//{
+		//	// Reset the CKeyboardController
+		//	CKeyboardController::GetInstance()->Reset();
+
+		//	// Load the menu state
+		//	cout << "Loading Jumpscarestate" << endl;
+		//	if (CGameStateManager::GetInstance()->CheckCurrentGameState("JumpscareState") == false)
+		//	{
+		//		CGameStateManager::GetInstance()->SetJumpscareState("JumpscareState");
+		//		CGameManager::GetInstance()->bPLayerJumpscared = false;
+		//	}
+		//}
+		//else
+		//{
+		//	CGameManager::GetInstance()->bPLayerJumpscared = false;
+		//	CGameStateManager::GetInstance()->OffJumpscareState();
+		//	CSoundController::GetInstance()->StopSoundByID(27);
+		//	screentimer = 20;
+		//}
 	}
 
 	// Call the cScene2D's Update method
