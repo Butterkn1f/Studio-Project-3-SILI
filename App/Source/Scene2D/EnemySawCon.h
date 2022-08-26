@@ -212,9 +212,30 @@ protected:
 	const int MaxInvestigateCounter = 120;// Max count in a state
 
 	bool playerInteractWithBox;//interact with box
+
+
+
+
+
+
+
 	bool shun;//player shun light onto enemy
-	bool sawPlayer;//player saw enemy, dont keep investigating the same spot
+	bool sawPlayer;//player saw enemy
+
+
+
+
+
+
+
+
+
+
+
+
 	bool playerNewlyVec(glm::vec2 oldvec);//check if the player got a new collectable, if so, get the pos of that collectable
+	void UpdatePositionPatrol(void);
+	void RandDirection(void);
 
 	bool displaytest;//toggle on couts
 	bool pathtest;//cout for testing enemy a* pathing to check whether it goes to the latest spotdestination

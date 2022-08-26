@@ -173,6 +173,7 @@ bool CEnemySawCon::Init(void)
 	playerInteractWithBox = false;
 	iFSMCounter = 0;
 	AtkCounter = 0;
+	AtkCounter = 0;
 	InvestigateCounter = 0;
 	ScaredCounter = 0;
 
@@ -195,7 +196,7 @@ bool CEnemySawCon::Init(void)
 		cout << "toggled off cout for EnemySawCon.cpp" << endl;
 	// If this class is initialised properly, then set the bIsActive to true
 	bIsActive = true;
-
+	srand(time(NULL));
 	return true;
 }
 
@@ -212,8 +213,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	playerInteractWithBox = cPlayer2D->getEBox();
 	if (pathtest)
 	{
-		cout << "enemy - x " <<vec2Index.x << "y "<< vec2Index.y << endl;
-		cout << "player - x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
+		//cout << "enemy - x " <<vec2Index.x << "y "<< vec2Index.y << endl;
+		//cout << "player - x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
 	}
 	if (!bIsActive)
 		return;
@@ -252,7 +253,10 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	
 
 	
-	//check if player collect the collectable<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+		sawPlayer = true;
+	else
+		sawPlayer = false;
 	
 	switch (sCurrentFSM)
 	{
@@ -305,7 +309,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			cout << "Switching to Idle State" << endl;
 		}
 		//chase range
-		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+		else if (sawPlayer)
 		{
 			if(statetest)
 				cout << "Switching to Attack State" <<endl;
@@ -314,7 +318,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		}
 		else
 		{
-			UpdatePosition();
+			//UpdatePosition();
+			UpdatePositionPatrol();
 		}
 		iFSMCounter++;
 		break;
@@ -346,30 +351,31 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			sCurrentFSM = COOLDOWN;
 		}
 		//close to player, chase
-		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+		else if (sawPlayer)
 		{
-			if(statetest || pathtest)
-				cout << "chase player" << endl;
-			 /*Attack
-			 Update direction to move towards for attack*/
-			//UpdateDirection();
-			//cout << "startpos: " << vec2Index.x << ", " << vec2Index.y << endl;
+			
 
 			auto path = cMap2D->PathFind(vec2Index,
 				cPlayer2D->vec2Index,
 				heuristic::euclidean,
 				10);
-			
+		
 			/*calculate new destination*/
 			bool bFirstPosition = true;
 			for (const auto& coord : path)
 			{
+				if(pathtest)
+					cMap2D->SetMapColour(coord.y, coord.x, glm::vec4(0, 0, 1, 1));
 				if (bFirstPosition == true)
 				{
 					/* Set a destination*/
 					i32vec2Destination = coord;
 					/* Calculate the direction between EnemySawCon and this destination*/
-					i32vec2Direction = i32vec2Destination - vec2Index;
+					if (i32vec2NumMicroSteps.x == 0 && i32vec2NumMicroSteps.y == 0)
+					{
+						i32vec2Direction = i32vec2Destination - vec2Index;
+						
+					}
 					bFirstPosition = false;
 				}
 				else
@@ -378,6 +384,11 @@ void CEnemySawCon::Update(const double dElapsedTime)
 					{
 						/*Set a destination*/
 						i32vec2Destination = coord;
+						if (pathtest)
+						{
+							cout << "x" << i32vec2NumMicroSteps.x << "\n";
+							cout << "y" << i32vec2NumMicroSteps.y << "\n";
+						}
 					}
 					else
 						break;
@@ -408,7 +419,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			sCurrentFSM = SCARED;
 		}
 		//close to player, go atk
-		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+		else if (sawPlayer)
 		{
 			if(statetest)
 				cout << "Switching to Attack State" << endl;
@@ -511,7 +522,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		//wait for 2 sec
 		else if (AtkCounter > MaxAtkCounter)
 		{
-			if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+			if (sawPlayer)
 			{
 				if(statetest)
 				cout << "Switching to Attack State" << endl;
@@ -1107,8 +1118,215 @@ bool CEnemySawCon::playerNewlyVec(glm::vec2 oldvec)
 	else
 		return false;
 }
+void CEnemySawCon::UpdatePositionPatrol(void)
+{
+	// Store the old position
+	i32vec2OldIndex = vec2Index;
+
+	// if the player is to the left or right of the EnemySawCon, then charge at player
+
+	//left
+	if (i32vec2Direction.x < 0)
+	{
+		animatedSprites->PlayAnimation("left", -1, 0.5f);
+		dir = DIRECTION::LEFT;
+		// Move left
+		const int iOldIndex = vec2Index.x;
+		if (vec2Index.x >= 0)
+		{
+			i32vec2NumMicroSteps.x -= movementspeed;
+			if (i32vec2NumMicroSteps.x < 0)
+			{
+				i32vec2NumMicroSteps.x = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
+				vec2Index.x--;
+			}
+		}
+
+		// Constraint the EnemySawCon's position within the screen boundary
+		Constraint(LEFT);
+
+		// Find a feasible position for the EnemySawCon's current position
+		if (CheckPosition(LEFT) == false)
+		{
+		//	FlipHorizontalDirection();
+			RandDirection();
+			vec2Index = i32vec2OldIndex;
+			i32vec2NumMicroSteps.x = 0;
+		}
 
 
+		// Interact with the Player
+		InteractWithPlayer();
+	}
+
+	//right
+	else if (i32vec2Direction.x > 0)
+	{
+		animatedSprites->PlayAnimation("right", -1, 0.5f);
+		dir = DIRECTION::RIGHT;
+		// Move right
+		const int iOldIndex = vec2Index.x;
+		if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
+		{
+			i32vec2NumMicroSteps.x += movementspeed;
+
+			if (i32vec2NumMicroSteps.x >= cSettings->NUM_STEPS_PER_TILE_XAXIS)
+			{
+				i32vec2NumMicroSteps.x = 0;
+				vec2Index.x++;
+			}
+		}
+
+		// Constraint the EnemySawCon's position within the screen boundary
+		Constraint(RIGHT);
+
+		// Find a feasible position for the EnemySawCon's current position
+		if (CheckPosition(RIGHT) == false)
+		{
+			//FlipHorizontalDirection();
+			RandDirection();
+			
+			
+			//vec2Index = i32vec2OldIndex;
+			i32vec2NumMicroSteps.x = 0;
+		}
 
 
+		// Interact with the Player
+		InteractWithPlayer();
+	}
+
+	// up
+	else if (i32vec2Direction.y > 0)
+	{
+		animatedSprites->PlayAnimation("up", -1, 0.5f);
+		//dir equal to up
+		dir = DIRECTION::UP;
+		//move upward
+		const int iOldIndex = vec2Index.y;
+		if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
+		{
+			i32vec2NumMicroSteps.y += movementspeed;
+			if (i32vec2NumMicroSteps.y >= cSettings->NUM_STEPS_PER_TILE_YAXIS)
+			{
+				i32vec2NumMicroSteps.y = 0;
+				vec2Index.y++;
+			}
+		}
+		// Constraint the EnemySawCon's position within the screen boundary
+		Constraint(UP);
+
+		// Find a feasible position for the EnemySawCon's current position
+		if (CheckPosition(UP) == false)
+		{
+			//FlipVerticleDirection();
+			RandDirection();
+			
+			//vec2Index = i32vec2OldIndex;
+			i32vec2NumMicroSteps.y = 0;
+		}
+		InteractWithPlayer();
+	}
+
+	//down
+	else if (i32vec2Direction.y < 0)
+	{
+		animatedSprites->PlayAnimation("down", -1, 0.5f);
+		//dir equal to down
+		dir = DIRECTION::DOWN;
+		// Move down
+		const int iOldIndex = vec2Index.y;
+		if (vec2Index.y >= 0)
+		{
+			i32vec2NumMicroSteps.y -= movementspeed;
+			if (i32vec2NumMicroSteps.y < 0)
+			{
+				i32vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
+				vec2Index.y--;
+			}
+		}
+
+		// Constraint the EnemySawCon's position within the screen boundary
+		Constraint(DOWN);
+
+		// Find a feasible position for the EnemySawCon's current position
+		if (CheckPosition(DOWN) == false)
+		{
+			//FlipVerticleDirection();
+			RandDirection();
+			vec2Index = i32vec2OldIndex;
+			i32vec2NumMicroSteps.y = 0;
+		}
+		InteractWithPlayer();
+	}
+}
+
+void CEnemySawCon::RandDirection(void)
+{
+	int tempdir = 999;
+
+	tempdir = rand() % 4;
+	if(pathtest)
+		cout << "tempdir" << tempdir << endl;
+	switch (tempdir)
+	{
+	case 0:
+		i32vec2Direction.y = 0;
+		i32vec2Direction.x = -1;
+		//cout << tempdir << endl;
+		break;
+	case 1:
+		i32vec2Direction.y = 0;
+		i32vec2Direction.x = 1;
+		//cout << tempdir << endl;
+		break;
+	case 2:
+		i32vec2Direction.x = 0;
+		i32vec2Direction.y = 1;
+		//cout << tempdir << endl;
+		break;
+	case 3:
+		i32vec2Direction.x = 0;
+		i32vec2Direction.y = -1;
+		//cout << tempdir << endl;
+		break;
+	default:
+		i32vec2Direction.x = 1;
+		i32vec2Direction.y = 0;
+		//cout << tempdir << endl;
+		break;
+		/*i32vec2Direction.x = 0;
+		i32vec2Direction.y = 0;*/
+		/*int dir;
+
+		dir = rand() % 4 + 1;
+
+
+		switch (dir)
+		{
+		case 1:
+			i32vec2Direction.x = 1;
+			cout << dir << endl;
+			break;
+		case 2:
+			i32vec2Direction.x = -1;
+			cout << dir << endl;
+			break;
+		case 3:
+			i32vec2Direction.y = 1;
+			cout << dir << endl;
+			break;
+		case 4:
+			i32vec2Direction.y = -1;
+			cout << dir << endl;
+			break;
+		default:
+			i32vec2Direction.x = 1;
+			cout << dir << endl;
+			break;
+		}*/
+	}
+
+	//cout << dir << endl;
+}
 
