@@ -180,8 +180,8 @@ bool CEnemySawCon::Init(void)
 	InvestigateCounter = 0;
 	ScaredCounter = 0;
 
-	displaytest = false; //<<<<<<<<<<<<<<<<<,,togle on to display troubleshoot  must togle on to see others
-	pathtest = true;    //<<<<<<<<<<<<<<<<<,,togle on to path troubleshoot
+	displaytest = true; //<<<<<<<<<<<<<<<<<,,togle on to display troubleshoot  must togle on to see others
+	pathtest = false;    //<<<<<<<<<<<<<<<<<,,togle on to path troubleshoot
 	statetest = true;   //<<<<<<<<<<<<<<<<<,,togle on to state troubleshoot
 	
 	
@@ -190,7 +190,7 @@ bool CEnemySawCon::Init(void)
 	//-----------------------change here----------------------------
 	chaseRange = 3.5f;//how far enemy can detect u
 	atkrange = .05f;//how close must the enemy be to atk u
-	movementspeed = 0.9;// speed of enemy
+	movementspeed = .9;// speed of enemy
 	increasespeed = 0.2;//increment of speed each time player collected paper
 	
 	
@@ -290,6 +290,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		//counter thingy
 		else if (iFSMCounter > iMaxFSMCounter)
 		{
+
 			sCurrentFSM = PATROL;
 			iFSMCounter = 0;
 			if(statetest)
@@ -360,12 +361,15 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			}
 			AtkCounter = 0;
 			sCurrentFSM = COOLDOWN;
+			
+
+
+
+
 		}
 		//close to player, chase
 		else if (sawPlayer)
 		{
-			
-
 			auto path = cMap2D->PathFind(vec2Index,
 				cPlayer2D->vec2Index,
 				heuristic::euclidean,
@@ -524,6 +528,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		UpdatePosition();
 		break;
 	case COOLDOWN:
+	{
 		//kena shun by light
 		if (shun)
 		{
@@ -547,7 +552,10 @@ void CEnemySawCon::Update(const double dElapsedTime)
 				cout << "Switching to patrol State" << endl;
 		}
 		AtkCounter++;
+
+	
 		break;
+	}
 	case SCARED:
 		if (ScaredCounter > MaxScaredCounter)
 		{
@@ -556,8 +564,35 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		}
 		else
 		{
-			cout << "stay or run away later ah.. waitin on kena shun" << endl;
+			
+			UpdateDirectionRun();
+			auto path = cMap2D->PathFind(vec2Index, cPlayer2D->vec2Index, heuristic::euclidean, 5);
+			bool bFirstPosition = true;
+			for (const auto& coord : path)
+			{
+				if (bFirstPosition)
+				{
+					//Set a destination
+					i32vec2Destination = coord;
+					//Calculate the direction between enemy2D and this destination
+					i32vec2Destination = i32vec2Destination - i32vec2Index;
+					bFirstPosition = false;
+				}
+				else
+				{
+					if ((coord - i32vec2Destination) == i32vec2Destination)
+					{
+						//Set a destination
+						i32vec2Destination = coord;
+					}
+					else
+						break;
+				}
+			}
+			// Update the Enemy2D's position for attack
+			UpdatePosition();
 		//negative direction to player
+
 		}
 		ScaredCounter++;
 		break;
@@ -1358,6 +1393,32 @@ void CEnemySawCon::RandDirection(void)
 	}
 
 	//cout << dir << endl;
+}
+
+void CEnemySawCon::UpdateDirectionRun(void)
+{	
+		// Set the destination to the player
+		i32vec2Destination = cPlayer2D->vec2Index;
+
+		// Calculate the direction between enemy2D and player2D
+		i32vec2Direction = i32vec2Destination - vec2Index;
+
+		// Calculate the distance between enemy2D and player2D
+		float fDistance = cPhysics2D.CalculateDistance(vec2Index, i32vec2Destination);
+		if (fDistance >= 0.01f)
+		{
+			// Calculate direction vector.
+			// We need to round the numbers as it is easier to work with whole numbers for movements
+			i32vec2Direction.x = -(int)round(i32vec2Direction.x / fDistance);
+			i32vec2Direction.y = -(int)round(i32vec2Direction.y / fDistance);
+		}
+		else
+		{
+			// Since we are not going anywhere, set this to 0.
+			i32vec2Direction = glm::i32vec2(0);
+		}
+		//cout << fDistance << "\n";
+	
 }
 
 void CEnemySawCon::EnemySpeedUp(double &movementspeed)

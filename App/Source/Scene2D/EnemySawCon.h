@@ -241,6 +241,7 @@ protected:
 	bool playerNewlyVec(glm::vec2 oldvec);//check if the player got a new collectable, if so, get the pos of that collectable
 	void UpdatePositionPatrol(void);
 	void RandDirection(void);
+	void UpdateDirectionRun(void);
 	void EnemySpeedUp(double &movementspeed);
 	bool displaytest;//toggle on couts
 	bool pathtest;//cout for testing enemy a* pathing to check whether it goes to the latest spotdestination
