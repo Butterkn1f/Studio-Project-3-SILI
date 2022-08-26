@@ -35,6 +35,8 @@ public:
 	virtual void Init();
 	virtual void Update();
 	glm::vec3 getCurrentRay();
+	// Get directional vector from player position to given position
+	glm::vec3 getDirectionalVector(glm::vec3 pos);
 	void SetRay(int rayNo, float origin, float length, float angle);
 	bool TestRayOBBIntersection(
 		glm::vec3 ray_origin, //Ray origin in world space

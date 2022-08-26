@@ -196,7 +196,8 @@ protected:
 	CMesh* quadMesh;
 
 	Flashlight flashlight;
-	Ray rays[1];
+	Ray rays[5];
+	float raysNo;
 
 	//Handler containing the instance of CPlayer2D
 	CPlayer2D* cPlayer2D;

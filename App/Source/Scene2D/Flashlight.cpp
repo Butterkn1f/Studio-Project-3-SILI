@@ -34,6 +34,13 @@ glm::vec3 Flashlight::getCurrentRay()
 	return currentRay;
 }
 
+glm::vec3 Flashlight::getDirectionalVector(glm::vec3 pos)
+{
+	glm::vec3 directional = glm::vec3(pos.x - CSettings::GetInstance()->iWindowWidth * 0.5, CSettings::GetInstance()->iWindowHeight * 0.5 - pos.y, 0.f);
+	glm::vec3 worldRay = glm::normalize(directional);
+	return glm::normalize(worldRay);
+}
+
 void Flashlight::Update()
 {
 	viewMatrix = glm::lookAt(
