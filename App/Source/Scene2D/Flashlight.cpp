@@ -3,25 +3,31 @@
 // Include ImageLoader
 #include "System\ImageLoader.h"
 
+#include "Player2D.h"
+
 Flashlight::Flashlight()
 	: camera(NULL)
+	, cSettings(NULL)
 {
 }
 
 Flashlight::~Flashlight()
 {
 	camera = NULL;
+	cSettings = NULL;
 }
 
 void Flashlight::Init()
 {
 	// Get handler for camera
 	camera = Camera::GetInstance();
+	// Get handler for cSettings
+	cSettings = CSettings::GetInstance();
 
 	// Should make this not hardcoded
 	projectionMatrix = glm::perspective(
 		glm::radians(45.f),
-		(float)(CSettings::GetInstance()->iWindowWidth / CSettings::GetInstance()->iWindowHeight),
+		(float)(cSettings->iWindowWidth / cSettings->iWindowHeight),
 		0.1f,
 		1.f);
 	// Set to identity
@@ -36,7 +42,7 @@ glm::vec3 Flashlight::getCurrentRay()
 
 glm::vec3 Flashlight::getDirectionalVector(glm::vec3 pos)
 {
-	glm::vec3 directional = glm::vec3(pos.x - CSettings::GetInstance()->iWindowWidth * 0.5, CSettings::GetInstance()->iWindowHeight * 0.5 - pos.y, 0.f);
+	glm::vec3 directional = glm::vec3(pos.x - cSettings->iWindowWidth * 0.5, cSettings->iWindowHeight * 0.5 - pos.y, 0.f);
 	glm::vec3 worldRay = glm::normalize(directional);
 	return glm::normalize(worldRay);
 }
@@ -60,14 +66,57 @@ glm::vec3 Flashlight::calculateMouseRay(glm::mat4 viewMatrix)
 	mouseX = CMouseController::GetInstance()->GetMousePositionX();
 	mouseY = CMouseController::GetInstance()->GetMousePositionY();
 
-	//glm::vec3 normalizedCoords = getNormalizedDeviceCoords(mouseX, mouseY);
-	////convert to homogeneous clip space, doesn't have w because it's 1
-	//glm::vec4 clipCoords = glm::vec4(normalizedCoords.x, normalizedCoords.y, -1.f, 1.f);
-	////convert to eye space
-	//glm::vec4 eyeCoords = toEyeCoords(clipCoords);
-	////convert to world space
-	//glm::vec3 worldRay = toWorldCoords(eyeCoords, viewMatrix);
-	glm::vec3 directional = glm::vec3(mouseX - CSettings::GetInstance()->iWindowWidth * 0.5, CSettings::GetInstance()->iWindowHeight * 0.5 - mouseY, 0.f);
+	float dy = mouseY - cSettings->iWindowHeight * 0.5;
+	float dx = mouseX - cSettings->iWindowWidth * 0.5;
+	float overallRotate = atan2(dx, dy) + glm::radians(180.f);
+
+	//Lock flashlight to only -90 to 90 degree rotation from current player's direction
+	switch (CPlayer2D::GetInstance()->dir)
+	{
+	//LEFT
+	case 0:
+		if ((overallRotate > glm::radians(180.f) && overallRotate < glm::radians(270.f)) ||
+			(overallRotate < glm::radians(360.f) && overallRotate > glm::radians(270.f)))
+		{
+			mouseX = cSettings->iWindowWidth * 0.5;
+		}
+
+		break;
+
+	//RIGHT
+	case 1:
+		if ((overallRotate > glm::radians(0.f) && overallRotate < glm::radians(90.f)) ||
+			(overallRotate < glm::radians(180.f) && overallRotate > glm::radians(90.f)))
+		{
+			mouseX = cSettings->iWindowWidth * 0.5;
+		}
+
+		break;
+
+	//UP
+	case 2:
+		if ((overallRotate > glm::radians(90.f) && overallRotate < glm::radians(180.f)) ||
+			(overallRotate < glm::radians(270.f) && overallRotate > glm::radians(180.f)))
+		{
+			mouseY = cSettings->iWindowHeight * 0.5;
+		}
+
+		break;
+
+	//DOWN
+	case 3:
+		if ((overallRotate > glm::radians(270.f) && overallRotate < glm::radians(360.f)) ||
+			(overallRotate < glm::radians(90.f) && overallRotate > glm::radians(0.f)))
+		{
+			mouseY = cSettings->iWindowHeight * 0.5;
+		}
+
+		break;
+	default:
+		break;
+	}
+
+	glm::vec3 directional = glm::vec3(mouseX - cSettings->iWindowWidth * 0.5, cSettings->iWindowHeight * 0.5 - mouseY, 0.f);
 	glm::vec3 worldRay = glm::normalize(directional);
 	//std::cout << worldRay.x << ", " << worldRay.y << ", " << worldRay.z << std::endl;
 	return worldRay;
@@ -75,8 +124,8 @@ glm::vec3 Flashlight::calculateMouseRay(glm::mat4 viewMatrix)
 
 glm::vec3 Flashlight::getNormalizedDeviceCoords(float mouseX, float mouseY)
 {
-	float x = (2.f * mouseX) / CSettings::GetInstance()->iWindowWidth - 1.f;
-	float y = (2.f * mouseY) / CSettings::GetInstance()->iWindowHeight - 1.f;
+	float x = (2.f * mouseX) / cSettings->iWindowWidth - 1.f;
+	float y = (2.f * mouseY) / cSettings->iWindowHeight - 1.f;
 	return glm::vec3(x, y, 1.f);
 }
 

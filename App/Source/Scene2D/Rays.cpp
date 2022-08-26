@@ -57,10 +57,10 @@ bool Rays::Init(void)
 	glBindVertexArray(VAO);
 
 	// Load the player texture 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/MenuBG.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/flashlight.png", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/MenuBG.png" << endl;
+		cout << "Unable to load Image/flashlight.png" << endl;
 		return false;
 	}
 
@@ -76,14 +76,6 @@ bool Rays::Init(void)
 	rays[1].angle = 20.f;
 	rays[2].length = 0.24f;
 	rays[2].angle = -20.f;
-	rays[3].length = 0.22f;
-	rays[3].angle = 40.f;
-	rays[4].length = 0.22f;
-	rays[4].angle = -40.f;
-	rays[5].length = 0.2f;
-	rays[5].angle = 60.f;
-	rays[6].length = 0.2f;
-	rays[6].angle = -60.f;
 
 	return true;
 }
@@ -113,113 +105,91 @@ void Rays::Render(void)
 
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
 
-	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), 1, 1);
-	//std::cout << "X: " << CPlayer2D::GetInstance()->vec2UVCoordinate.x << ", Y: " << CPlayer2D::GetInstance()->vec2UVCoordinate.y << std::endl;
-
-	glm::mat4 MVP = camera->GetMVP();
-	glm::mat4 transformMVP;
-	transformMVP = MVP;
-	transformMVP = glm::translate(transformMVP, glm::vec3(-0.9875, 0.97778, 0));
-	transformMVP = glm::scale(transformMVP, glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1));
-
-	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
-	glUniform4fv(colorLoc, 1, glm::value_ptr(glm::vec4(1.f, 1.f, 1.f, 1.f)));
-
-	// bind textures on corresponding texture units
-	glActiveTexture(GL_TEXTURE0);
-	// Get the texture to be rendered
-	glBindTexture(GL_TEXTURE_2D, iTextureID);
-
-	glBindVertexArray(VAO);
-	quadMesh->Render();
-	glBindVertexArray(0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	//CS: Render the rays
-	//for (int i = 0; i < (sizeof(rays) / sizeof(rays[0])); i++)
-	//{
-	//	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), 0.0025f, rays[i].length);
+	for (int i = 0; i < (sizeof(rays) / sizeof(rays[0])); i++)
+	{
+		quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), 0.0025f, rays[i].length);
 
-	//	glm::mat4 MVP = camera->GetMVP();
-	//	glm::mat4 transformMVP;
-	//	transformMVP = MVP; // make sure to initialize matrix to identity matrix first
+		glm::mat4 MVP = camera->GetMVP();
+		glm::mat4 transformMVP;
+		transformMVP = MVP; // make sure to initialize matrix to identity matrix first
 
-	//	float xTranslate = CPlayer2D::GetInstance()->vec2UVCoordinate.x;
-	//	float yTranslate = CPlayer2D::GetInstance()->vec2UVCoordinate.y;
+		float xTranslate = CPlayer2D::GetInstance()->vec2UVCoordinate.x;
+		float yTranslate = CPlayer2D::GetInstance()->vec2UVCoordinate.y;
 
-	//	float dy = CMouseController::GetInstance()->GetMousePositionY() - cSettings->iWindowHeight * 0.5;
-	//	float dx = CMouseController::GetInstance()->GetMousePositionX() - cSettings->iWindowWidth * 0.5;
-	//	float overallRotate = atan2(dx, dy) + glm::radians(180.f);
+		float dy = CMouseController::GetInstance()->GetMousePositionY() - cSettings->iWindowHeight * 0.5;
+		float dx = CMouseController::GetInstance()->GetMousePositionX() - cSettings->iWindowWidth * 0.5;
+		float overallRotate = atan2(dx, dy) + glm::radians(180.f);
 
-	//	switch (CPlayer2D::GetInstance()->dir)
-	//	{
-	//	//LEFT
-	//	case 0:
-	//		yTranslate += rays[i].angle * 0.00015;
+		switch (CPlayer2D::GetInstance()->dir)
+		{
+		//LEFT
+		case 0:
+			yTranslate += rays[i].angle * 0.00015;
 
-	//		//Limit rotation of flashlight
-	//		if (overallRotate > glm::radians(180.f) && overallRotate < glm::radians(270.f))
-	//			overallRotate = glm::radians(180.f);
-	//		else if (overallRotate < glm::radians(360.f) && overallRotate > glm::radians(270.f))
-	//			overallRotate = glm::radians(360.f);
-	//		break;
+			//Limit rotation of flashlight
+			if (overallRotate > glm::radians(180.f) && overallRotate < glm::radians(270.f))
+				overallRotate = glm::radians(180.f);
+			else if (overallRotate < glm::radians(360.f) && overallRotate > glm::radians(270.f))
+				overallRotate = glm::radians(360.f);
+			break;
 
-	//	//RIGHT
-	//	case 1:
-	//		yTranslate -= rays[i].angle * 0.00015;
+		//RIGHT
+		case 1:
+			yTranslate -= rays[i].angle * 0.00015;
 
-	//		//Limit rotation of flashlight
-	//		if (overallRotate > glm::radians(0.f) && overallRotate < glm::radians(90.f))
-	//			overallRotate = glm::radians(0.f);
-	//		else if (overallRotate < glm::radians(180.f) && overallRotate > glm::radians(90.f))
-	//			overallRotate = glm::radians(180.f);
-	//		break;
+			//Limit rotation of flashlight
+			if (overallRotate > glm::radians(0.f) && overallRotate < glm::radians(90.f))
+				overallRotate = glm::radians(0.f);
+			else if (overallRotate < glm::radians(180.f) && overallRotate > glm::radians(90.f))
+				overallRotate = glm::radians(180.f);
+			break;
 
-	//	//UP
-	//	case 2:
-	//		xTranslate += rays[i].angle * 0.00018;
-	//		//Limit rotation of flashlight
-	//		if (overallRotate > glm::radians(90.f) && overallRotate < glm::radians(180.f))
-	//			overallRotate = glm::radians(90.f);
-	//		else if (overallRotate < glm::radians(270.f) && overallRotate > glm::radians(180.f))
-	//			overallRotate = glm::radians(-90.f);
+		//UP
+		case 2:
+			xTranslate += rays[i].angle * 0.00018;
+			//Limit rotation of flashlight
+			if (overallRotate > glm::radians(90.f) && overallRotate < glm::radians(180.f))
+				overallRotate = glm::radians(90.f);
+			else if (overallRotate < glm::radians(270.f) && overallRotate > glm::radians(180.f))
+				overallRotate = glm::radians(-90.f);
 
-	//		//overallRotate += glm::radians(rays[i].angle);
-	//		break;
+			//overallRotate += glm::radians(rays[i].angle);
+			break;
 
-	//	//DOWN
-	//	case 3:
-	//		xTranslate -= rays[i].angle * 0.00018;
-	//		//Limit rotation of flashlight
-	//		if (overallRotate > glm::radians(270.f) && overallRotate < glm::radians(360.f))
-	//			overallRotate = glm::radians(270.f);
-	//		else if (overallRotate < glm::radians(90.f) && overallRotate > glm::radians(0.f))
-	//			overallRotate = glm::radians(90.f);
+		//DOWN
+		case 3:
+			xTranslate -= rays[i].angle * 0.00018;
+			//Limit rotation of flashlight
+			if (overallRotate > glm::radians(270.f) && overallRotate < glm::radians(360.f))
+				overallRotate = glm::radians(270.f);
+			else if (overallRotate < glm::radians(90.f) && overallRotate > glm::radians(0.f))
+				overallRotate = glm::radians(90.f);
 
-	//		//overallRotate += glm::radians(rays[i].angle);
-	//		break;
-	//	default:
-	//		break;
-	//	}
+			//overallRotate += glm::radians(rays[i].angle);
+			break;
+		default:
+			break;
+		}
 
-	//	// Update the shaders with the latest transform
-	//	transformMVP = glm::translate(transformMVP, glm::vec3(xTranslate,
-	//		yTranslate,
-	//		0.0f));
-	//	transformMVP = glm::rotate(transformMVP, overallRotate, glm::vec3(0, 0, 1));
-	//	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
-	//	glUniform4fv(colorLoc, 1, glm::value_ptr(glm::vec4(1.f, 1.f, 1.f, 1.f)));
+		// Update the shaders with the latest transform
+		transformMVP = glm::translate(transformMVP, glm::vec3(xTranslate,
+			yTranslate,
+			0.0f));
+		transformMVP = glm::rotate(transformMVP, overallRotate, glm::vec3(0, 0, 1));
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
+		glUniform4fv(colorLoc, 1, glm::value_ptr(glm::vec4(1.f, 1.f, 1.f, 1.f)));
 
-	//	// bind textures on corresponding texture units
-	//	glActiveTexture(GL_TEXTURE0);
-	//	// Get the texture to be rendered
-	//	glBindTexture(GL_TEXTURE_2D, iTextureID);
+		// bind textures on corresponding texture units
+		glActiveTexture(GL_TEXTURE0);
+		// Get the texture to be rendered
+		glBindTexture(GL_TEXTURE_2D, iTextureID);
 
-	//	glBindVertexArray(VAO);
-	//	quadMesh->Render();
-	//	glBindVertexArray(0);
-	//	glBindTexture(GL_TEXTURE_2D, 0);
-	//}
+		glBindVertexArray(VAO);
+		quadMesh->Render();
+		glBindVertexArray(0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }
 
 /**

@@ -23,6 +23,7 @@ private:
 	glm::mat4 viewMatrix;
 	Camera* camera;
 	CMesh* mesh;
+	CSettings* cSettings;
 	glm::vec3 calculateMouseRay(glm::mat4 viewMatrix);
 	glm::vec3 getNormalizedDeviceCoords(float mouseX, float mouseY);
 	glm::vec4 toEyeCoords(glm::vec4 clipCoords);
