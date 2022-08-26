@@ -14,6 +14,7 @@
     <ClCompile Include="Source\Application.cpp" />
     <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp" />
     <ClCompile Include="Source\GameStateManagement\IntroState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\JumpscareState.cpp" />
     <ClCompile Include="Source\GameStateManagement\LoseState.cpp" />
     <ClCompile Include="Source\GameStateManagement\MenuState.cpp" />
     <ClCompile Include="Source\GameStateManagement\OptionsState.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="Source\GameStateManagement\GameStateBase.h" />
     <ClInclude Include="Source\GameStateManagement\GameStateManager.h" />
     <ClInclude Include="Source\GameStateManagement\IntroState.h" />
+    <ClInclude Include="Source\GameStateManagement\JumpscareState.h" />
     <ClInclude Include="Source\GameStateManagement\LoseState.h" />
     <ClInclude Include="Source\GameStateManagement\MenuState.h" />
     <ClInclude Include="Source\GameStateManagement\OptionsState.h" />

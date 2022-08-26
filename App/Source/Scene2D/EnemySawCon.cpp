@@ -331,7 +331,10 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			CInventoryItem* cInvenytoryItem;
 			cInvenytoryItem = cInventoryManager->GetItem("Health");
 			if (cInvenytoryItem->GetCount() >= 0)
+			{
 				cInvenytoryItem->Remove(1);
+				cSoundController->PlaySoundByID(12);
+			}
 			else
 				CGameManager::GetInstance()->bPlayerLost = true;
 			if (statetest)

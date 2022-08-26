@@ -162,6 +162,16 @@ bool COptionsState::Update(const double dElapsedTime)
 			cSoundController->StopSoundByID(3);
 			cSoundController->PlaySoundByID(3);
 		}
+		if (cSoundController->isPlaying(4))
+		{
+			cSoundController->StopSoundByID(4);
+			cSoundController->PlaySoundByID(4);
+		}
+		if (cSoundController->isPlaying(5))
+		{
+			cSoundController->StopSoundByID(5);
+			cSoundController->PlaySoundByID(5);
+		}
 		// Load the menu state
 		CGameStateManager::GetInstance()->OffOptionsGameState();
 	}
