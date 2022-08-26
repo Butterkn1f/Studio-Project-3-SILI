@@ -156,11 +156,6 @@ bool CEnemySawCon::Init(void)
 	//CS: Init the color to white
 	runtimeColour = glm::vec4(0.3, 0.3, 0.3, 1.0);
 
-	iframeElapsed = 0.4;
-	health = 50;
-	armour = 50;
-	lastAttackElapsed = 0;
-
 	// Create the quad mesh for the player
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -171,59 +166,33 @@ bool CEnemySawCon::Init(void)
 	cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
 	dir = DIRECTION::LEFT;
 
+	//set defaults
 	spotDestination = glm::vec2(0, 0);
-	shun = false;
-	test = false;
-	
-	
-	
-	collect1 = false;
-	collect2 = false;
-	collect3 = false;
-	collect4 = false;
-	collect5 = false;
-
-	collect6 = false;
-	collect7 = false;
-	collect8 = false;
-	collect9 = false;
-	collect10= false;
-	
-	collect11 = false;
-	collect12 = false;
-	collect13 = false;
-	collect14 = false;
-	collect15 = false;
-
+	shun = false; 
 	sawPlayer = false;
-
-	sawPlayer1 = false; 
-	sawPlayer2 = false; 
-	sawPlayer3 = false; 
-	sawPlayer4 = false; 
-	sawPlayer5 = false; 
-	sawPlayer6 = false; 
-	sawPlayer7 = false; 
-	sawPlayer8 = false; 
-	sawPlayer9 = false; 
-	sawPlayer10 = false; 
-	sawPlayer11 = false; 
-	sawPlayer12 = false; 
-	sawPlayer13 = false; 
-	sawPlayer14 = false;
-	sawPlayer15 = false;
-
-	chaseRange = 3.5f;
-	atkrange = .05f;
-	movementspeed = 0.9;
+	playerInteractWithBox = false;
 	iFSMCounter = 0;
 	AtkCounter = 0;
 	InvestigateCounter = 0;
 	ScaredCounter = 0;
-	playerInteractWithBox = false;
+
+	displaytest = false; //<<<<<<<<<<<<<<<<<,,togle on to display troubleshoot  must togle on to see others
+	pathtest = true;    //<<<<<<<<<<<<<<<<<,,togle on to path troubleshoot
+	statetest = true;   //<<<<<<<<<<<<<<<<<,,togle on to state troubleshoot
+	
 	
 
 
+	//-----------------------change here----------------------------
+	chaseRange = 3.5f;//how far enemy can detect u
+	atkrange = .05f;//how close must the enemy be to atk u
+	movementspeed = 0.9;// speed of enemy
+	
+	
+	
+
+	if (!displaytest)//let others know that the enemysawcon couts is dissable if its off
+		cout << "toggled off cout for EnemySawCon.cpp" << endl;
 	// If this class is initialised properly, then set the bIsActive to true
 	bIsActive = true;
 
@@ -235,13 +204,19 @@ bool CEnemySawCon::Init(void)
  */
 void CEnemySawCon::Update(const double dElapsedTime)
 {
+	if (!displaytest)
+	{
+		pathtest = false;
+		statetest = false;
+	}
 	playerInteractWithBox = cPlayer2D->getEBox();
-
-	//cout << "enemy - x " <<vec2Index.x << "y "<< vec2Index.y << endl;
-	//cout << "player - x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
+	if (pathtest)
+	{
+		cout << "enemy - x " <<vec2Index.x << "y "<< vec2Index.y << endl;
+		cout << "player - x " << cPlayer2D->vec2Index.x << " y " << cPlayer2D->vec2Index.y << endl;
+	}
 	if (!bIsActive)
 		return;
-	/*cout << cPlayer2D->vec2Index.x << cPlayer2D->vec2Index.y << endl;*/
 
 	//change volume based on distance of enemy to player
 	if (cPlayer2D->vec2Index.y >= vec2Index.y && cPlayer2D->vec2Index.y <= vec2Index.y + 3 ||
@@ -278,7 +253,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 
 	
 	//check if player collect the collectable<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	//combineCheckPlayerCollect();
+	
 	switch (sCurrentFSM)
 	{
 	case IDLE:
@@ -295,14 +270,16 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		else if (playerNewlyVec(cPlayer2D->getOldVec()))
 		{
 			sCurrentFSM = INVESTIGATE;
-			cout << "Switching to Investigate State :" << cPlayer2D->getOldVec().x << cPlayer2D->getOldVec().y << endl;
+			if(statetest)
+				cout << "Switching to Investigate State :" << cPlayer2D->getOldVec().x << cPlayer2D->getOldVec().y << endl;
 		}
 		//counter thingy
 		else if (iFSMCounter > iMaxFSMCounter)
 		{
 			sCurrentFSM = PATROL;
 			iFSMCounter = 0;
-			cout << "Switching to Patrol State" << endl;
+			if(statetest)
+				cout << "Switching to Patrol State" << endl;
 		}
 		iFSMCounter++;
 		break;
@@ -324,12 +301,14 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		{
 			sCurrentFSM = IDLE;
 			iFSMCounter = 0;
+			if(statetest)
 			cout << "Switching to Idle State" << endl;
 		}
 		//chase range
 		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 		{
-			cout << "Switching to Attack State" <<endl;
+			if(statetest)
+				cout << "Switching to Attack State" <<endl;
 			sCurrentFSM = ATTACK;
 			iFSMCounter = 0;
 		}
@@ -352,19 +331,25 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			CInventoryItem* cInvenytoryItem;
 			cInvenytoryItem = cInventoryManager->GetItem("Health");
 			if (cInvenytoryItem->GetCount() >= 0)
+			{
 				cInvenytoryItem->Remove(1);
+				cSoundController->PlaySoundByID(12);
+			}
 			else
 				CGameManager::GetInstance()->bPlayerLost = true;
-			cout << "atk player" << endl;
+			if (statetest)
+			{
+				cout << "switch to cooldown state" << endl;
+				cout << "atk player" << endl;
+			}
 			AtkCounter = 0;
 			sCurrentFSM = COOLDOWN;
-			cout << "switch to cooldown state" << endl;
-
 		}
 		//close to player, chase
 		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 		{
-			//cout << "chase player" << endl;
+			if(statetest || pathtest)
+				cout << "chase player" << endl;
 			 /*Attack
 			 Update direction to move towards for attack*/
 			//UpdateDirection();
@@ -409,7 +394,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			{
 				sCurrentFSM = PATROL;
 				iFSMCounter = 0;
-				cout << "ATTACK : Reset counter: " << iFSMCounter << endl;
+				if(statetest)
+					cout << "ATTACK : Reset counter: " << iFSMCounter << endl;
 			}
 			iFSMCounter++;
 		}
@@ -424,14 +410,15 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		//close to player, go atk
 		else if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 		{
-			cout << "Switching to Attack State" << endl;
+			if(statetest)
+				cout << "Switching to Attack State" << endl;
 			sCurrentFSM = ATTACK;
 		}
 		//player interactwithbox
 		if (playerInteractWithBox)
 		{
-			
-			cout << InvestigateCounter << endl;
+			if(statetest)
+				cout << InvestigateCounter << endl;
 			if (InvestigateCounter > MaxInvestigateCounter)
 			{
 				playerInteractWithBox = false;
@@ -480,7 +467,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		else
 		{
 			playerNewlyVec(cPlayer2D->getOldVec());
-			cout << spotDestination.x << spotDestination.y << endl;
+			if(pathtest)
+				cout << spotDestination.x << spotDestination.y << endl;
 				auto path = cMap2D->PathFind(vec2Index,
 					spotDestination,
 					heuristic::euclidean,
@@ -525,6 +513,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		{
 			if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 			{
+				if(statetest)
 				cout << "Switching to Attack State" << endl;
 				sCurrentFSM = ATTACK;
 				AtkCounter = 0;
@@ -532,7 +521,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			}
 			sCurrentFSM = PATROL;
 			AtkCounter = 0;
-			cout << "Switching to patrol State" << endl;
+			if(statetest)
+				cout << "Switching to patrol State" << endl;
 		}
 		AtkCounter++;
 		break;
@@ -544,7 +534,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		}
 		else
 		{
-
+			cout << "stay or run away later ah.. waitin on kena shun" << endl;
 		//negative direction to player
 		}
 		ScaredCounter++;
@@ -1005,11 +995,6 @@ void CEnemySawCon::UpdatePosition(void)
 			i32vec2NumMicroSteps.x = 0;
 		}
 
-		//// Check if EnemySawCon is in mid-air, such as walking off a platform
-		//if (IsMidAir() == true)
-		//{
-		//	cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-		//}
 
 		// Interact with the Player
 		InteractWithPlayer();
@@ -1044,11 +1029,6 @@ void CEnemySawCon::UpdatePosition(void)
 			i32vec2NumMicroSteps.x = 0;
 		}
 
-		//// Check if EnemySawCon is in mid-air, such as walking off a platform
-		//if (IsMidAir() == true)
-		//{
-		//	cPhysics2D.SetStatus(CPhysics2D::STATUS::FALL);
-		//}
 
 		// Interact with the Player
 		InteractWithPlayer();
@@ -1116,129 +1096,6 @@ void CEnemySawCon::UpdatePosition(void)
 	}
 }
 
-//make it nicer in the update
-void CEnemySawCon::combineCheckPlayerCollect()
-{
-	//97 is the id for the collectable
-	checkCollectable(collect1, 43, 6, 75);
-	checkCollectable(collect2, 34, 4, 75);
-	checkCollectable(collect3, 26, 6, 75);
-	checkCollectable(collect4, 19, 6, 75);
-	checkCollectable(collect5, 16, 4, 75);
-	checkCollectable(collect6, 33, 8, 75);
-	checkCollectable(collect7, 19, 15, 75);
-	checkCollectable(collect8, 29, 20, 75);
-	checkCollectable(collect9, 36, 15, 75);
-	checkCollectable(collect10, 39, 26, 75);
-	checkCollectable(collect11, 42, 20 , 75);
-	checkCollectable(collect12, 41, 12, 75);
-	checkCollectable(collect13, 21, 29, 75);
-	checkCollectable(collect14, 6, 27, 75);
-	checkCollectable(collect15, 5, 16, 75);
-	
-}
-
-void CEnemySawCon::combineCheckSawPlayer()
-{
-	if (collect1 && !sawPlayer1)
-	{
-		cout << "Switching to Investigate State to collect1" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect2 && !sawPlayer2)
-	{
-		cout << "Switching to Investigate State to collect2" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect3 && !sawPlayer3)
-	{
-		cout << "Switching to Investigate State to collect3" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect4 && !sawPlayer4)
-	{
-		cout << "Switching to Investigate State to collect4" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect5 && !sawPlayer5)
-	{
-		cout << "Switching to Investigate State to collect5" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect6 && !sawPlayer6)
-	{
-		cout << "Switching to Investigate State to collect6" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect7 && !sawPlayer7)
-	{
-		cout << "Switching to Investigate State to collect7" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect8 && !sawPlayer8)
-	{
-		cout << "Switching to Investigate State to collect8" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect9 && !sawPlayer9)
-	{
-		cout << "Switching to Investigate State to collect9" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect10 && !sawPlayer10)
-	{
-		cout << "Switching to Investigate State to collect10" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect11 && !sawPlayer11)
-	{
-		cout << "Switching to Investigate State to collect11" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect12 && !sawPlayer12)
-	{
-		cout << "Switching to Investigate State to collect12" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect13 && !sawPlayer13)
-	{
-		cout << "Switching to Investigate State to collect13" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect14 && !sawPlayer14)
-	{
-		cout << "Switching to Investigate State to collect14" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-	if (collect15 && !sawPlayer15)
-	{
-		cout << "Switching to Investigate State to collect15" << endl;
-		iFSMCounter = 0;
-		sCurrentFSM = INVESTIGATE;
-	}
-}
-
-void CEnemySawCon::SawPlayerCheck()
-{
-	if (sCurrentFSM == ATTACK)
-	{
-		sawPlayer = true;
-	}
-}
 
 bool CEnemySawCon::playerNewlyVec(glm::vec2 oldvec)
 {
@@ -1252,18 +1109,6 @@ bool CEnemySawCon::playerNewlyVec(glm::vec2 oldvec)
 }
 
 
-//value is the id number of the object u wan player to collect
-void CEnemySawCon::checkCollectable(bool &Papercollect, int y,int x, int value)
-{
-	if (cMap2D->GetMapInfo(y, x) != value && !Papercollect)
-	{
-		{
-			Papercollect = true;
-			spotDestination = glm::vec2(x, y);
-			//cout << "x" << y << "y" << x << endl;
 
-		}
-	}
-}
 
 

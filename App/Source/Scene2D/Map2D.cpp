@@ -124,32 +124,19 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT);
 
 	// Load and create textures
-	
-	// Load the ground texture
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/stoneMid.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/BGtile2.png", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/stoneMid.png" << endl;
+		cout << "Unable to load Image/bgtile2.png" << endl;
 		return false;
 	}
 	else
 	{
 		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(100, iTextureID));
+		MapOfTextureIDs.insert(pair<int, int>(2, iTextureID));
 	}
 
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/stoneTop.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/stoneTop.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(101, iTextureID));
-	}
-
+	// Load and create textures
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/Black_Brick.png", true);
 	if (iTextureID == 0)
 	{
@@ -160,66 +147,6 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	{
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(102, iTextureID));
-	}
-
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/block.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/block.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(103, iTextureID));
-	}
-
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/blockBroke.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/blockBroke.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(104, iTextureID));
-	}
-
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/fence.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/fence.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(105, iTextureID));
-	}
-
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/geo.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/geo.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(106, iTextureID));
-	}
-
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/geoBroke.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/geoBroke.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(107, iTextureID));
 	}
 
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/DoorClosed.tga", true);
@@ -244,30 +171,6 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	{
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(91, iTextureID));
-	}
-
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/doorTop.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/doorTop.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(98, iTextureID));
-	}
-
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/spikes.png", true);
-	if (iTextureID == 0)
-	{
-		cout << "Unable to load Image/spikes.png" << endl;
-		return false;
-	}
-	else
-	{
-		// Store the texture ID into MapOfTextureIDs
-		MapOfTextureIDs.insert(pair<int, int>(99, iTextureID));
 	}
 	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/crate.png", true);
 	if (iTextureID == 0)
@@ -402,7 +305,7 @@ void CMap2D::Render(void)
 			for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)
 			{
 				if(GetMapInfo(uiRow,uiCol) == 76 || GetMapInfo(uiRow, uiCol) == 77)
-					SetMapInfo(uiRow, uiCol, 0);
+					SetMapInfo(uiRow, uiCol, 2);
 
 			}
 		}
@@ -415,7 +318,7 @@ void CMap2D::Render(void)
 			for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)
 			{
 				if (GetMapInfo(uiRow, uiCol) == 75 || GetMapInfo(uiRow, uiCol) == 77)
-					SetMapInfo(uiRow, uiCol, 0);
+					SetMapInfo(uiRow, uiCol, 2);
 
 			}
 		}
@@ -427,7 +330,7 @@ void CMap2D::Render(void)
 			for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)
 			{
 				if (GetMapInfo(uiRow, uiCol) == 75 || GetMapInfo(uiRow, uiCol) == 76)
-					SetMapInfo(uiRow, uiCol, 0);
+					SetMapInfo(uiRow, uiCol, 2);
 			}
 		}
 	}
@@ -465,7 +368,7 @@ void CMap2D::Render(void)
 					intersectionDist))
 				{
 					SetMapColour(uiRow, uiCol, glm::vec4(1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f - intersectionDist * 5, 1.f));
-					std::cout << intersectionDist << std::endl;
+			/*		std::cout << intersectionDist << std::endl;*/
 				}
 				else
 				{

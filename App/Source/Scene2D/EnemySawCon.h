@@ -198,60 +198,28 @@ protected:
 	void FlipVerticleDirection(void);
 	// Update position
 	void UpdatePosition(void);
-
 	int dir; //Store current direction for animation
+
 	float chaseRange;//range for the enemy to chase the player
 	float atkrange;//range for the enemy to atk the player
 	double movementspeed;//change via the microsteps 
+
 	int AtkCounter; // atk counter - count how many frames it has been in this FSM
-	const int MaxAtkCounter = 120;// Max count in a state
+	const int MaxAtkCounter = 60;// Max count in a state
 	int ScaredCounter; // atk counter - count how many frames it has been in this FSM
-	const int MaxScaredCounter = 120;// Max count in a state
+	const int MaxScaredCounter = 60;// Max count in a state
 	int InvestigateCounter; // investigate counter - count how many frames it has been in this FSM
 	const int MaxInvestigateCounter = 120;// Max count in a state
+
 	bool playerInteractWithBox;//interact with box
-	bool shun;
-	bool test;
-	bool collect1;
-	bool collect2;
-	bool collect3;
-	bool collect4;
-	bool collect5;
-	bool collect6;
-	bool collect7;
-	bool collect8;
-	bool collect9;
-	bool collect10;
-	bool collect11;
-	bool collect12;
-	bool collect13;
-	bool collect14;
-	bool collect15;
+	bool shun;//player shun light onto enemy
+	bool sawPlayer;//player saw enemy, dont keep investigating the same spot
+	bool playerNewlyVec(glm::vec2 oldvec);//check if the player got a new collectable, if so, get the pos of that collectable
 
-	bool sawPlayer;
+	bool displaytest;//toggle on couts
+	bool pathtest;//cout for testing enemy a* pathing to check whether it goes to the latest spotdestination
+	bool statetest;//cout for testing enemy state
 
-	bool sawPlayer1;
-	bool sawPlayer2;
-	bool sawPlayer3;
-	bool sawPlayer4;
-	bool sawPlayer5;
-	bool sawPlayer6;
-	bool sawPlayer7;
-	bool sawPlayer8;
-	bool sawPlayer9;
-	bool sawPlayer10;
-	bool sawPlayer11;
-	bool sawPlayer12;
-	bool sawPlayer13;
-	bool sawPlayer14;
-	bool sawPlayer15;
-
-
-	void checkCollectable(bool& Papercollect, int y, int x, int value);
-	void combineCheckPlayerCollect();
-	void combineCheckSawPlayer();
-	void SawPlayerCheck();
-	bool playerNewlyVec(glm::vec2 oldvec);
 	Camera* camera;
 };
 
