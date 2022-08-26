@@ -31,4 +31,7 @@ public:
 protected:
 	// The handler to the CScene2D instance
 	CScene2D* cScene2D;
+
+	float screentimer;
+	double jsElapsed;
 };

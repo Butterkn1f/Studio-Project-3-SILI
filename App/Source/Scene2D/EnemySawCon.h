@@ -205,7 +205,7 @@ protected:
 	double movementspeed;//change via the microsteps 
 
 	int AtkCounter; // atk counter - count how many frames it has been in this FSM
-	const int MaxAtkCounter = 60;// Max count in a state
+	const int MaxAtkCounter = 150;// Max count in a state
 	int ScaredCounter; // atk counter - count how many frames it has been in this FSM
 	const int MaxScaredCounter = 60;// Max count in a state
 	int InvestigateCounter; // investigate counter - count how many frames it has been in this FSM

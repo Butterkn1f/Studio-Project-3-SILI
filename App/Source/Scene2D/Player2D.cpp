@@ -818,7 +818,6 @@ void CPlayer2D::UpdateHealthLives(void)
 	// Check if a life is lost
 	if (cInventoryItem->GetCount() < 0)
 	{
-		cSoundController->PlaySoundByID(10);
 		animatedSprites->PlayAnimation("death", 1, 3.0f);
 		runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
 		iframeElapsed = 0;

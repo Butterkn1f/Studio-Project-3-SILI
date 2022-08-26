@@ -33,5 +33,6 @@ void CGameManager::Init(void)
 	bLevelCompleted = false;
 	bLevelToReplay = false;
 	bGameToRestart = false;
+	bPLayerJumpscared = false;
 }
 

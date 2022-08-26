@@ -298,7 +298,6 @@ bool CScene2D::Update(const double dElapsedTime)
 			return true;
 		}
 	}
-
 	// Call the cGUI_Scene2D's update method
 	cGUI_Scene2D->Update(dElapsedTime);
 

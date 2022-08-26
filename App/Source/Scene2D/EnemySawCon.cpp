@@ -117,7 +117,7 @@ bool CEnemySawCon::Init(void)
 		return false;	// Unable to find the start position of the player, so quit this game
 
 	// Erase the value of the player in the arrMapInfo
-	cMap2D->SetMapInfo(uiRow, uiCol, 0);
+	cMap2D->SetMapInfo(uiRow, uiCol, 2);
 	// Set the start position of the Player to iRow and iCol
 	vec2Index = glm::i32vec2(uiCol, uiRow);
 	// By default, microsteps should be zero
@@ -333,7 +333,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			if (cInvenytoryItem->GetCount() >= 0)
 			{
 				cInvenytoryItem->Remove(1);
-				cSoundController->PlaySoundByID(12);
+				cSoundController->PlaySoundByID(27);
+				CGameManager::GetInstance()->bPLayerJumpscared = true;
 			}
 			else
 				CGameManager::GetInstance()->bPlayerLost = true;

@@ -172,10 +172,10 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(91, iTextureID));
 	}
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/crate.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/crate.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/crate.png" << endl;
+		cout << "Unable to load Image/crate.tga" << endl;
 		return false;
 	}
 	else
