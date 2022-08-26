@@ -179,6 +179,7 @@ bool CPlayer2D::Init(void)
 
 	eBox = false;
 	tempOldVec = glm::vec2(0, 0);
+	collected = false;
 	return true;
 }
 
@@ -802,6 +803,7 @@ void CPlayer2D::InteractWithMap(void)
 		cInventoryItem = cInventoryManager->GetItem("Paper");
 		cInventoryItem->Add(1);
 		cSoundController->PlaySoundByID(13);
+		collected = true;
 		break;
 	default:
 		break;
@@ -925,4 +927,14 @@ glm::vec2 CPlayer2D::getOldVec()
 void CPlayer2D::setOldVec(glm::vec2 newVector)
 {
 	tempOldVec = newVector;
+}
+
+bool CPlayer2D::getCollected()
+{
+	return collected;
+}
+
+void CPlayer2D::setCollected(bool collect)
+{
+	collected = collect;
 }

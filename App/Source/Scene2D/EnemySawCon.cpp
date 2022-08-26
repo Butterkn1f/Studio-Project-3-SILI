@@ -191,7 +191,7 @@ bool CEnemySawCon::Init(void)
 	chaseRange = 3.5f;//how far enemy can detect u
 	atkrange = .05f;//how close must the enemy be to atk u
 	movementspeed = 0.9;// speed of enemy
-	
+	increasespeed = 0.2;//increment of speed each time player collected paper
 	
 	
 
@@ -266,6 +266,8 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	else
 		sawPlayer = false;
 	
+	EnemySpeedUp(movementspeed);
+	//cout << movementspeed << endl;
 	switch (sCurrentFSM)
 	{
 	case IDLE:
@@ -1356,5 +1358,16 @@ void CEnemySawCon::RandDirection(void)
 	}
 
 	//cout << dir << endl;
+}
+
+void CEnemySawCon::EnemySpeedUp(double &movementspeed)
+{
+	if (cPlayer2D->getCollected())
+	{
+		cPlayer2D->setCollected(false);
+		movementspeed += increasespeed;
+		//cout << "increase speed" << endl;
+	}
+
 }
 

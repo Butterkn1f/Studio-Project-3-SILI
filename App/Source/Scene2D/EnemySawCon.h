@@ -207,6 +207,7 @@ protected:
 	float chaseRange;//range for the enemy to chase the player
 	float atkrange;//range for the enemy to atk the player
 	double movementspeed;//change via the microsteps 
+	double increasespeed;//the more collectable, the more faster enemy gets
 
 	int AtkCounter; // atk counter - count how many frames it has been in this FSM
 	const int MaxAtkCounter = 150;// Max count in a state
@@ -240,7 +241,7 @@ protected:
 	bool playerNewlyVec(glm::vec2 oldvec);//check if the player got a new collectable, if so, get the pos of that collectable
 	void UpdatePositionPatrol(void);
 	void RandDirection(void);
-
+	void EnemySpeedUp(double &movementspeed);
 	bool displaytest;//toggle on couts
 	bool pathtest;//cout for testing enemy a* pathing to check whether it goes to the latest spotdestination
 	bool statetest;//cout for testing enemy state
