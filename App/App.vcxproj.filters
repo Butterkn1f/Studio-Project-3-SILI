@@ -1,194 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Scene2D">
-      <UniqueIdentifier>{a357a60d-f2e7-4675-b29d-d35641c7a73c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SoundController">
-      <UniqueIdentifier>{978d39d2-6754-452b-8838-ec292c8e3a77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameStateManagement">
-      <UniqueIdentifier>{2140568d-c35c-4862-96ce-45b298ea867d}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp" />
+    <ClCompile Include="Source\GameStateManagement\IntroState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\LoseState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\MenuState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\OptionsState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\PauseState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\PlayGameState.cpp" />
+    <ClCompile Include="Source\GameStateManagement\WinState.cpp" />
+    <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Scene2D\BackgroundEntity.cpp" />
+    <ClCompile Include="Source\Scene2D\Camera.cpp" />
+    <ClCompile Include="Source\Scene2D\Crate.cpp" />
+    <ClCompile Include="Source\Scene2D\Enemy2D.cpp" />
+    <ClCompile Include="Source\Scene2D\EnemySawCon.cpp" />
+    <ClCompile Include="Source\Scene2D\Flashlight.cpp" />
+    <ClCompile Include="Source\Scene2D\GameManager.cpp" />
+    <ClCompile Include="Source\Scene2D\GUI_Scene2D.cpp" />
+    <ClCompile Include="Source\Scene2D\InventoryItem.cpp" />
+    <ClCompile Include="Source\Scene2D\InventoryManager.cpp" />
+    <ClCompile Include="Source\Scene2D\Light.cpp" />
+    <ClCompile Include="Source\Scene2D\Map2D.cpp" />
+    <ClCompile Include="Source\Scene2D\Physics2D.cpp" />
+    <ClCompile Include="Source\Scene2D\Player2D.cpp" />
+    <ClCompile Include="Source\Scene2D\Rays.cpp" />
+    <ClCompile Include="Source\Scene2D\Scene2D.cpp" />
+    <ClCompile Include="Source\SoundController\SoundController.cpp" />
+    <ClCompile Include="Source\SoundController\SoundInfo.cpp" />
+    <ClCompile Include="Source\GameStateManagement\JumpscareState.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Scene2D.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Map2D.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Player2D.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\GUI_Scene2D.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\InventoryManager.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\InventoryItem.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Physics2D.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\GameManager.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Enemy2D.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SoundController\SoundController.cpp">
-      <Filter>SoundController</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SoundController\SoundInfo.cpp">
-      <Filter>SoundController</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\BackgroundEntity.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\GameStateManager.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\IntroState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\MenuState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\PauseState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\PlayGameState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Camera.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\OptionsState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\LoseState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameStateManagement\WinState.cpp">
-      <Filter>GameStateManagement</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Crate.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\EnemySawCon.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Light.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Flashlight.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Scene2D\Rays.cpp">
-      <Filter>Scene2D</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Source\Application.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Scene2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Map2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Player2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\GUI_Scene2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\InventoryItem.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\InventoryManager.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Physics2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\GameManager.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Enemy2D.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SoundController\SoundController.h">
-      <Filter>SoundController</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\SoundController\SoundInfo.h">
-      <Filter>SoundController</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\BackgroundEntity.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateManager.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\IntroState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\MenuState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PauseState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\PlayGameState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\GameStateBase.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Camera.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\OptionsState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\LoseState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameStateManagement\WinState.h">
-      <Filter>GameStateManagement</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Crate.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\EnemySawCon.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Light.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Flashlight.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene2D\Rays.h">
-      <Filter>Scene2D</Filter>
-    </ClInclude>
+    <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\GameStateManagement\GameStateBase.h" />
+    <ClInclude Include="Source\GameStateManagement\GameStateManager.h" />
+    <ClInclude Include="Source\GameStateManagement\IntroState.h" />
+    <ClInclude Include="Source\GameStateManagement\LoseState.h" />
+    <ClInclude Include="Source\GameStateManagement\MenuState.h" />
+    <ClInclude Include="Source\GameStateManagement\OptionsState.h" />
+    <ClInclude Include="Source\GameStateManagement\PauseState.h" />
+    <ClInclude Include="Source\GameStateManagement\PlayGameState.h" />
+    <ClInclude Include="Source\GameStateManagement\WinState.h" />
+    <ClInclude Include="Source\Scene2D\BackgroundEntity.h" />
+    <ClInclude Include="Source\Scene2D\Camera.h" />
+    <ClInclude Include="Source\Scene2D\Crate.h" />
+    <ClInclude Include="Source\Scene2D\Enemy2D.h" />
+    <ClInclude Include="Source\Scene2D\EnemySawCon.h" />
+    <ClInclude Include="Source\Scene2D\Flashlight.h" />
+    <ClInclude Include="Source\Scene2D\GameManager.h" />
+    <ClInclude Include="Source\Scene2D\GUI_Scene2D.h" />
+    <ClInclude Include="Source\Scene2D\InventoryItem.h" />
+    <ClInclude Include="Source\Scene2D\InventoryManager.h" />
+    <ClInclude Include="Source\Scene2D\Light.h" />
+    <ClInclude Include="Source\Scene2D\Map2D.h" />
+    <ClInclude Include="Source\Scene2D\Physics2D.h" />
+    <ClInclude Include="Source\Scene2D\Player2D.h" />
+    <ClInclude Include="Source\Scene2D\Rays.h" />
+    <ClInclude Include="Source\Scene2D\Scene2D.h" />
+    <ClInclude Include="Source\SoundController\SoundController.h" />
+    <ClInclude Include="Source\SoundController\SoundInfo.h" />
+    <ClInclude Include="Source\GameStateManagement\JumpscareState.h" />
   </ItemGroup>
 </Project>

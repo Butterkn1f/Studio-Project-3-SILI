@@ -260,16 +260,14 @@ bool CScene2D::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\GameBGM.wav"), 5, true, true);
 	
 	//Box sound effect
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\BoxMove.wav"), 6, true, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\BoxMove.wav"), 6, true);
 
 	//Player sound
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Step.wav"), 10, true);
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Run.wav"), 11, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\PlayerHurt.wav"), 12, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Paperpickup.wav"), 13, true);
 
 	//Enemy Sound
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Chainsaw.wav"), 25, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscare.wav"), 27, true);
 

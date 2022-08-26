@@ -101,7 +101,7 @@ bool CPlayer2D::Init(void)
 		return false;	// Unable to find the start position of the player, so quit this game
 
 	// Erase the value of the player in the arrMapInfo
-	cMap2D->SetMapInfo(uiRow, uiCol, 0);
+	cMap2D->SetMapInfo(uiRow, uiCol, 2);
 
 	// Set the start position of the Player to iRow and iCol
 	vec2Index = glm::i32vec2(uiCol, uiRow);
@@ -246,135 +246,126 @@ void CPlayer2D::Update(const double dElapsedTime)
 		runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
 	}
 
-	// Get keyboard updates, disable movement while focusing or dead
-	if (cPhysics2D.GetStatus() != CPhysics2D::STATUS::FOCUS && deadElapsed == 0)
+
+	if (cKeyboardController->IsKeyDown(GLFW_KEY_A))
 	{
-		if (cKeyboardController->IsKeyDown(GLFW_KEY_A))
+		dir = DIRECTION::LEFT;
+		/*cSoundController->PlaySoundByID(4);*/
+		// Calculate the new position to the left
+		if (vec2Index.x >= 0)
 		{
-			dir = DIRECTION::LEFT;
-			/*cSoundController->PlaySoundByID(4);*/
-			// Calculate the new position to the left
-			if (vec2Index.x >= 0)
+			vec2NumMicroSteps.x--;
+			if (vec2NumMicroSteps.x < 0)
 			{
-				vec2NumMicroSteps.x--;
-				if (vec2NumMicroSteps.x < 0)
-				{
-					vec2NumMicroSteps.x = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
-					vec2Index.x--;
-				}
+				vec2NumMicroSteps.x = ((int)cSettings->NUM_STEPS_PER_TILE_XAXIS) - 1;
+				vec2Index.x--;
 			}
-			// Constraint the player's position within the screen boundary
-			Constraint(LEFT);
+		}
+		// Constraint the player's position within the screen boundary
+		Constraint(LEFT);
 
-			// If the new position is not feasible, then revert to old position
-			if (CheckPosition(LEFT) == false)
-			{
-				vec2Index = vec2OldIndex;
-				vec2NumMicroSteps.x = 0;
-			}
+		// If the new position is not feasible, then revert to old position
+		if (CheckPosition(LEFT) == false)
+		{
+			vec2Index = vec2OldIndex;
+			vec2NumMicroSteps.x = 0;
+		}
 
-			//CS: Play the "left" animation
-			animatedSprites->PlayAnimation("left", -1, 0.2f);
-			cSoundController->PlaySoundByID(10);
+		//CS: Play the "left" animation
+		animatedSprites->PlayAnimation("left", -1, 0.2f);
+		cSoundController->PlaySoundByID(10);
 			
-		}
-		else if (cKeyboardController->IsKeyDown(GLFW_KEY_D))
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_D))
+	{
+		dir = DIRECTION::RIGHT;
+		//vec2Index.x++;
+		/*cSoundController->PlaySoundByID(4);*/
+		// Calculate the new position to the right
+		if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
 		{
-			dir = DIRECTION::RIGHT;
-			//vec2Index.x++;
-			/*cSoundController->PlaySoundByID(4);*/
-			// Calculate the new position to the right
-			if (vec2Index.x < (int)cSettings->NUM_TILES_XAXIS)
-			{
-				vec2NumMicroSteps.x++;
+			vec2NumMicroSteps.x++;
 
-				if (vec2NumMicroSteps.x >= cSettings->NUM_STEPS_PER_TILE_XAXIS)
-				{
-					vec2NumMicroSteps.x = 0;
-					vec2Index.x++;
-				}
-			}
-			// Constraint the player's position within the screen boundary
-			Constraint(RIGHT);
-
-			// If the new position is not feasible, then revert to old position
-			if (CheckPosition(RIGHT) == false)
+			if (vec2NumMicroSteps.x >= cSettings->NUM_STEPS_PER_TILE_XAXIS)
 			{
 				vec2NumMicroSteps.x = 0;
+				vec2Index.x++;
 			}
-
-			//CS: Play the "right" animation
-			animatedSprites->PlayAnimation("right", -1, 0.1f);
-			cSoundController->PlaySoundByID(10);
 		}
-		//else {
-		//	//CS: Play the "idle" animation by default, if not jumping/falling as well
-		//	if (dir == DIRECTION::LEFT)
-		//		animatedSprites->PlayAnimation("idleLeft", -1, 0.8f);
-		//	else
-		//		animatedSprites->PlayAnimation("idleRight", -1, 0.1f);
-		//}
+		// Constraint the player's position within the screen boundary
+		Constraint(RIGHT);
 
-		if (cKeyboardController->IsKeyDown(GLFW_KEY_W))
+		// If the new position is not feasible, then revert to old position
+		if (CheckPosition(RIGHT) == false)
 		{
-			dir = DIRECTION::UP;
-			/*cSoundController->PlaySoundByID(4);*/
-			// Calculate the new position to the left
-			if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
-			{
-				vec2NumMicroSteps.y++;
-
-				if (vec2NumMicroSteps.y >= cSettings->NUM_STEPS_PER_TILE_YAXIS)
-				{
-					vec2NumMicroSteps.y = 0;
-					vec2Index.y++;
-				}
-			}
-		
-			// Constraint the player's position within the screen boundary
-			Constraint(UP);
-
-			// If the new position is not feasible, then revert to old position
-			if (CheckPosition(UP) == false)
-			{
-				/*vec2Index = vec2OldIndex;*/
-				vec2NumMicroSteps.y = 0;
-			}
-
-			//CS: Play the "left" animation
-			animatedSprites->PlayAnimation("up", -1, 0.2f);
-			cSoundController->PlaySoundByID(10);
-		}
-		else if (cKeyboardController->IsKeyDown(GLFW_KEY_S))
-		{
-			dir = DIRECTION::DOWN;
-			/*cSoundController->PlaySoundByID(4);*/
-			// Calculate the new position to the right
-			if (vec2Index.y >= 0)
-			{
-				vec2NumMicroSteps.y--;
-				if (vec2NumMicroSteps.y < 0)
-				{
-					vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_YAXIS) - 1;
-					vec2Index.y--;
-				}
-			}
-			// Constraint the player's position within the screen boundary
-			Constraint(DOWN);
-
-			// If the new position is not feasible, then revert to old position
-			if (CheckPosition(DOWN) == false)
-			{
-				vec2Index.y = vec2OldIndex.y;
-				vec2NumMicroSteps.y = 0;
-			}
-
-			//CS: Play the "right" animation
-			animatedSprites->PlayAnimation("down", -1, 0.2f);
-			cSoundController->PlaySoundByID(10);
+			vec2NumMicroSteps.x = 0;
 		}
 
+		//CS: Play the "right" animation
+		animatedSprites->PlayAnimation("right", -1, 0.1f);
+		cSoundController->PlaySoundByID(10);
 	}
+
+	if (cKeyboardController->IsKeyDown(GLFW_KEY_W))
+	{
+		dir = DIRECTION::UP;
+		/*cSoundController->PlaySoundByID(4);*/
+		// Calculate the new position to the left
+		if (vec2Index.y < (int)cSettings->NUM_TILES_YAXIS)
+		{
+			vec2NumMicroSteps.y++;
+
+			if (vec2NumMicroSteps.y >= cSettings->NUM_STEPS_PER_TILE_YAXIS)
+			{
+				vec2NumMicroSteps.y = 0;
+				vec2Index.y++;
+			}
+		}
+		
+		// Constraint the player's position within the screen boundary
+		Constraint(UP);
+
+		// If the new position is not feasible, then revert to old position
+		if (CheckPosition(UP) == false)
+		{
+			/*vec2Index = vec2OldIndex;*/
+			vec2NumMicroSteps.y = 0;
+		}
+
+		//CS: Play the "left" animation
+		animatedSprites->PlayAnimation("up", -1, 0.2f);
+		cSoundController->PlaySoundByID(10);
+	}
+	else if (cKeyboardController->IsKeyDown(GLFW_KEY_S))
+	{
+		dir = DIRECTION::DOWN;
+		/*cSoundController->PlaySoundByID(4);*/
+		// Calculate the new position to the right
+		if (vec2Index.y >= 0)
+		{
+			vec2NumMicroSteps.y--;
+			if (vec2NumMicroSteps.y < 0)
+			{
+				vec2NumMicroSteps.y = ((int)cSettings->NUM_STEPS_PER_TILE_YAXIS) - 1;
+				vec2Index.y--;
+			}
+		}
+		// Constraint the player's position within the screen boundary
+		Constraint(DOWN);
+
+		// If the new position is not feasible, then revert to old position
+		if (CheckPosition(DOWN) == false)
+		{
+			vec2Index.y = vec2OldIndex.y;
+			vec2NumMicroSteps.y = 0;
+		}
+
+		//CS: Play the "right" animation
+		animatedSprites->PlayAnimation("down", -1, 0.2f);
+		cSoundController->PlaySoundByID(10);
+	}
+
+	
 	if (cKeyboardController->IsKeyReleased(GLFW_KEY_A) || cKeyboardController->IsKeyReleased(GLFW_KEY_D) || cKeyboardController->IsKeyReleased(GLFW_KEY_W) || cKeyboardController->IsKeyReleased(GLFW_KEY_S))
 	{
 		//CS: Play the "idle" animation by default, if not jumping/falling as well
@@ -386,17 +377,13 @@ void CPlayer2D::Update(const double dElapsedTime)
 			animatedSprites->PlayAnimation("idleUp", -1, 1.f);
 		else if (dir == DIRECTION::DOWN)
 			animatedSprites->PlayAnimation("idleDown", -1, 1.f);
-
 	}
 	
-
 	//If stopped walking, stop the walking sound and go back to idle state
 	if (cKeyboardController->IsKeyReleased(GLFW_KEY_LEFT) || cKeyboardController->IsKeyReleased(GLFW_KEY_RIGHT))
 	{
-		cSoundController->StopSoundByID(4);
+		cSoundController->StopSoundByID(10);
 	}
-
-
 
 	//ilan box nonsense hihihihi
 	boxElapsed += 0.01;
@@ -408,111 +395,111 @@ void CPlayer2D::Update(const double dElapsedTime)
 	{
 		//If box is on the left of character
 		if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1) == 110 &&				//if box is directly towards the left of player
-			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 2) == 0)
+			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 2) == 2)
 		{
 			cout << "player push box left" << endl;
+			cSoundController->PlaySoundByID(6);
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x - 2, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x - 1, 0);
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x - 1, 2);
 			boxElapsed = 0;
-			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x - 1) == 110 &&		//if player is halfway below
 			vec2NumMicroSteps.y >= offsetY &&
-			cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x - 2) == 0)
+			cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x - 2) == 2)
 		{
 			cout << "player push box left" << endl;
+			cSoundController->PlaySoundByID(6);
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x - 2, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x - 1, 0);
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x - 1, 2);
 			boxElapsed = 0;
-			cSoundController->PlaySoundByID(6);
 		}
 
 		//If box is on the right of character
 		else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 110 &&			//if box is directly towards the right of player
-			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 2) == 0)
+			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 2) == 2)
 		{
 			cout << "player push box right" << endl;
+			cSoundController->PlaySoundByID(6);
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 2, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 1, 0);
+			cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 1, 2);
 			boxElapsed = 0;
-			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&		//if player is halfway below
 			vec2NumMicroSteps.y >= offsetY &&
-			cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 2) == 0)
+			cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 2) == 2)
 		{
 			cout << "player push box right" << endl;
+			cSoundController->PlaySoundByID(6);
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 2, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 0);
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 2);
 			boxElapsed = 0;
-			cSoundController->PlaySoundByID(6);
 		}
 
 		//If box is below player
 		else if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x) == 110 &&		//if box directly above
 			vec2NumMicroSteps.x <= offsetX &&
-			cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x) == 0)
+			cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x) == 2)
 		{
 			cout << "player push box down" << endl;
+			cSoundController->PlaySoundByID(6);
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y - 2, vec2Index.x, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x, 0);
+			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x, 2);
 			boxElapsed = 0;
-			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y - 1, vec2Index.x + 1) == 110 &&		//if player is on the top left
 			vec2NumMicroSteps.x >= offsetX &&
-			cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x + 1) == 0)
+			cMap2D->GetMapInfo(vec2Index.y - 2, vec2Index.x + 1) == 2)
 		{
 			cout << "player push box down" << endl;
+			cSoundController->PlaySoundByID(6);
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y - 2, vec2Index.x + 1, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x + 1, 0);
+			cMap2D->SetMapInfo(vec2Index.y - 1, vec2Index.x + 1, 2);
 			boxElapsed = 0;
-			cSoundController->PlaySoundByID(6);
 		}
 
 
 		//If box is above player
 		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 110 &&			//if box directly above player
 			vec2NumMicroSteps.x <= offsetX &&
-			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x) == 0)
+			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x) == 2)
 		{
 			cout << "player push box up" << endl;
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 2, vec2Index.x, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x, 0);
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x, 2);
 			boxElapsed = 0;
 			cSoundController->PlaySoundByID(6);
 		}
 		else if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x + 1) == 110 &&			//if player is on bottom left of the box
 			vec2NumMicroSteps.x >= offsetX &&
-			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x + 1) == 0)
+			cMap2D->GetMapInfo(vec2Index.y + 2, vec2Index.x + 1) == 2)
 		{
 			cout << "player push box up" << endl;
 			setEBox(true);
 			//Set box into new position
 			cMap2D->SetMapInfo(vec2Index.y + 2, vec2Index.x + 1, 110);
 			//Remove box from original position
-			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 0);
+			cMap2D->SetMapInfo(vec2Index.y + 1, vec2Index.x + 1, 2);
 			boxElapsed = 0;
 			cSoundController->PlaySoundByID(6);
 		}
@@ -526,10 +513,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 		CGameManager::GetInstance()->bPlayerWon = true;
 
 	UpdateHealthLives();
-
-	// Update Jump or Fall
-	//CS: Will cause error when debugging. Set to default elapsed time
-
 
 	// Interact with the Map
 	InteractWithMap();
@@ -833,7 +816,7 @@ void CPlayer2D::UpdateHealthLives(void)
 	// Update health and lives
 	cInventoryItem = cInventoryManager->GetItem("Health");
 	// Check if a life is lost
-	if (cInventoryItem->GetCount() <= 0)
+	if (cInventoryItem->GetCount() < 0)
 	{
 		cSoundController->PlaySoundByID(10);
 		animatedSprites->PlayAnimation("death", 1, 3.0f);
@@ -841,11 +824,7 @@ void CPlayer2D::UpdateHealthLives(void)
 		iframeElapsed = 0;
 		deadElapsed += 0.01;
 
-		// Player loses the game
-		if (deadElapsed >= 1.5)
-			CGameManager::GetInstance()->bPlayerLost = true;
-		//Lose condition
-		/*CGameManager::GetInstance()->bPlayerLost = true;*/
+		CGameManager::GetInstance()->bPlayerLost = true;
 	}
 
 }
