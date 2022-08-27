@@ -83,6 +83,8 @@ public:
 	bool getCollected();
 	void setCollected(bool collect);
 
+	int getOldPaperCount();
+
 protected:
 	enum DIRECTION
 	{
@@ -178,6 +180,7 @@ protected:
 
 
 	bool collected;//if player just collected a paper
+	int oldpapercount;
 
 };
 

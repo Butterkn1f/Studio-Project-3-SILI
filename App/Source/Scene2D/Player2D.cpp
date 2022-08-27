@@ -180,6 +180,7 @@ bool CPlayer2D::Init(void)
 	eBox = false;
 	tempOldVec = glm::vec2(0, 0);
 	collected = false;
+	oldpapercount = 0;
 	return true;
 }
 
@@ -801,6 +802,7 @@ void CPlayer2D::InteractWithMap(void)
 		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
 		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);	
 		cInventoryItem = cInventoryManager->GetItem("Paper");
+		oldpapercount = cInventoryItem->GetCount();
 		cInventoryItem->Add(1);
 		cSoundController->PlaySoundByID(13);
 		collected = true;
@@ -937,4 +939,9 @@ bool CPlayer2D::getCollected()
 void CPlayer2D::setCollected(bool collect)
 {
 	collected = collect;
+}
+
+int CPlayer2D::getOldPaperCount()
+{
+	return oldpapercount;
 }

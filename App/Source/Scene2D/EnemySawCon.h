@@ -242,7 +242,7 @@ protected:
 	void UpdatePositionPatrol(void);
 	void RandDirection(void);
 	void UpdateDirectionRun(void);
-	void EnemySpeedUp(double &movementspeed);
+	void EnemySpeedUp();
 	bool displaytest;//toggle on couts
 	bool pathtest;//cout for testing enemy a* pathing to check whether it goes to the latest spotdestination
 	bool statetest;//cout for testing enemy state

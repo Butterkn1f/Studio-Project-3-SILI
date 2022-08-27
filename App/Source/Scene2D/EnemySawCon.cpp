@@ -266,7 +266,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	else
 		sawPlayer = false;
 	
-	EnemySpeedUp(movementspeed);
+	EnemySpeedUp();
 	//cout << movementspeed << endl;
 	switch (sCurrentFSM)
 	{
@@ -1421,14 +1421,15 @@ void CEnemySawCon::UpdateDirectionRun(void)
 	
 }
 
-void CEnemySawCon::EnemySpeedUp(double &movementspeed)
+void CEnemySawCon::EnemySpeedUp()
 {
 	if (cPlayer2D->getCollected())
 	{
-		cPlayer2D->setCollected(false);
-		movementspeed += increasespeed;
-		//cout << "increase speed" << endl;
+		cout << "old speed" << this->movementspeed << endl;
+		this->movementspeed += increasespeed;
+		cout << "new speed" << this->movementspeed << endl;
 	}
+	
 
 }
 
