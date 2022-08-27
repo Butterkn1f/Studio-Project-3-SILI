@@ -38,6 +38,8 @@ class CMap2D;
 
 #include "InventoryManager.h"
 
+#include "Rays.h"
+
 class CEnemySawCon : public CEntity2D
 {
 public:
@@ -156,6 +158,8 @@ protected:
 	//CS: Animated Sprite
 	CSpriteAnimation* animatedSprites;
 
+	Ray* rays;
+
 	// Current FSM
 	FSM sCurrentFSM;
 
@@ -203,19 +207,42 @@ protected:
 	float chaseRange;//range for the enemy to chase the player
 	float atkrange;//range for the enemy to atk the player
 	double movementspeed;//change via the microsteps 
+	double increasespeed;//the more collectable, the more faster enemy gets
 
 	int AtkCounter; // atk counter - count how many frames it has been in this FSM
-	const int MaxAtkCounter = 60;// Max count in a state
+	const int MaxAtkCounter = 150;// Max count in a state
 	int ScaredCounter; // atk counter - count how many frames it has been in this FSM
 	const int MaxScaredCounter = 60;// Max count in a state
 	int InvestigateCounter; // investigate counter - count how many frames it has been in this FSM
 	const int MaxInvestigateCounter = 120;// Max count in a state
 
 	bool playerInteractWithBox;//interact with box
-	bool shun;//player shun light onto enemy
-	bool sawPlayer;//player saw enemy, dont keep investigating the same spot
-	bool playerNewlyVec(glm::vec2 oldvec);//check if the player got a new collectable, if so, get the pos of that collectable
 
+
+
+
+
+
+
+	bool shun;//player shun light onto enemy
+	bool sawPlayer;//player saw enemy
+
+
+
+
+
+
+
+
+
+
+
+
+	bool playerNewlyVec(glm::vec2 oldvec);//check if the player got a new collectable, if so, get the pos of that collectable
+	void UpdatePositionPatrol(void);
+	void RandDirection(void);
+	void UpdateDirectionRun(void);
+	void EnemySpeedUp(double &movementspeed);
 	bool displaytest;//toggle on couts
 	bool pathtest;//cout for testing enemy a* pathing to check whether it goes to the latest spotdestination
 	bool statetest;//cout for testing enemy state

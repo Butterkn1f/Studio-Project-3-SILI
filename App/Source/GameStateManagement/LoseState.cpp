@@ -99,7 +99,9 @@ bool CLoseState::Init(void)
 	cSoundController = CSoundController::GetInstance();
 
 	cSoundController->StopSoundByID(5);
+	cSoundController->StopSoundByID(27);
 	cSoundController->PlaySoundByID(3);
+	CGameStateManager::GetInstance()->OffJumpscareState();
 
 	cSettings = CSettings::GetInstance();
 

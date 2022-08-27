@@ -52,6 +52,6 @@ protected:
 	ButtonData ContinuteButtonData;
 	ButtonData OptionsButtonData;
 	ButtonData MenuButtonData;
+	ButtonData BG;
 
-	float ScreenTimer;
 };

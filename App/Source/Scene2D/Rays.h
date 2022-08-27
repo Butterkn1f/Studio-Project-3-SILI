@@ -23,6 +23,13 @@
 
 #include "Camera.h"
 
+#include "Flashlight.h"
+
+struct Ray {
+	glm::vec3 direction;
+	float length;
+
+};
 struct RenderRay {
 	float angle;
 	float length;
@@ -35,6 +42,9 @@ public:
 	// Init
 	bool Init(void);
 
+	// Update
+	void Update(const double dElapsedTime);
+
 	// PreRender
 	void PreRender(void);
 
@@ -44,7 +54,11 @@ public:
 	// PostRender
 	void PostRender(void);
 
-	void SetRay(float angle, float length);
+	void SetRayLength(int index, float length);
+
+	Ray* GetRays(void);
+
+	Flashlight flashlight;
 
 protected:
 	//CS: The quadMesh for drawing the tiles
@@ -52,7 +66,10 @@ protected:
 
 	Camera* camera;
 
-	RenderRay rays[3];
+	Ray rays[5];
+	float raysNo;
+
+	RenderRay renderRays[3];
 
 	// Flashlight's colour, TODO: Allow flickering of flashlight when running out of light using this in the future. Maybe. If have time.
 	//glm::vec4 runtimeColour;

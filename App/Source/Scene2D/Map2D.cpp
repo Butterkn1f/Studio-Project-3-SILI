@@ -91,8 +91,6 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	// Get the handler to the camera instance
 	camera = Camera::GetInstance();
 
-	flashlight.Init();
-
 	// Create the arrMapInfo and initialise to 0
 	// Start by initialising the number of levels
 	arrMapInfo = new Grid** [uiNumLevels];
@@ -172,10 +170,10 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 		// Store the texture ID into MapOfTextureIDs
 		MapOfTextureIDs.insert(pair<int, int>(91, iTextureID));
 	}
-	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/crate.png", true);
+	iTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/crate.tga", true);
 	if (iTextureID == 0)
 	{
-		cout << "Unable to load Image/crate.png" << endl;
+		cout << "Unable to load Image/crate.tga" << endl;
 		return false;
 	}
 	else
@@ -226,14 +224,7 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 	m_cameFromList.resize(cSettings->NUM_TILES_YAXIS* cSettings->NUM_TILES_XAXIS);
 	m_closedList.resize(cSettings->NUM_TILES_YAXIS* cSettings->NUM_TILES_XAXIS, false);
 
-	raysNo = sizeof(rays) / sizeof(rays[0]);
-
-	for (int i = 0; i < raysNo; i++)
-	{
-		rays[i].length = 100.f;
-		rays[i].direction = glm::vec3(0.f, 0.f, 0.f);
-	}
-
+	rays = Rays::GetInstance()->GetRays();
 
 	return true;
 }
@@ -243,46 +234,29 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 */
 void CMap2D::Update(const double dElapsedTime)
 {
-	flashlight.Update();
+	rays = Rays::GetInstance()->GetRays();
+	//flashlight.Update();
 
-	rays[0].direction = flashlight.getCurrentRay();
+	//rays[0].direction = flashlight.getCurrentRay();
 
-	// To draw the other flashlight rays around the player,
-	// Imagine a semicircle around the player, center-most point on the circle's circumference would be the mouse position.
-	// Radius of the circle would then be the distance from the mouse position to the player's position
-	// The coordinates for plotting points around the circumference of the semicircle would then be given by:
-	// x = centerX + radius * cos(Dynamically Changing Degree);
-	// y = y = centerY + radius * sin(Dynamically Changing Degree);
-	// Then, calculate the directional vector from this point and set it as the ray's direction.
-	// Repeat for opposite direction
-	float radius = glm::distance(
-		glm::vec3(CMouseController::GetInstance()->GetMousePositionX(), CMouseController::GetInstance()->GetMousePositionY(), 0.f),
-		glm::vec3(cSettings->iWindowWidth * 0.5, cSettings->iWindowHeight * 0.5, 0.f)
-	);
+	//// To draw the other flashlight rays around the player,
+	//// Imagine a semicircle around the player, center-most point on the circle's circumference would be the mouse position.
+	//// Radius of the circle would then be the distance from the mouse position to the player's position
+	//// The coordinates for plotting points around the circumference of the semicircle would then be given by:
+	//// x = centerX + radius * cos(Dynamically Changing Degree);
+	//// y = y = centerY + radius * sin(Dynamically Changing Degree);
+	//// Then, calculate the directional vector from this point and set it as the ray's direction.
+	//// Repeat for opposite direction
+	//float radius = glm::distance(
+	//	glm::vec3(CMouseController::GetInstance()->GetMousePositionX(), CMouseController::GetInstance()->GetMousePositionY(), 0.f),
+	//	glm::vec3(cSettings->iWindowWidth * 0.5, cSettings->iWindowHeight * 0.5, 0.f)
+	//);
 
-	for (int i = 1; i < raysNo; i++)
-	{
-		float x1 = cSettings->iWindowWidth * 0.5 + radius * glm::cos(2.f * i);
-		float y1 = cSettings->iWindowHeight * 0.5 + radius * sin(2.f * i);
-		rays[i].direction = flashlight.getDirectionalVector(glm::vec3(x1, y1, 0.f));
-	}
-
-	//glm::mat4 tileTransform;
-	//tileTransform = glm::mat4(1.f);
-	///*		tileTransform = glm::translate(tileTransform, glm::vec3(-0.9875, 0.977778, 0));*/
-	//		tileTransform = glm::translate(tileTransform, glm::vec3(-0.05, 0, 0));
-	//		//tileTransform = glm::scale(tileTransform, glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1));
-	//float intersectionDist = 0;
-
-	//if (flashlight.TestRayOBBIntersection(camera->position,
-	//	rays[0].direction,
-	//	glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
-	//	glm::vec3(cSettings->TILE_WIDTH * 0.5, cSettings->TILE_HEIGHT * 0.5, 1.f),
-	//	tileTransform,
-	//	intersectionDist))
+	//for (int i = 1; i < raysNo; i++)
 	//{
-	//	//std::cout << "Hit!!" << std::endl;
-	//	//std::cout << intersectionDist << std::endl;
+	//	float x1 = cSettings->iWindowWidth * 0.5 + radius * glm::cos(2.f * i);
+	//	float y1 = cSettings->iWindowHeight * 0.5 + radius * sin(2.f * i);
+	//	rays[i].direction = flashlight.getDirectionalVector(glm::vec3(x1, y1, 0.f));
 	//}
 }
 
@@ -386,10 +360,10 @@ void CMap2D::Render(void)
 				float newIntersectDist = 9999;
 				bool litUp = false;
 
-				for (int i = 0; i < raysNo; i++)
+				for (int i = 0; i < 7; i++)
 				{
 					//Note: Doubled size of boundary box such that it is more forgiving and lights up more
-					if (flashlight.TestRayOBBIntersection(camera->position,
+					if (Rays::GetInstance()->flashlight.TestRayOBBIntersection(camera->position,
 						rays[i].direction,
 						glm::vec3(-cSettings->TILE_WIDTH, -cSettings->TILE_HEIGHT * 0.5, -1.f),
 						glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1.f),
@@ -446,7 +420,7 @@ void CMap2D::Render(void)
 	}
 
 	// Reset length of rays
-	for (int i = 0; i < raysNo; i++)
+	for (int i = 0; i < 7; i++)
 	{
 		rays[i].length = 100.f;
 	}
@@ -569,6 +543,14 @@ int CMap2D::GetMapInfo(const unsigned int uiRow, const int unsigned uiCol, const
 		return arrMapInfo[uiCurLevel][cSettings->NUM_TILES_YAXIS - uiRow - 1][uiCol].value;
 	else
 		return arrMapInfo[uiCurLevel][uiRow][uiCol].value;
+}
+
+glm::vec4 CMap2D::GetMapColour(const unsigned int uiRow, const int unsigned uiCol, const bool bInvert) const
+{
+	if (bInvert)
+		return arrMapInfo[uiCurLevel][cSettings->NUM_TILES_YAXIS - uiRow - 1][uiCol].runtimeColour;
+	else
+		return arrMapInfo[uiCurLevel][uiRow][uiCol].runtimeColour;
 }
 
 /**

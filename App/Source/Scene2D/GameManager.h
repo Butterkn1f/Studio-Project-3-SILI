@@ -32,6 +32,8 @@ public:
 	// Boolean flag to indicate if the game is be restarted
 	bool bGameToRestart;
 
+	//To indicate if player has been jumpscared
+	bool bPLayerJumpscared;
 
 protected:
 	// Constructor
