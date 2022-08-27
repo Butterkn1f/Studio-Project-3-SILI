@@ -214,7 +214,7 @@ protected:
 	int ScaredCounter; // atk counter - count how many frames it has been in this FSM
 	const int MaxScaredCounter = 60;// Max count in a state
 	int InvestigateCounter; // investigate counter - count how many frames it has been in this FSM
-	const int MaxInvestigateCounter = 120;// Max count in a state
+	const int MaxInvestigateCounter = 240;// Max count in a state
 
 	bool playerInteractWithBox;//interact with box
 

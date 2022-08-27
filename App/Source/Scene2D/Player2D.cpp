@@ -399,7 +399,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	}
 
 	flashlightElapsed += 0.01;
-	if (flashlightElapsed > 1)
+	if (flashlightElapsed > 0.5)
 	{
 		cInventoryItem = cInventoryManager->GetItem("Flashlight");
 		cInventoryItem->Remove(1);

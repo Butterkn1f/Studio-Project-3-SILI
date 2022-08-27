@@ -205,25 +205,6 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	}
 	ImGui::End();
 
-	//// Render the inventory items
-	cInventoryItem = cInventoryManager->GetItem("Geo");
-	ImGuiWindowFlags inventoryWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
-		ImGuiWindowFlags_NoBackground |
-		ImGuiWindowFlags_NoTitleBar |
-		ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoCollapse |
-		ImGuiWindowFlags_NoScrollbar;
-	ImGui::Begin("Image", NULL, inventoryWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.05f, cSettings->iWindowHeight * 0.16f));
-	ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
-		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
-		ImVec2(0, 1), ImVec2(1, 0));
-	ImGui::SameLine();
-	ImGui::SetWindowFontScale(2.f * relativeScale_y);
-	ImGui::TextColored(ImVec4(1, 1, 1, 1), "%d", cInventoryItem->GetCount());
-	ImGui::End();
 
 
 	//// Render the inventory items
@@ -246,6 +227,41 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Paper: %d / %d", cInventoryItem->GetCount() , cInventoryItem->GetMaxCount());
 	ImGui::SameLine();
 	ImGui::End();
+
+	//// Render the inventory items
+	ImGuiWindowFlags FlashlightWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags_NoBackground |
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoScrollbar;
+	cInventoryItem = cInventoryManager->GetItem("Flashlight");
+	ImGui::Begin("Image", NULL, FlashlightWindowFlags);
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.015f, cSettings->iWindowHeight * 0.85f));
+	ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
+		ImVec2(0, 1), ImVec2(1, 0), ImVec4(0.5,0.5,1,1));
+	ImGui::SameLine();
+	ImGui::SetWindowFontScale(2.f * relativeScale_y);
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
+	ImGui::SameLine();
+	ImGui::End();
+
+	//ImGui::Begin("HealthBar", NULL, soulWindowFlags);
+	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.09f,
+	//	cSettings->iWindowHeight * 0.1f));
+	//ImGui::SetWindowSize(ImVec2(100.0f * relativeScale_x, 25.0f * relativeScale_y));
+	//ImGui::SameLine();
+	//ImGui::PushStyleColor(ImGuiCol_PlotHistogram, ImVec4(1.000, 0.961, 0.933, 1.0f));
+	//ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.412, 0.412, 0.412, 1.0f));
+	//ImGui::ProgressBar(cInventoryItem->GetCount() /
+	//	(float)cInventoryItem->GetMaxCount(), ImVec2(300.0f *
+	//		relativeScale_x, 20.0f * relativeScale_y), "Health");
+	//ImGui::PopStyleColor();
+	//ImGui::PopStyleColor();
+	//ImGui::End();
 
 	ImGui::End();
 

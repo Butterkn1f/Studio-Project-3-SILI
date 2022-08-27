@@ -241,7 +241,7 @@ bool CScene2D::Init(void)
 	// Load sounds into CSoundController
 	cSoundController = CSoundController::GetInstance();
 	//Game BGM
-	cSoundController->LoadSound(FileSystem::getPath("Sounds\\GameBGM.wav"), 5, true, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\GameBGM.ogg"), 5, true, true);
 	
 	//Box sound effect
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\BoxMove.wav"), 6, true);
@@ -254,6 +254,8 @@ bool CScene2D::Init(void)
 	//Enemy Sound
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscare.wav"), 27, true);
+
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\BatteryPickup.ogg"), 28, true);
 
 	//Set BGM and SFX volume to be same as menu state's, since they haven't been set since they haven't been loaded yet
 	cSoundController->SetBGMVolume(cSoundController->getCurrentVolume(1));

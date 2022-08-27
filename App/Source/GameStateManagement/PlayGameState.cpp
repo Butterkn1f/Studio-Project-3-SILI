@@ -50,8 +50,7 @@ bool CPlayGameState::Init(void)
 		return false;
 	} 
 
-	screentimer = 10;
-	jsElapsed = 0;
+	screentimer = 20;
 	return true;
 }
 

@@ -33,5 +33,4 @@ protected:
 	CScene2D* cScene2D;
 
 	float screentimer;
-	double jsElapsed;
 };

@@ -1095,7 +1095,7 @@ void CEnemySawCon::UpdatePosition(void)
 		}
 
 		// Constraint the EnemySawCon's position within the screen boundary
-		Constraint(RIGHT);
+		Constraint(RIGHT);	
 
 		// Find a feasible position for the EnemySawCon's current position
 		if (CheckPosition(RIGHT) == false)
