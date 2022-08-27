@@ -155,8 +155,11 @@ bool CPlayer2D::Init(void)
 	focusElapsed = 0;
 	//*********** SP3 STUFF ************
 	boxElapsed = 0;
+	flashlightElapsed = 0;
 	dir = DIRECTION::UP;
-	
+	flashlightBattery = 100;
+	blBatteryPickedUp = false;
+
 	//Variables
 	AllNumbersCollected = false;
 
@@ -172,6 +175,9 @@ bool CPlayer2D::Init(void)
 
 	//Inventory item Papers
 	cInventoryItem = cInventoryManager->Add("Paper", "Image/passcode.png", 10, 0);
+	cInventoryItem->vec2Size = glm::vec2(40, 40);
+
+	cInventoryItem = cInventoryManager->Add("Flashlight", "Image/flashlightGUI.png", 100, 100);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
 	// Get handler for sound controller
@@ -219,7 +225,12 @@ bool CPlayer2D::Reset()
 	lastAttackElapsed = 0;
 	iframeElapsed = 1.0;
 	deadElapsed = 0;
-	
+
+	flashlightBattery = 100;
+	flashlightElapsed = 0;
+	boxElapsed = 0;
+	blBatteryPickedUp = false;
+
 	//Reset all inventory items
 	cInventoryManager->GetItem("Health")->Add(5);
 	cInventoryManager->GetItem("Soul")->Remove(100);
@@ -386,16 +397,33 @@ void CPlayer2D::Update(const double dElapsedTime)
 		cSoundController->StopSoundByID(10);
 	}
 
+	flashlightElapsed += 0.01;
+	if (flashlightElapsed > 1)
+	{
+		cInventoryItem = cInventoryManager->GetItem("Flashlight");
+		cInventoryItem->Remove(1);
+		flashlightElapsed = 0;
+	}
+	if (blBatteryPickedUp)
+	{
+
+		blBatteryPickedUp = false;
+	}
+
+
 	//ilan box nonsense hihihihi
 	boxElapsed += 0.01;
 	int offsetX = 8;	//The offset for X microsteps for the player to be in the middle of two tiles, i.e player looks like hes above a object but his index is one lesser/higher than the object.
 	int offsetY = 6;	//The offset for Y microsteps for the player to be in the middle of two tiles, i.e player looks like hes to the right of an object but his index is one lesser/higher than the object.
 	//cout <<"X: "<< vec2Index.x << endl;
-	//cout <<"Y: " << vec2Index.y << endl;
+	cout <<"Y: " << vec2Index.y << endl;
+	//cout << "X micro: " << vec2NumMicroSteps.x << endl;
+	cout << "Y micro: " << vec2NumMicroSteps.y << endl;
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_E) && boxElapsed > 0.5)
 	{
 		//If box is on the left of character
 		if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1) == 110 &&				//if box is directly towards the left of player
+			vec2NumMicroSteps.y <= offsetY &&
 			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 2) == 2)
 		{
 			cout << "player push box left" << endl;
@@ -423,6 +451,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 
 		//If box is on the right of character
 		else if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 110 &&			//if box is directly towards the right of player
+			vec2NumMicroSteps.y <= offsetY &&
 			cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 2) == 2)
 		{
 			cout << "player push box right" << endl;
@@ -787,23 +816,33 @@ void CPlayer2D::InteractWithMap(void)
 {
 	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x))
 	{
-	case 99:
-		DamagePlayer();
-		break;
-	case 97:
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);
-		break;
-
 	case 77:
 	case 76:
 	case 75:
 		setOldVec(vec2Index);
 		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 0);	
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 2);	
 		cInventoryItem = cInventoryManager->GetItem("Paper");
 		cInventoryItem->Add(1);
 		cSoundController->PlaySoundByID(13);
 		collected = true;
+		break;
+	case 80:
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x, 2);
+		cInventoryItem = cInventoryManager->GetItem("Flashlight");
+		cInventoryItem->Add(cInventoryItem->GetMaxCount() - cInventoryItem->GetCount());
+		cSoundController->PlaySoundByID(28);
+		break;
+	default:
+		break;
+	}
+
+
+	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1))
+	{
+	case 77:
+	case 76:
+	case 75:
 		break;
 	default:
 		break;
@@ -818,14 +857,15 @@ void CPlayer2D::UpdateHealthLives(void)
 	// Update health and lives
 	cInventoryItem = cInventoryManager->GetItem("Health");
 	// Check if a life is lost
-	if (cInventoryItem->GetCount() < 0)
+	if (cInventoryItem->GetCount() == 0)
 	{
+		CGameManager::GetInstance()->bPlayerLost = true;
 		animatedSprites->PlayAnimation("death", 1, 3.0f);
 		runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
 		iframeElapsed = 0;
 		deadElapsed += 0.01;
 
-		CGameManager::GetInstance()->bPlayerLost = true;
+		
 	}
 
 }

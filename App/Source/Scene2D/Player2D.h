@@ -144,8 +144,13 @@ protected:
 	//******************* SP3 stuff ************************************
 	//Short cooldown for the box to be pushed cos im an a hole. 
 	double boxElapsed;
+	//Counter for the flashlight to remove by 1
+	double flashlightElapsed;
 	//If all collectibles are collected, make this shiz true
 	bool AllNumbersCollected;
+
+	bool blBatteryPickedUp;
+	float flashlightBattery;
 
 	// Constructor
 	CPlayer2D(void);
