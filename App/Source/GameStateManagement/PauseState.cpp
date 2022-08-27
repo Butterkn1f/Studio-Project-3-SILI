@@ -71,11 +71,11 @@ bool CPauseState::Init(void)
 
 	// Load the images for buttons
 	CImageLoader* il = CImageLoader::GetInstance();
-	ContinuteButtonData.fileName = "Image\\GUI\\ContinueButton.png";
+	ContinuteButtonData.fileName = "Image\\GUI\\Continue.png";
 	ContinuteButtonData.textureID = il->LoadTextureGetID(ContinuteButtonData.fileName.c_str(), false);
-	OptionsButtonData.fileName = "Image\\GUI\\OptionsButton.png";
+	OptionsButtonData.fileName = "Image\\GUI\\Options.png";
 	OptionsButtonData.textureID = il->LoadTextureGetID(OptionsButtonData.fileName.c_str(), false);
-	MenuButtonData.fileName = "Image\\GUI\\MenuButton.png";
+	MenuButtonData.fileName = "Image\\GUI\\Return.png";
 	MenuButtonData.textureID = il->LoadTextureGetID(MenuButtonData.fileName.c_str(), false);
 
 	return true;
@@ -95,6 +95,10 @@ bool CPauseState::Update(const double dElapsedTime)
 	window_flags |= ImGuiWindowFlags_NoCollapse;
 	window_flags |= ImGuiWindowFlags_NoNav;
 
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.f, 0.f, 0.5f));
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.f, 0.f, 0.f, 1.f));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.f, 0.f, 0.f, 0.4f));
+
 	float buttonWidth = 256;
 	float buttonHeight = 128;
 
@@ -112,9 +116,6 @@ bool CPauseState::Update(const double dElapsedTime)
 		//Added rounding for nicer effect
 		ImGuiStyle& style = ImGui::GetStyle();
 		style.FrameRounding = 200.0f;
-
-		// Display the FPS
-		ImGui::TextColored(ImVec4(1, 1, 1, 1), "In-Game Menu");
 
 		// Add codes for Start button here
 		if (ImGui::ImageButton((ImTextureID)ContinuteButtonData.textureID,
@@ -150,6 +151,7 @@ bool CPauseState::Update(const double dElapsedTime)
 			CGameStateManager::GetInstance()->SetActiveGameState("MenuState");
 			CGameStateManager::GetInstance()->OffPauseGameState();
 		}
+	ImGui::PopStyleColor(3);
 	ImGui::End();
 	}
 

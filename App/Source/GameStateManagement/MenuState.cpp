@@ -183,15 +183,12 @@ bool CMenuState::Update(const double dElapsedTime)
 		ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.f, 0.f, 0.f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.f, 0.f, 0.f, 1.f));
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.f, 0.f, 0.f, 0.4f));
-	
 
 		ImGui::Begin("Logo", NULL, logowindow_flags);
 		ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - buttonWidth * 3, 10));				// Set the top-left of the window at (10,10)
 		ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth, CSettings::GetInstance()->iWindowHeight));
 		ImGui::Image((ImTextureID)logoData.textureID, ImVec2(buttonWidth * 6, buttonHeight * 3), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0));
 		ImGui::End();
-
-
 
 		// Create a window called "Hello, world!" and append into it.
 		ImGui::Begin("Main Menu", NULL, window_flags);

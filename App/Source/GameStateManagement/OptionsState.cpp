@@ -71,9 +71,9 @@ bool COptionsState::Init(void)
 
 	// Load the images for buttons
 	CImageLoader* il = CImageLoader::GetInstance();
-	OptionsButtonData.fileName = "Image\\GUI\\OptionsButton.png";
+	OptionsButtonData.fileName = "Image\\GUI\\ButtonOptions.png";
 	OptionsButtonData.textureID = il->LoadTextureGetID(OptionsButtonData.fileName.c_str(), false);
-	SaveButtonData.fileName = "Image\\GUI\\SaveButton.png";
+	SaveButtonData.fileName = "Image\\GUI\\Save.png";
 	SaveButtonData.textureID = il->LoadTextureGetID(SaveButtonData.fileName.c_str(), false);
 	return true;
 }
@@ -101,7 +101,7 @@ bool COptionsState::Update(const double dElapsedTime)
 		static int counter = 0;
 
 		// Create a window called "Hello, world!" and append into it.
-		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0.282, 0.209, 0.445, 0.9f)); // Set window background to blue
+		ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(0, 0, 0, 0.8f)); // Set window background to blue
 		ImGui::Begin("Options Menu", NULL, window_flags);
 		ImGui::SetWindowPos(ImVec2(300, 150));				// Set the top-left of the window at (10,10)
 		ImGui::SetWindowSize(ImVec2(CSettings::GetInstance()->iWindowWidth - 600, CSettings::GetInstance()->iWindowHeight - 300));
@@ -144,6 +144,10 @@ bool COptionsState::Update(const double dElapsedTime)
 	ImGui::SetWindowPos(ImVec2(CSettings::GetInstance()->iWindowWidth / 2.0 - buttonWidth / 2.0,
 	CSettings::GetInstance()->iWindowHeight / 2.0 + 50));				// Set the top-left of the window at (10,10)
 
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.f, 0.f, 0.f, 0.f));
+	ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.f, 0.f, 0.f, 1.f));
+	ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.f, 1.f, 1.f, 0.25f));
+
 	if (ImGui::ImageButton((ImTextureID)SaveButtonData.textureID,
 		ImVec2(buttonWidth, buttonHeight), ImVec2(0.0, 0.0), ImVec2(1.0, 1.0)))
 	{
@@ -175,6 +179,7 @@ bool COptionsState::Update(const double dElapsedTime)
 		// Load the menu state
 		CGameStateManager::GetInstance()->OffOptionsGameState();
 	}
+	ImGui::PopStyleColor(3);
 	ImGui::EndChild();
 
 	ImGui::End();
