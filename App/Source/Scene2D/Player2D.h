@@ -79,6 +79,9 @@ public:
 
 	glm::vec2 getOldVec();
 	void setOldVec(glm::vec2 newVector);
+	
+	bool getCollected();
+	void setCollected(bool collect);
 
 protected:
 	enum DIRECTION
@@ -172,6 +175,9 @@ protected:
 
 	//old position of player
 	glm::vec2 tempOldVec;
+
+
+	bool collected;//if player just collected a paper
 
 };
 

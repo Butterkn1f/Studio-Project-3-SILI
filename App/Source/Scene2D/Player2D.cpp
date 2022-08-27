@@ -179,6 +179,7 @@ bool CPlayer2D::Init(void)
 
 	eBox = false;
 	tempOldVec = glm::vec2(0, 0);
+	collected = false;
 	return true;
 }
 
@@ -510,7 +511,7 @@ void CPlayer2D::Update(const double dElapsedTime)
 	//Win condition
 	cInventoryItem = cInventoryManager->GetItem("Paper");
 	if (cInventoryItem->GetCount() == cInventoryItem->GetMaxCount())
-		CGameManager::GetInstance()->bPlayerWon = true;
+		cMap2D->SetMapInfo(43, 1, 91);
 
 	UpdateHealthLives();
 
@@ -802,6 +803,7 @@ void CPlayer2D::InteractWithMap(void)
 		cInventoryItem = cInventoryManager->GetItem("Paper");
 		cInventoryItem->Add(1);
 		cSoundController->PlaySoundByID(13);
+		collected = true;
 		break;
 	default:
 		break;
@@ -818,7 +820,6 @@ void CPlayer2D::UpdateHealthLives(void)
 	// Check if a life is lost
 	if (cInventoryItem->GetCount() < 0)
 	{
-		cSoundController->PlaySoundByID(10);
 		animatedSprites->PlayAnimation("death", 1, 3.0f);
 		runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
 		iframeElapsed = 0;
@@ -926,4 +927,14 @@ glm::vec2 CPlayer2D::getOldVec()
 void CPlayer2D::setOldVec(glm::vec2 newVector)
 {
 	tempOldVec = newVector;
+}
+
+bool CPlayer2D::getCollected()
+{
+	return collected;
+}
+
+void CPlayer2D::setCollected(bool collect)
+{
+	collected = collect;
 }
