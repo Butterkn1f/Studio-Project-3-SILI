@@ -27,6 +27,9 @@ using namespace std;
  */
 Rays::Rays(void)
 	: camera(NULL)
+	, cInventoryManager(NULL)
+	, cInventoryItem(NULL)
+	, cSoundController(NULL)
 {
 	transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
 }
@@ -37,6 +40,10 @@ Rays::Rays(void)
 Rays::~Rays(void)
 {
 	camera = NULL;
+
+	cInventoryManager = NULL;
+	cInventoryItem = NULL;
+	cSoundController = NULL;
 
 	// optional: de-allocate all resources once they've outlived their purpose:
 	glDeleteVertexArrays(1, &VAO);
@@ -53,6 +60,13 @@ bool Rays::Init(void)
 
 	// Get the handler to the CSettings instance
 	cSettings = CSettings::GetInstance();
+
+	// Get the handler to the CINventoryManager instance
+	cInventoryManager = CInventoryManager::GetInstance();
+	cInventoryItem = cInventoryManager->GetItem("Flashlight");
+
+	// Get handler for sound controller
+	cSoundController = CSoundController::GetInstance();
 
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
@@ -86,6 +100,10 @@ bool Rays::Init(void)
 	renderRays[2].length = 0.24f;
 	renderRays[2].angle = -20.f;
 
+	// For flickering
+	flashlightOn = true;
+	elapsedTime = flickerElapsed = onElapsed = flickerNo = 0;
+
 	return true;
 }
 
@@ -94,6 +112,7 @@ bool Rays::Init(void)
 */
 void Rays::Update(const double dElapsedTime)
 {
+	elapsedTime += dElapsedTime;
 	flashlight.Update();
 
 	rays[0].direction = flashlight.getCurrentRay();
@@ -118,6 +137,70 @@ void Rays::Update(const double dElapsedTime)
 		float y1 = cSettings->iWindowHeight * 0.5 + radius * sin(2.f * i);
 		rays[i].direction = flashlight.getDirectionalVector(glm::vec3(x1, y1, 0.f));
 	}
+
+	// For flickering
+	if (cInventoryItem->GetCount() <= 0)
+	{
+		flashlightOn = false;
+		CGameManager::GetInstance()->bPlayerLost = true;
+
+	}
+	if (cInventoryItem->GetCount() <= 10)
+	{
+		double diff = elapsedTime - flickerElapsed;
+		if (diff >= 0.3)
+		{
+			cSoundController->PlaySoundByID(14);
+			flashlightOn = !flashlightOn;
+			flickerElapsed = elapsedTime;
+		}
+	}
+	else if (cInventoryItem->GetCount() <= 30)
+	{
+		double diff = elapsedTime - flickerElapsed;
+		if (diff >= 3)
+		{
+			double onDiff = elapsedTime - onElapsed;
+			if (onDiff >= 0.3 && flickerNo < 4)
+			{
+				cSoundController->PlaySoundByID(14);
+				flashlightOn = !flashlightOn;
+				flickerNo++;
+				onElapsed = elapsedTime;
+			}
+			else if (flickerNo >= 4)
+			{
+				flashlightOn = true;
+				flickerNo = 0;
+				flickerElapsed = elapsedTime;
+			}
+		}
+	}
+	else if (cInventoryItem->GetCount() <= 70)
+	{
+		double diff = elapsedTime - flickerElapsed;
+		if (diff >= 3)
+		{
+			double onDiff = elapsedTime - onElapsed;
+			if (onDiff >= 0.1 && flickerNo < 5)
+			{
+				cSoundController->PlaySoundByID(14);
+				flashlightOn = !flashlightOn;
+				flickerNo++;
+				onElapsed = elapsedTime;
+			}
+			else if (flickerNo >= 5)
+			{
+				flashlightOn = true;
+				flickerNo = 0;
+				flickerElapsed = elapsedTime;
+			}
+		}
+	}
+	else
+	{
+		flashlightOn = true;
+	}
 }
 
 /**
@@ -138,6 +221,10 @@ void Rays::PreRender(void)
  */
 void Rays::Render(void)
 {
+	// Do not render rays if flashlight is off
+	if (!flashlightOn)
+		return;
+
 	glBindVertexArray(VAO);
 	// get matrix's uniform location and set matrix
 	unsigned int transformLoc = glGetUniformLocation(CShaderManager::GetInstance()->activeShader->ID, "transform");

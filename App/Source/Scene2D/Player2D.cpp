@@ -19,6 +19,9 @@ using namespace std;
 #include "Map2D.h"
 #include "Primitives/MeshBuilder.h"
 
+// Just for hiding player during flicker
+#include "Rays.h"
+
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
@@ -251,7 +254,6 @@ bool CPlayer2D::Init(void)
 	tempOldVec = glm::vec2(0, 0);
 	collected = false;
 	oldpapercount = 0;
-
 	return true;
 }
 
@@ -314,8 +316,23 @@ void CPlayer2D::Update(const double dElapsedTime)
 	cSoundController->SetListenerPosition(vec2Index.x, vec2Index.y, 0.0f);
 
 	iframeElapsed += 0.01;
-	runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
-	
+
+	if (Rays::GetInstance()->flashlightOn)
+	{
+		if (iframeElapsed < 1.0)
+		{
+			runtimeColour = glm::vec4(1.0, 0.0, 0.0, 1.0);
+		}
+		else
+		{
+			runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
+		}
+	}
+	else
+	{
+		runtimeColour = glm::vec4(0.f, 0.f, 0.f, 1.f);
+	}
+
 
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_A))
 	{
@@ -538,9 +555,6 @@ void CPlayer2D::Update(const double dElapsedTime)
 		glm::vec2 doorPos = glm::vec2(1, 43);
 		closestCollectable = cPhysics2D.CalculateDistance(vec2Index, doorPos);
 	}
-	
-	/*cout <<"collectible x: " <<noOfCollectibles[0].x << endl;
-	cout <<"collectible y: " << noOfCollectibles[0].y << endl;*/
 
 
 	//ilan box nonsense hihihihi
@@ -973,36 +987,15 @@ void CPlayer2D::InteractWithMap(void)
 		break;
 	}
 
-	//Tuning for Passcode collect
-	if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 75 ||
-		cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 76 ||
-		cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 77) && vec2NumMicroSteps.x > 10)
+
+	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1))
 	{
-		glm::vec2 oldVec = vec2Index;
-		oldVec.x += 1;
-		setOldVec(oldVec);
-		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x+1, 2);
-		cInventoryItem = cInventoryManager->GetItem("Paper");
-		oldpapercount = cInventoryItem->GetCount();
-		cInventoryItem->Add(1);
-		cSoundController->PlaySoundByID(13);
-		collected = true;
-	}
-	if ((cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 75 ||
-		cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x ) == 76 ||
-		cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 77) && vec2NumMicroSteps.y > 10)
-	{
-		glm::vec2 oldVec = vec2Index;
-		oldVec.y += 1;
-		setOldVec(oldVec);
-		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
-		cMap2D->SetMapInfo(vec2Index.y+1, vec2Index.x, 2);
-		cInventoryItem = cInventoryManager->GetItem("Paper");
-		oldpapercount = cInventoryItem->GetCount();
-		cInventoryItem->Add(1);
-		cSoundController->PlaySoundByID(13);
-		collected = true;
+	case 77:
+	case 76:
+	case 75:
+		break;
+	default:
+		break;
 	}
 
 	//Battery tuning

@@ -25,6 +25,11 @@
 
 #include "Flashlight.h"
 
+// Include Inventory Manager
+#include "InventoryManager.h"
+
+#include "..\SoundController\SoundController.h"
+
 struct Ray {
 	glm::vec3 direction;
 	float length;
@@ -60,6 +65,9 @@ public:
 
 	Flashlight flashlight;
 
+	// For flickering of flashlight
+	bool flashlightOn;
+
 protected:
 	//CS: The quadMesh for drawing the tiles
 	CMesh* quadMesh;
@@ -71,13 +79,25 @@ protected:
 
 	RenderRay renderRays[3];
 
-	// Flashlight's colour, TODO: Allow flickering of flashlight when running out of light using this in the future. Maybe. If have time.
-	//glm::vec4 runtimeColour;
+	// Inventory Manager
+	CInventoryManager* cInventoryManager;
+
+	// InventoryItem
+	CInventoryItem* cInventoryItem;
+
+	// Handler to the CSoundController
+	CSoundController* cSoundController;
 	
 	// Constructor
 	Rays(void);
 
 	// Destructor
 	virtual ~Rays(void);
+
+	// For flickering of flashlight
+	double elapsedTime;
+	double flickerElapsed;
+	double onElapsed;
+	int flickerNo;
 };
 
