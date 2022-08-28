@@ -164,6 +164,14 @@ bool CEnemySawCon::Init(void)
 	glBindVertexArray(VAO);
 	quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), cSettings->TILE_WIDTH,cSettings->TILE_HEIGHT);
 
+	// Generate mesh for enemy vision rays
+	visionTextureID = CImageLoader::GetInstance()->LoadTextureGetID("Image/enemyFlashlight.png", true);
+	if (visionTextureID == 0)
+	{
+		cout << "Unable to load Image/enemyFlashlight.png" << endl;
+		return false;
+	}
+
 	// Set the Physics to fall status by default
 	cPhysics2D.Init();
 	cPhysics2D.SetStatus(CPhysics2D::STATUS::IDLE);
@@ -201,6 +209,18 @@ bool CEnemySawCon::Init(void)
 	bIsActive = true;
 
 	rays = Rays::GetInstance()->GetRays();
+	enemyRay.direction = glm::vec3(-1, 0, 0);
+	enemyRay.length = 50.f;
+
+	enemyRenderRays[0].length = 0.26f;
+	enemyRenderRays[0].angle = 0.f;
+	enemyRenderRays[1].length = 0.24f;
+	enemyRenderRays[1].angle = 20.f;
+	enemyRenderRays[2].length = 0.24f;
+	enemyRenderRays[2].angle = -20.f;
+
+	maxScanRotate = false;
+	scanRotate = -0.5f;
 
 	srand(time(NULL));
 	return true;
@@ -552,7 +572,6 @@ void CEnemySawCon::Update(const double dElapsedTime)
 				cout << "Switching to patrol State" << endl;
 		}
 		AtkCounter++;
-
 	
 		break;
 	}
@@ -564,7 +583,6 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		}
 		else
 		{
-			
 			UpdateDirectionRun();
 			auto path = cMap2D->PathFind(vec2Index, cPlayer2D->vec2Index, heuristic::euclidean, 5);
 			bool bFirstPosition = true;
@@ -606,6 +624,67 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	// Update the UV Coordinates
 	vec2UVCoordinate.x = cSettings->ConvertIndexToUVSpace(cSettings->x, vec2Index.x, false, i32vec2NumMicroSteps.x * cSettings->MICRO_STEP_XAXIS);
 	vec2UVCoordinate.y = cSettings->ConvertIndexToUVSpace(cSettings->y, vec2Index.y, false, i32vec2NumMicroSteps.y * cSettings->MICRO_STEP_YAXIS);
+
+	// Update enemy vision, if not scared
+	if (sCurrentFSM != SCARED)
+	{
+		// Update ray's direction based on the direction the enemy is facing currently
+		// Scan left to right as well
+		if (maxScanRotate)
+			scanRotate -= 0.01;
+		else
+			scanRotate += 0.01;
+
+		if (scanRotate >= 0.5)
+			maxScanRotate = true;
+		else if (scanRotate <= -0.5)
+			maxScanRotate = false;
+
+		switch (dir)
+		{
+		case LEFT:
+			enemyRay.direction = glm::vec3(-1, scanRotate, 0);
+			break;
+		case RIGHT:
+			enemyRay.direction = glm::vec3(1, scanRotate, 0);
+			break;
+		case UP:
+			enemyRay.direction = glm::vec3(scanRotate, -1, 0);
+			break;
+		case DOWN:
+			enemyRay.direction = glm::vec3(scanRotate, 1, 0);
+			break;
+		default:
+			break;
+		}
+
+		// Cut off ray if hit a collidable block
+		cMap2D->CheckIntersect(vec2Index, vec2UVCoordinate, enemyRay.direction, enemyRay.length);
+
+		// Check if player is in direct line of sight (no solid blocks in between)
+		glm::mat4 playerTransform;
+		playerTransform = glm::translate(playerTransform, glm::vec3(cPlayer2D->vec2UVCoordinate.x, cPlayer2D->vec2UVCoordinate.y, 0.f));
+
+		float intersectionDist = 9999;
+
+		if (Rays::GetInstance()->flashlight.TestRayOBBIntersection(
+			glm::vec3(vec2UVCoordinate.x, vec2UVCoordinate.y, 0.f),
+			enemyRay.direction,
+			glm::vec3(-cSettings->TILE_WIDTH, -cSettings->TILE_HEIGHT * 0.5, -1.f),
+			glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1.f),
+			playerTransform,
+			intersectionDist))
+		{
+			if (intersectionDist <= 0.05 && intersectionDist <= enemyRay.length)
+				sawPlayer = true;
+			else
+				sawPlayer = false;
+		}
+		else
+		{
+			sawPlayer = false;
+		}
+	}
 }
 
 /**
@@ -658,7 +737,12 @@ void CEnemySawCon::Render(void)
 	if (vec2Index.y <= cPlayer2D->vec2Index.y + 10 && vec2Index.y >= cPlayer2D->vec2Index.y - 10 &&
 		vec2Index.x <= cPlayer2D->vec2Index.x + 10 && vec2Index.x >= cPlayer2D->vec2Index.x - 10)
 	{
-		runtimeColour = cMap2D->GetMapColour(vec2Index.y, vec2Index.x);
+		// Stunned, set runtime colour to red
+		if (sCurrentFSM == SCARED)
+			runtimeColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
+		// Else, set opacity to be the same as the tile it is standing on
+		else
+			runtimeColour = cMap2D->GetMapColour(vec2Index.y, vec2Index.x);
 		glm::mat4 enemyTransform;
 		enemyTransform = glm::mat4(1.f);
 		enemyTransform = glm::translate(enemyTransform, glm::vec3(vec2UVCoordinate.x, vec2UVCoordinate.y, 0));
@@ -668,15 +752,14 @@ void CEnemySawCon::Render(void)
 		//Note: Doubled size of boundary box such that it is more forgiving and lights up more
 		if (Rays::GetInstance()->flashlight.TestRayOBBIntersection(camera->position,
 			rays[0].direction,
-			glm::vec3(-cSettings->TILE_WIDTH, -cSettings->TILE_HEIGHT * 0.5, -1.f),
-			glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1.f),
+			glm::vec3(-cSettings->TILE_WIDTH * 0.5, 0, -1.f),
+			glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT * 0.5, 1.f),
 			enemyTransform,
 			intersectionDist))
 		{
-			//Stun enemy here
-			// Add if statement on itnersection dist here
-		/*	runtimeColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
-			std::cout << "Stunned!" << std::endl;*/
+			// Stun da enemy
+			if (intersectionDist <= 0.03)
+				shun = true;
 		}
 	}
 	else
@@ -696,6 +779,77 @@ void CEnemySawCon::Render(void)
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
+	// Render the enemy vision if not scared and enemy is visible
+	if (sCurrentFSM != SCARED &&
+		runtimeColour.x > 0.f)
+	{
+		glBindVertexArray(VAO);
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transform));
+
+		for (int i = 0; i < (sizeof(enemyRenderRays) / sizeof(enemyRenderRays[0])); i++)
+		{
+			quadMesh = CMeshBuilder::GenerateQuad(glm::vec4(1, 1, 1, 1), 0.0025f, enemyRenderRays[i].length);
+
+			glm::mat4 MVP = camera->GetMVP();
+			glm::mat4 transformMVP;
+			transformMVP = MVP; // make sure to initialize matrix to identity matrix first
+
+			float xTranslate = vec2UVCoordinate.x;
+			float yTranslate = vec2UVCoordinate.y;
+
+			float dy = enemyRay.direction.y;
+			float dx = enemyRay.direction.x;
+			float overallRotate = atan2(dx, dy) + glm::radians(180.f);
+
+			switch (dir)
+			{
+			//LEFT
+			case 0:
+				yTranslate += enemyRenderRays[i].angle * 0.00015;
+				break;
+
+			//RIGHT
+			case 1:
+				yTranslate -= enemyRenderRays[i].angle * 0.00015;
+				break;
+
+			//UP
+			case 2:
+				xTranslate += enemyRenderRays[i].angle * 0.00018;
+				break;
+
+			//DOWN
+			case 3:
+				xTranslate -= enemyRenderRays[i].angle * 0.00018;
+				break;
+
+			default:
+				break;
+			}
+
+			// Update the shaders with the latest transform
+			transformMVP = glm::translate(transformMVP, glm::vec3(xTranslate,
+				yTranslate,
+				0.0f));
+			transformMVP = glm::rotate(transformMVP, overallRotate, glm::vec3(0, 0, 1));
+			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
+			glUniform4fv(colorLoc, 1, glm::value_ptr(glm::vec4(1.f, 0.f, 0.f, 1.f)));
+
+			// bind textures on corresponding texture units
+			glActiveTexture(GL_TEXTURE0);
+			// Get the texture to be rendered
+			glBindTexture(GL_TEXTURE_2D, visionTextureID);
+
+			glBindVertexArray(VAO);
+			quadMesh->Render();
+			glBindVertexArray(0);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
+	}
+
+
+	// Reset ray lengths
+	enemyRay.length = 50.f;
 }
 
 /**

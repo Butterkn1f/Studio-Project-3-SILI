@@ -417,9 +417,9 @@ void CPlayer2D::Update(const double dElapsedTime)
 	int offsetX = 8;	//The offset for X microsteps for the player to be in the middle of two tiles, i.e player looks like hes above a object but his index is one lesser/higher than the object.
 	int offsetY = 6;	//The offset for Y microsteps for the player to be in the middle of two tiles, i.e player looks like hes to the right of an object but his index is one lesser/higher than the object.
 	//cout <<"X: "<< vec2Index.x << endl;
-	cout <<"Y: " << vec2Index.y << endl;
+	//cout <<"Y: " << vec2Index.y << endl;
 	//cout << "X micro: " << vec2NumMicroSteps.x << endl;
-	cout << "Y micro: " << vec2NumMicroSteps.y << endl;
+	//cout << "Y micro: " << vec2NumMicroSteps.y << endl;
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_E) && boxElapsed > 0.5)
 	{
 		//If box is on the left of character

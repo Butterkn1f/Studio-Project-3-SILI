@@ -40,6 +40,16 @@ class CMap2D;
 
 #include "Rays.h"
 
+struct EnemyRay {
+	glm::vec3 direction;
+	float length;
+};
+
+struct EnemyRenderRay {
+	float angle;
+	float length;
+};
+
 class CEnemySawCon : public CEntity2D
 {
 public:
@@ -159,6 +169,12 @@ protected:
 	CSpriteAnimation* animatedSprites;
 
 	Ray* rays;
+
+	EnemyRay enemyRay;
+	EnemyRenderRay enemyRenderRays[3];
+	unsigned int visionTextureID;
+	bool maxScanRotate;
+	float scanRotate;
 
 	// Current FSM
 	FSM sCurrentFSM;

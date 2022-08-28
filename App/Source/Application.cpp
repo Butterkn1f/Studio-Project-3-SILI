@@ -176,7 +176,7 @@ bool Application::Init(void)
 
 	//Create a window and create its OpenGL context
 	cSettings->pWindow = glfwCreateWindow(	cSettings->iWindowWidth, cSettings->iWindowHeight,
-											"Hollow Knight Knockoff", NULL, NULL);
+											"Maze Runner", NULL, NULL);
 	//If the window couldn't be created, then return false
 	if (cSettings->pWindow == NULL)
 	{

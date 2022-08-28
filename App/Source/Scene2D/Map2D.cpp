@@ -235,29 +235,6 @@ bool CMap2D::Init(	const unsigned int uiNumLevels,
 void CMap2D::Update(const double dElapsedTime)
 {
 	rays = Rays::GetInstance()->GetRays();
-	//flashlight.Update();
-
-	//rays[0].direction = flashlight.getCurrentRay();
-
-	//// To draw the other flashlight rays around the player,
-	//// Imagine a semicircle around the player, center-most point on the circle's circumference would be the mouse position.
-	//// Radius of the circle would then be the distance from the mouse position to the player's position
-	//// The coordinates for plotting points around the circumference of the semicircle would then be given by:
-	//// x = centerX + radius * cos(Dynamically Changing Degree);
-	//// y = y = centerY + radius * sin(Dynamically Changing Degree);
-	//// Then, calculate the directional vector from this point and set it as the ray's direction.
-	//// Repeat for opposite direction
-	//float radius = glm::distance(
-	//	glm::vec3(CMouseController::GetInstance()->GetMousePositionX(), CMouseController::GetInstance()->GetMousePositionY(), 0.f),
-	//	glm::vec3(cSettings->iWindowWidth * 0.5, cSettings->iWindowHeight * 0.5, 0.f)
-	//);
-
-	//for (int i = 1; i < raysNo; i++)
-	//{
-	//	float x1 = cSettings->iWindowWidth * 0.5 + radius * glm::cos(2.f * i);
-	//	float y1 = cSettings->iWindowHeight * 0.5 + radius * sin(2.f * i);
-	//	rays[i].direction = flashlight.getDirectionalVector(glm::vec3(x1, y1, 0.f));
-	//}
 }
 
 /**
@@ -718,6 +695,47 @@ void CMap2D::PrintSelf(void) const
 	cout << "===== AStar::PrintSelf() =====" << endl;
 }
 
+void CMap2D::CheckIntersect(glm::vec2 enemy_index, glm::vec2 enemy_UVpos, glm::vec3 ray_direction, float& ray_length )
+{
+	for (unsigned int uiRow = 0; uiRow < cSettings->NUM_TILES_YAXIS; uiRow++)
+	{
+		for (unsigned int uiCol = 0; uiCol < cSettings->NUM_TILES_XAXIS; uiCol++)
+		{
+			if (uiRow <= enemy_index.y + 10 && uiRow >= enemy_index.y - 10 &&
+				uiCol <= enemy_index.x + 10 && uiCol >= enemy_index.x - 10)
+			{
+				glm::mat4 tileTransform;
+				tileTransform = glm::mat4(1.f);
+				// Top left corner is (-0.9875, 0.977778, 0)
+				// Each tile is +0.0248 to X and -0.045 to Y
+				float xTranslate = -0.9875 + (uiCol * 0.0248);
+				float yTranslate = 0.977778 - ((45 - uiRow) * 0.045);
+				tileTransform = glm::translate(tileTransform, glm::vec3(xTranslate, yTranslate, 0));
+
+				float intersectionDist = 9999;
+				//TODO: Double check if this originates correctly from enemy pos!
+				if (Rays::GetInstance()->flashlight.TestRayOBBIntersection(
+					glm::vec3(enemy_UVpos.x, enemy_UVpos.y, 0.f),
+					ray_direction,
+					glm::vec3(-cSettings->TILE_WIDTH, -cSettings->TILE_HEIGHT * 0.5, -1.f),
+					glm::vec3(cSettings->TILE_WIDTH, cSettings->TILE_HEIGHT, 1.f),
+					tileTransform,
+					intersectionDist))
+				{
+					// Cut off ray when hit a wall, only highlight tiles that are within the distance
+					if (intersectionDist <= ray_length)
+					{
+						if (GetMapInfo(uiRow, uiCol) >= 100)
+						{
+							ray_length = intersectionDist;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 /**
  @brief Find a path
  */
@@ -727,7 +745,7 @@ std::vector<glm::vec2> CMap2D::PathFind(const glm::vec2& startPos, const glm::ve
 	if (isBlocked(startPos.y, startPos.x) ||
 		(isBlocked(targetPos.y, targetPos.x)))
 	{
-		cout << "Invalid start or target position." << endl;
+		//cout << "Invalid start or target position." << endl;
 		// Return an empty path
 		std::vector<glm::vec2> path;
 		return path;

@@ -97,6 +97,7 @@ void Rays::Update(const double dElapsedTime)
 	flashlight.Update();
 
 	rays[0].direction = flashlight.getCurrentRay();
+	//cout << rays[0].direction.x << ", " << rays[0].direction.y << ", " << rays[0].direction.z << endl;
 
 	// To draw the other flashlight rays around the player,
 	// Imagine a semicircle around the player, center-most point on the circle's circumference would be the mouse position.
@@ -234,6 +235,11 @@ void Rays::Render(void)
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+	//Reset length
+	renderRays[0].length = 0.26f;
+	renderRays[1].length = 0.24f;
+	renderRays[2].length = 0.24f;
 }
 
 /**

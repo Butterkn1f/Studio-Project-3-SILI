@@ -137,6 +137,15 @@ public:
 	// Print out details about this class instance in the console window
 	void PrintSelf(void) const;
 
+	// Essentially TestOBBIntersection but to be used for Enemy class, simply pass in the ray direction
+	// Changes the ray length such that it ends when hit a collidable block
+	void CheckIntersect(
+		glm::vec2 enemy_index,
+		glm::vec2 enemy_UVpos,
+		glm::vec3 ray_direction,
+		float& ray_length
+	);
+
 protected:
 	// For A-Star PathFinding
 	// Build a path from m_cameFromList after calling PathFind()
