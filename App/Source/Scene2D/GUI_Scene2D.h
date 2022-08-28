@@ -18,6 +18,8 @@
 // Include CInventoryManager
 #include "InventoryManager.h"
 
+#include "Player2D.h"
+
 // Include GLEW
 #ifndef GLEW_STATIC
 #include <GL/glew.h>
@@ -82,6 +84,8 @@ protected:
 	CInventoryManager* cInventoryManager;
 	// The handler containing the instance of CInventoryItem
 	CInventoryItem* cInventoryItem;
+
+	CPlayer2D* cPlayer2D;
 
 	// These variables are for IMGUI demo only
 	bool show_demo_window;
