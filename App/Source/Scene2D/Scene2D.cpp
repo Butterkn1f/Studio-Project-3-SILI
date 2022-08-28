@@ -250,8 +250,11 @@ bool CScene2D::Init(void)
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Step.wav"), 10, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\PlayerHurt.wav"), 12, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Paperpickup.wav"), 13, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\LightFlicker.wav"), 14, true);
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\PlayerFound.wav"), 15, true);
 
 	//Enemy Sound
+	cSoundController->LoadSound(FileSystem::getPath("Sounds\\EnemyStun.wav"), 25, true);
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\CreepyLaugh.wav"), 26, true, false, CSoundInfo::SOUNDTYPE::_3D, vec3df(0, 0, 0));
 	cSoundController->LoadSound(FileSystem::getPath("Sounds\\Jumpscare.wav"), 27, true);
 

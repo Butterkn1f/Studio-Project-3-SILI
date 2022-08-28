@@ -739,7 +739,10 @@ void CEnemySawCon::Render(void)
 	{
 		// Stunned, set runtime colour to red
 		if (sCurrentFSM == SCARED)
+		{
 			runtimeColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
+			cSoundController->PlaySoundByID(25);
+		}
 		// Else, set opacity to be the same as the tile it is standing on
 		else
 			runtimeColour = cMap2D->GetMapColour(vec2Index.y, vec2Index.x);
