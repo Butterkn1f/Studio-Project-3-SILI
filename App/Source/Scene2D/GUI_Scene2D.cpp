@@ -247,7 +247,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::SetWindowFontScale(2.f * relativeScale_y);
 	if (cInventoryItem->GetCount() <= 10)
 		ImGui::TextColored(ImVec4(0.863, 0.078, 0.235, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-	else if (cInventoryItem->GetCount() <= 30)
+	else if (cInventoryItem->GetCount() <= 40)
 		ImGui::TextColored(ImVec4(1.000, 0.388, 0.278, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
 	else if (cInventoryItem->GetCount() <= 70)
 		ImGui::TextColored(ImVec4(1.000, 0.894, 0.710, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());

@@ -150,12 +150,13 @@ void Rays::Update(const double dElapsedTime)
 		double diff = elapsedTime - flickerElapsed;
 		if (diff >= 0.3)
 		{
+			cSoundController->StopSoundByID(14);
 			cSoundController->PlaySoundByID(14);
 			flashlightOn = !flashlightOn;
 			flickerElapsed = elapsedTime;
 		}
 	}
-	else if (cInventoryItem->GetCount() <= 30)
+	else if (cInventoryItem->GetCount() <= 40)
 	{
 		double diff = elapsedTime - flickerElapsed;
 		if (diff >= 3)

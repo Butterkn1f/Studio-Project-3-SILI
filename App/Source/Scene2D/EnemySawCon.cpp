@@ -196,7 +196,7 @@ bool CEnemySawCon::Init(void)
 
 
 	//-----------------------change here----------------------------
-	chaseRange = 3.5f;//how far enemy can detect u
+	chaseRange = 3.f;//how far enemy can detect u
 	atkrange = .05f;//how close must the enemy be to atk u
 	movementspeed = .9;// speed of enemy
 	increasespeed = 0.2;//increment of speed each time player collected paper
@@ -283,6 +283,7 @@ void CEnemySawCon::Update(const double dElapsedTime)
 	
 	if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
 	{
+		cSoundController->PlaySoundByID(15);
 		sawPlayer = true;
 	}
 	else
