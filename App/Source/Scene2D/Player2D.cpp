@@ -19,6 +19,9 @@ using namespace std;
 #include "Map2D.h"
 #include "Primitives/MeshBuilder.h"
 
+// Just for hiding player during flicker
+#include "Rays.h"
+
 /**
  @brief Constructor This constructor has protected access modifier as this class will be a Singleton
  */
@@ -159,7 +162,6 @@ bool CPlayer2D::Init(void)
 	dir = DIRECTION::UP;
 	flashlightBattery = 100;
 	blBatteryPickedUp = false;
-	distCount = 0;
 
 	//Variables
 	AllNumbersCollected = false;
@@ -184,40 +186,10 @@ bool CPlayer2D::Init(void)
 	// Get handler for sound controller
 	cSoundController = CSoundController::GetInstance();
 
-
-	unsigned int uirRow = -1;
-	unsigned int uirCol = -1;
-	int passValue;			//the value of the passcode for each pattern
-
-	if (cMap2D->GetRandomPattern() == 1)
-		passValue = 75;
-	else if (cMap2D->GetRandomPattern() == 2)
-		passValue = 76;
-	else
-		passValue = 77;
-
-	//First: Put all the positions of the collectibles into an array
-	for (int i = 0; i < 10; i++)
-	{
-		//Find the position
-		cMap2D->FindValue(passValue, uirRow, uirCol);
-		//Store it
-		noOfCollectibles[i] = glm::vec2(uirCol, uirRow);
-		//Change the tile to a different value so it doesn't read it again
-		cMap2D->SetMapInfo(uirRow, uirCol, 2);
-		cout << i << "collectible position X: " << noOfCollectibles[i].x <<" and Y: " << noOfCollectibles[i].y << endl;
-	}
-	//Second: Add back all the collectibles to its original positions
-	for (int i = 0; i < 10; i++)
-	{
-		cMap2D->SetMapInfo(noOfCollectibles[i].y, noOfCollectibles[i].x, passValue);
-	}
-
 	eBox = false;
 	tempOldVec = glm::vec2(0, 0);
 	collected = false;
 	oldpapercount = 0;
-
 	return true;
 }
 
@@ -262,7 +234,6 @@ bool CPlayer2D::Reset()
 	flashlightElapsed = 0;
 	boxElapsed = 0;
 	blBatteryPickedUp = false;
-	closestCollectable = 0;
 
 	//Reset all inventory items
 	cInventoryManager->GetItem("Health")->Add(5);
@@ -282,8 +253,23 @@ void CPlayer2D::Update(const double dElapsedTime)
 	cSoundController->SetListenerPosition(vec2Index.x, vec2Index.y, 0.0f);
 
 	iframeElapsed += 0.01;
-	runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
-	
+
+	if (Rays::GetInstance()->flashlightOn)
+	{
+		if (iframeElapsed < 1.0)
+		{
+			runtimeColour = glm::vec4(1.0, 0.0, 0.0, 1.0);
+		}
+		else
+		{
+			runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
+		}
+	}
+	else
+	{
+		runtimeColour = glm::vec4(0.f, 0.f, 0.f, 1.f);
+	}
+
 
 	if (cKeyboardController->IsKeyDown(GLFW_KEY_A))
 	{
@@ -417,45 +403,24 @@ void CPlayer2D::Update(const double dElapsedTime)
 			animatedSprites->PlayAnimation("idleDown", -1, 1.f);
 	}
 	
+	//If stopped walking, stop the walking sound and go back to idle state
+	if (cKeyboardController->IsKeyReleased(GLFW_KEY_LEFT) || cKeyboardController->IsKeyReleased(GLFW_KEY_RIGHT))
+	{
+		cSoundController->StopSoundByID(10);
+	}
 
-	flashlightElapsed += 0.02;
+	flashlightElapsed += 0.01;
 	if (flashlightElapsed > 0.5)
 	{
 		cInventoryItem = cInventoryManager->GetItem("Flashlight");
 		cInventoryItem->Remove(1);
 		flashlightElapsed = 0;
 	}
-
-	
-	/*cout <<"collectible x: " <<noOfCollectibles[i].x << endl;
-	cout <<"collectible y: " << noOfCollectibles[i].y << endl;*/
-	/*cout << cPhysics2D.CalculateDistance(vec2Index, noOfCollectibles[0]) << endl;*/
-	cInventoryItem = cInventoryManager->GetItem("Paper");
-	for (int i = 0; i < 10; i++)
+	if (blBatteryPickedUp)
 	{
-		if (cMap2D->GetMapInfo(noOfCollectibles[i].y, noOfCollectibles[i].x) == 2)
-		{
-			//just copying the value from the collected one to a present one
-			if (noOfCollectibles[i] != noOfCollectibles[9])
-				noOfCollectibles[i] = noOfCollectibles[i + 1];
-			else
-				noOfCollectibles[i] = noOfCollectibles[0];
-		}
-		distanceHolder[i] = cPhysics2D.CalculateDistance(vec2Index, noOfCollectibles[i]);
-	}
-	closestCollectable = distanceHolder[0];
 
-	//TODO: FINISH THIS ILAN
-	for (int i = 0; i < 10; i++)
-	{
-		if (distanceHolder[i] < closestCollectable)
-		{
-			closestCollectable = distanceHolder[i];
-		}
+		blBatteryPickedUp = false;
 	}
-	cout << "Closest Collectable: " << closestCollectable <<endl;
-	/*cout <<"collectible x: " <<noOfCollectibles[0].x << endl;
-	cout <<"collectible y: " << noOfCollectibles[0].y << endl;*/
 
 
 	//ilan box nonsense hihihihi
@@ -885,36 +850,15 @@ void CPlayer2D::InteractWithMap(void)
 		break;
 	}
 
-	//Tuning for Passcode collect
-	if ((cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 75 ||
-		cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 76 ||
-		cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 77) && vec2NumMicroSteps.x > 10)
+
+	switch (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x - 1))
 	{
-		glm::vec2 oldVec = vec2Index;
-		oldVec.x += 1;
-		setOldVec(oldVec);
-		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
-		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x+1, 2);
-		cInventoryItem = cInventoryManager->GetItem("Paper");
-		oldpapercount = cInventoryItem->GetCount();
-		cInventoryItem->Add(1);
-		cSoundController->PlaySoundByID(13);
-		collected = true;
-	}
-	if ((cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 75 ||
-		cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x ) == 76 ||
-		cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 77) && vec2NumMicroSteps.y > 10)
-	{
-		glm::vec2 oldVec = vec2Index;
-		oldVec.y += 1;
-		setOldVec(oldVec);
-		cout << "player get x" << tempOldVec.x << "y" << tempOldVec.y << endl;
-		cMap2D->SetMapInfo(vec2Index.y+1, vec2Index.x, 2);
-		cInventoryItem = cInventoryManager->GetItem("Paper");
-		oldpapercount = cInventoryItem->GetCount();
-		cInventoryItem->Add(1);
-		cSoundController->PlaySoundByID(13);
-		collected = true;
+	case 77:
+	case 76:
+	case 75:
+		break;
+	default:
+		break;
 	}
 }
 

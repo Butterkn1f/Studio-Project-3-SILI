@@ -282,7 +282,9 @@ void CEnemySawCon::Update(const double dElapsedTime)
 
 	
 	if (cPhysics2D.CalculateDistance(vec2Index, cPlayer2D->vec2Index) < chaseRange)
+	{
 		sawPlayer = true;
+	}
 	else
 		sawPlayer = false;
 	
@@ -676,7 +678,10 @@ void CEnemySawCon::Update(const double dElapsedTime)
 			intersectionDist))
 		{
 			if (intersectionDist <= 0.05 && intersectionDist <= enemyRay.length)
+			{
 				sawPlayer = true;
+				cSoundController->PlaySoundByID(15);
+			}
 			else
 				sawPlayer = false;
 		}
@@ -735,14 +740,12 @@ void CEnemySawCon::Render(void)
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
 
 	if (vec2Index.y <= cPlayer2D->vec2Index.y + 10 && vec2Index.y >= cPlayer2D->vec2Index.y - 10 &&
-		vec2Index.x <= cPlayer2D->vec2Index.x + 10 && vec2Index.x >= cPlayer2D->vec2Index.x - 10)
+		vec2Index.x <= cPlayer2D->vec2Index.x + 10 && vec2Index.x >= cPlayer2D->vec2Index.x - 10 &&
+		Rays::GetInstance()->flashlightOn)
 	{
 		// Stunned, set runtime colour to red
 		if (sCurrentFSM == SCARED)
-		{
 			runtimeColour = glm::vec4(1.f, 0.f, 0.f, 1.f);
-			cSoundController->PlaySoundByID(25);
-		}
 		// Else, set opacity to be the same as the tile it is standing on
 		else
 			runtimeColour = cMap2D->GetMapColour(vec2Index.y, vec2Index.x);
@@ -762,7 +765,10 @@ void CEnemySawCon::Render(void)
 		{
 			// Stun da enemy
 			if (intersectionDist <= 0.03)
+			{
+				cSoundController->PlaySoundByID(25);
 				shun = true;
+			}
 		}
 	}
 	else

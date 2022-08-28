@@ -324,7 +324,8 @@ void CMap2D::Render(void)
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(transformMVP));
 
 			if (uiRow <= cPlayer2D->vec2Index.y + 10 && uiRow >= cPlayer2D->vec2Index.y - 10 &&
-				uiCol <= cPlayer2D->vec2Index.x + 10 && uiCol >= cPlayer2D->vec2Index.x - 10)
+				uiCol <= cPlayer2D->vec2Index.x + 10 && uiCol >= cPlayer2D->vec2Index.x - 10 &&
+				Rays::GetInstance()->flashlightOn)
 			{
 				glm::mat4 tileTransform;
 				tileTransform = glm::mat4(1.f);
