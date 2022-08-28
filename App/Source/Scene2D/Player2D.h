@@ -153,6 +153,11 @@ protected:
 
 	bool blBatteryPickedUp;
 	float flashlightBattery;
+	int closestCollectable;
+
+	int distCount;
+	//Carries each of the distances from player to passcode
+	float distanceHolder[10];
 
 	// Constructor
 	CPlayer2D(void);
@@ -182,7 +187,10 @@ protected:
 
 	//old position of player
 	glm::vec2 tempOldVec;
-
+	
+	//position of nearest collectible
+	glm::vec2 noOfCollectibles[10];
+	glm::vec2 collectiblePos;
 
 	bool collected;//if player just collected a paper
 	int oldpapercount;

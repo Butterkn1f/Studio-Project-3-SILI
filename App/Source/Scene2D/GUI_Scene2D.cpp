@@ -229,6 +229,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::End();
 
 	//// Render the inventory items
+	cInventoryItem = cInventoryManager->GetItem("Flashlight");
 	ImGuiWindowFlags FlashlightWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoBackground |
 		ImGuiWindowFlags_NoTitleBar |
@@ -236,18 +237,42 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ImGuiWindowFlags_NoResize |
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
-	cInventoryItem = cInventoryManager->GetItem("Flashlight");
-	ImGui::Begin("Image", NULL, FlashlightWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.015f, cSettings->iWindowHeight * 0.85f));
+	ImGui::Begin("Flashlight", NULL, FlashlightWindowFlags);
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.685f, cSettings->iWindowHeight * 0.85f));
 	ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
 		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
-		ImVec2(0, 1), ImVec2(1, 0), ImVec4(0.5,0.5,1,1));
+		ImVec2(0, 1), ImVec2(1, 0), ImVec4(1,1,1,1));
 	ImGui::SameLine();
 	ImGui::SetWindowFontScale(2.f * relativeScale_y);
 	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
 	ImGui::SameLine();
 	ImGui::End();
+
+
+	////// Render the inventory items
+	//cInventoryItem = cInventoryManager->GetItem("Paper");
+	//ImGuiWindowFlags PaperWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+	//	ImGuiWindowFlags_NoBackground |
+	//	ImGuiWindowFlags_NoTitleBar |
+	//	ImGuiWindowFlags_NoMove |
+	//	ImGuiWindowFlags_NoResize |
+	//	ImGuiWindowFlags_NoCollapse |
+	//	ImGuiWindowFlags_NoScrollbar;
+	//ImGui::Begin("Radar", NULL, PaperWindowFlags);
+	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.015f, cSettings->iWindowHeight * 0.85f));
+	//ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+	//ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+	//	ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
+	//	ImVec2(0, 1), ImVec2(1, 0));
+	//ImGui::SameLine();
+	//ImGui::SetWindowFontScale(2.f * relativeScale_y);
+	//ImGui::TextColored(ImVec4(1, 1, 1, 1), "Distance to Passcode: %d / %d", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
+	//ImGui::SameLine();
+	//ImGui::End();
+
+
+
 
 	//ImGui::Begin("HealthBar", NULL, soulWindowFlags);
 	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.09f,

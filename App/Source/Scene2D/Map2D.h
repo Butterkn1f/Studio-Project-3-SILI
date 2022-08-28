@@ -112,6 +112,8 @@ public:
 
 	// Get the value at certain indices in the arrMapInfo
 	int GetMapInfo(const unsigned int uiRow, const unsigned int uiCol, const bool bInvert = true) const;
+
+	int GetRandomPattern();
 	
 	// Get the runtime colour at certain indices, used for enemies
 	glm::vec4 GetMapColour(const unsigned int uiRow, const unsigned int uiCol, const bool bInvert = true) const;

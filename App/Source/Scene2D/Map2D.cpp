@@ -509,6 +509,11 @@ void CMap2D::SetMapColour(const unsigned int uiRow, const unsigned int uiCol, co
 	}
 }
 
+int CMap2D::GetRandomPattern()
+{
+	return random;
+}
+
 /**
  @brief Get the value at certain indices in the arrMapInfo
  @param iRow A const int variable containing the row index of the element to get from
