@@ -140,8 +140,8 @@ bool CLoseState::Update(const double dElapsedTime)
 	//cout << "CLoseState::Update()\n" << endl;
 	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_SPACE))
 	{
-		cSoundController->PlaySoundByID(2);
-		cSoundController->StopSoundByID(20);
+		cSoundController->PlaySoundByID(5);
+		cSoundController->StopSoundByID(3);
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
 

@@ -139,7 +139,8 @@ bool CWinState::Update(const double dElapsedTime)
 	//cout << "CWinState::Update()\n" << endl;
 	if (CKeyboardController::GetInstance()->IsKeyReleased(GLFW_KEY_ESCAPE))
 	{
-		cSoundController->PlaySoundByID(2);
+		cSoundController->StopSoundByID(4);
+		cSoundController->PlaySoundByID(1);
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
 
