@@ -156,7 +156,7 @@ void Rays::Update(const double dElapsedTime)
 			flickerElapsed = elapsedTime;
 		}
 	}
-	else if (cInventoryItem->GetCount() <= 40)
+	else if (cInventoryItem->GetCount() <= 30)
 	{
 		double diff = elapsedTime - flickerElapsed;
 		if (diff >= 3)
@@ -177,7 +177,7 @@ void Rays::Update(const double dElapsedTime)
 			}
 		}
 	}
-	else if (cInventoryItem->GetCount() <= 70)
+	else if (cInventoryItem->GetCount() <= 50)
 	{
 		double diff = elapsedTime - flickerElapsed;
 		if (diff >= 3)

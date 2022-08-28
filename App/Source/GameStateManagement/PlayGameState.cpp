@@ -73,7 +73,7 @@ bool CPlayGameState::Update(const double dElapsedTime)
 	if (CGameManager::GetInstance()->bPLayerJumpscared == true && CGameManager::GetInstance()->bPlayerLost == false)
 	{
 		screentimer--;
-		cout << "screentimer:" << screentimer << endl;
+		//cout << "screentimer:" << screentimer << endl;
 		// Reset the CKeyboardController
 		CKeyboardController::GetInstance()->Reset();
 

@@ -719,7 +719,6 @@ void CMap2D::CheckIntersect(glm::vec2 enemy_index, glm::vec2 enemy_UVpos, glm::v
 				tileTransform = glm::translate(tileTransform, glm::vec3(xTranslate, yTranslate, 0));
 
 				float intersectionDist = 9999;
-				//TODO: Double check if this originates correctly from enemy pos!
 				if (Rays::GetInstance()->flashlight.TestRayOBBIntersection(
 					glm::vec3(enemy_UVpos.x, enemy_UVpos.y, 0.f),
 					ray_direction,

@@ -254,9 +254,9 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::SetWindowFontScale(2.f * relativeScale_y);
 	if (cInventoryItem->GetCount() <= 10)
 		ImGui::TextColored(ImVec4(0.863, 0.078, 0.235, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-	else if (cInventoryItem->GetCount() <= 40)
+	else if (cInventoryItem->GetCount() <= 30)
 		ImGui::TextColored(ImVec4(1.000, 0.388, 0.278, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-	else if (cInventoryItem->GetCount() <= 70)
+	else if (cInventoryItem->GetCount() <= 50)
 		ImGui::TextColored(ImVec4(1.000, 0.894, 0.710, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
 	else
 		ImGui::TextColored(ImVec4(1, 1, 1, 1), "Flashlight : %d / %d ", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
@@ -317,11 +317,28 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ImGui::SameLine();
 	}
 	else if (cPlayer2D->getClosestCollectible() == 0 && cInventoryItem != cInventoryManager->GetItem("Door"))
-		ImGui::TextColored(ImVec4(1, 1, 0, 1), "All Collected!");
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), " ");
 	else
 		ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d m", cPlayer2D->getClosestCollectible());
 	ImGui::End();
 
+
+	if (cPlayer2D->getClosestCollectible() == 0 && cInventoryItem != cInventoryManager->GetItem("Door"))
+	{
+		ImGuiWindowFlags CollectedWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoScrollbar;
+		ImGui::Begin("Collected", NULL, CollectedWindowFlags);
+		ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.815f, cSettings->iWindowHeight * 0.15f));
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "All Collected!");
+		ImGui::SameLine();
+		ImGui::SetWindowFontScale(2.f * relativeScale_y);
+		ImGui::End();
+	}
 
 
 

@@ -188,7 +188,7 @@ bool CEnemySawCon::Init(void)
 	InvestigateCounter = 0;
 	ScaredCounter = 0;
 
-	displaytest = true; //<<<<<<<<<<<<<<<<<,,togle on to display troubleshoot  must togle on to see others
+	displaytest = false; //<<<<<<<<<<<<<<<<<,,togle on to display troubleshoot  must togle on to see others
 	pathtest = false;    //<<<<<<<<<<<<<<<<<,,togle on to path troubleshoot
 	statetest = true;   //<<<<<<<<<<<<<<<<<,,togle on to state troubleshoot
 	
@@ -257,11 +257,11 @@ void CEnemySawCon::Update(const double dElapsedTime)
 		else if (cPlayer2D->vec2Index.x > vec2Index.x && cPlayer2D->vec2Index.x <= vec2Index.x + 3)
 			cSoundController->SetVolume(26, 1);
 		else 
-			cSoundController->SetVolume(26, 0.5);
+			cSoundController->SetVolume(26, 0.75);
 	}
 	else
 		//Sound is very soft as 
-		cSoundController->SetVolume(26, 0.25);
+		cSoundController->SetVolume(26, 0.5);
 
 	//If enemy is below or above player
 	if (cPlayer2D->vec2Index.x == vec2Index.x)
@@ -409,11 +409,11 @@ void CEnemySawCon::Update(const double dElapsedTime)
 					/* Set a destination*/
 					i32vec2Destination = coord;
 					/* Calculate the direction between EnemySawCon and this destination*/
-					if (i32vec2NumMicroSteps.x == 0 && i32vec2NumMicroSteps.y == 0)
-					{
+				/*	if (i32vec2NumMicroSteps.x == 0 && i32vec2NumMicroSteps.y == 0)
+					{*/
 						i32vec2Direction = i32vec2Destination - vec2Index;
 						
-					}
+					//}
 					bFirstPosition = false;
 				}
 				else
@@ -1589,9 +1589,10 @@ void CEnemySawCon::EnemySpeedUp()
 {
 	if (cPlayer2D->getCollected())
 	{
-		cout << "old speed" << this->movementspeed << endl;
+	//	
+		//<< "old speed" << this->movementspeed << endl;
 		this->movementspeed += increasespeed;
-		cout << "new speed" << this->movementspeed << endl;
+	//	cout << "new speed" << this->movementspeed << endl;
 	}
 	
 
