@@ -94,6 +94,7 @@ bool CPlayer2D::Init(void)
 
 	// Get the handler to the CMap2D instance
 	cMap2D = CMap2D::GetInstance();
+
 	// Find the indices for the player in arrMapInfo, and assign it to cPlayer2D
 	unsigned int uiRow = -1;
 	unsigned int uiCol = -1;
@@ -157,9 +158,9 @@ bool CPlayer2D::Init(void)
 	boxElapsed = 0;
 	flashlightElapsed = 0;
 	dir = DIRECTION::UP;
-	flashlightBattery = 100;
-	blBatteryPickedUp = false;
 	distCount = 0;
+	itemTracked = 0;
+	blCycle = 0;
 
 	//Variables
 	AllNumbersCollected = false;
@@ -181,13 +182,24 @@ bool CPlayer2D::Init(void)
 	cInventoryItem = cInventoryManager->Add("Flashlight", "Image/flashlightGUI.png", 100, 100);
 	cInventoryItem->vec2Size = glm::vec2(40, 40);
 
+	//these two i just want the images lol
+	cInventoryItem = cInventoryManager->Add("Battery", "Image/battery.png", 100, 100);
+	cInventoryItem->vec2Size = glm::vec2(40, 40);
+
+	cInventoryItem = cInventoryManager->Add("Door", "Image/DoorOpen.tga", 100, 100);
+	cInventoryItem->vec2Size = glm::vec2(40, 40);
+
 	// Get handler for sound controller
 	cSoundController = CSoundController::GetInstance();
 
 
 	unsigned int uirRow = -1;
 	unsigned int uirCol = -1;
+	unsigned int battRow = -1;
+	unsigned int battCol = -1;
 	int passValue;			//the value of the passcode for each pattern
+	int battValue = 80;			//the value of battery
+
 
 	if (cMap2D->GetRandomPattern() == 1)
 		passValue = 75;
@@ -196,6 +208,8 @@ bool CPlayer2D::Init(void)
 	else
 		passValue = 77;
 
+
+	//PASSCODE RADAR
 	//First: Put all the positions of the collectibles into an array
 	for (int i = 0; i < 10; i++)
 	{
@@ -205,13 +219,33 @@ bool CPlayer2D::Init(void)
 		noOfCollectibles[i] = glm::vec2(uirCol, uirRow);
 		//Change the tile to a different value so it doesn't read it again
 		cMap2D->SetMapInfo(uirRow, uirCol, 2);
-		cout << i << "collectible position X: " << noOfCollectibles[i].x <<" and Y: " << noOfCollectibles[i].y << endl;
+		
 	}
 	//Second: Add back all the collectibles to its original positions
 	for (int i = 0; i < 10; i++)
 	{
 		cMap2D->SetMapInfo(noOfCollectibles[i].y, noOfCollectibles[i].x, passValue);
 	}
+
+
+	//BATTERY RADAR
+	//First: Put all the positions of the collectibles into an array
+	for (int i = 0; i < 5; i++)
+	{
+		//Find the position
+		cMap2D->FindValue(battValue, battRow, battCol);
+		//Store it
+		noOfBattery[i] = glm::vec2(battCol, battRow);
+		//Change the tile to a different value so it doesn't read it again
+		cMap2D->SetMapInfo(battRow, battCol, 2);
+		
+	}
+	//Second: Add back all the collectibles to its original positions
+	for (int i = 0; i < 5; i++)
+	{
+		cMap2D->SetMapInfo(noOfBattery[i].y, noOfBattery[i].x, battValue);
+	}
+
 
 	eBox = false;
 	tempOldVec = glm::vec2(0, 0);
@@ -258,12 +292,10 @@ bool CPlayer2D::Reset()
 	iframeElapsed = 1.0;
 	deadElapsed = 0;
 
-	flashlightBattery = 100;
 	flashlightElapsed = 0;
 	boxElapsed = 0;
-	blBatteryPickedUp = false;
 	closestCollectable = 0;
-
+	itemTracked = 0;
 	//Reset all inventory items
 	cInventoryManager->GetItem("Health")->Add(5);
 	cInventoryManager->GetItem("Soul")->Remove(100);
@@ -417,43 +449,96 @@ void CPlayer2D::Update(const double dElapsedTime)
 			animatedSprites->PlayAnimation("idleDown", -1, 1.f);
 	}
 	
-
+	//Flashlight 
+	cInventoryItem = cInventoryManager->GetItem("Flashlight");
 	flashlightElapsed += 0.02;
-	if (flashlightElapsed > 0.5)
+	if (flashlightElapsed > 0.5 && cInventoryItem->GetCount() > 0)
 	{
-		cInventoryItem = cInventoryManager->GetItem("Flashlight");
 		cInventoryItem->Remove(1);
 		flashlightElapsed = 0;
 	}
 
-	
-	/*cout <<"collectible x: " <<noOfCollectibles[i].x << endl;
-	cout <<"collectible y: " << noOfCollectibles[i].y << endl;*/
-	/*cout << cPhysics2D.CalculateDistance(vec2Index, noOfCollectibles[0]) << endl;*/
-	cInventoryItem = cInventoryManager->GetItem("Paper");
-	for (int i = 0; i < 10; i++)
-	{
-		if (cMap2D->GetMapInfo(noOfCollectibles[i].y, noOfCollectibles[i].x) == 2)
-		{
-			//just copying the value from the collected one to a present one
-			if (noOfCollectibles[i] != noOfCollectibles[9])
-				noOfCollectibles[i] = noOfCollectibles[i + 1];
-			else
-				noOfCollectibles[i] = noOfCollectibles[0];
-		}
-		distanceHolder[i] = cPhysics2D.CalculateDistance(vec2Index, noOfCollectibles[i]);
-	}
-	closestCollectable = distanceHolder[0];
 
-	//TODO: FINISH THIS ILAN
-	for (int i = 0; i < 10; i++)
+	//Radar business
+	if (!blCycle && cKeyboardController->IsKeyPressed(GLFW_KEY_Q))
 	{
-		if (distanceHolder[i] < closestCollectable)
+		if (itemTracked == 1)
+			itemTracked = 2;
+		else if (itemTracked == 2)
+			itemTracked = 0;
+		else
+			itemTracked = 1;
+		blCycle = true;
+	}
+	else if (blCycle && cKeyboardController->IsKeyReleased(GLFW_KEY_Q))
+	{
+		blCycle = false;
+	}
+	unsigned int uiRow = -1;
+	unsigned int uiCol = -1;
+	if (itemTracked == 0)		//if tracking Paper
+	{
+		for (int i = 0; i < 10; i++)
 		{
-			closestCollectable = distanceHolder[i];
+			if (cMap2D->GetMapInfo(noOfCollectibles[i].y, noOfCollectibles[i].x) == 2)
+			{
+				//just copying the value from the collected one to a present one
+				if (noOfCollectibles[i] != noOfCollectibles[9])
+					noOfCollectibles[i] = noOfCollectibles[i + 1];
+				else
+					noOfCollectibles[i] = noOfCollectibles[0];
+			}
+			distanceHolder[i] = cPhysics2D.CalculateDistance(vec2Index, noOfCollectibles[i]);
+		}
+		closestCollectable = distanceHolder[0];
+
+		for (int i = 0; i < 10; i++)
+		{
+			if (distanceHolder[i] < closestCollectable)
+			{
+				closestCollectable = distanceHolder[i];
+			}
+		}
+
+		if (cMap2D->FindValue(75, uiRow, uiCol) == false && cMap2D->FindValue(76, uiRow, uiCol) == false && cMap2D->FindValue(77, uiRow, uiCol) == false)
+		{
+			closestCollectable = 0;
 		}
 	}
-	cout << "Closest Collectable: " << closestCollectable <<endl;
+	else if(itemTracked == 1)		//if tracking Battery
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (cMap2D->GetMapInfo(noOfBattery[i].y, noOfBattery[i].x) == 2)
+			{
+				//just copying the value from the collected one to a present one
+				if (noOfBattery[i] != noOfBattery[4])
+					noOfBattery[i] = noOfBattery[i + 1];
+				else
+					noOfBattery[i] = noOfBattery[0];
+			}
+			distanceHolder[i] = cPhysics2D.CalculateDistance(vec2Index, noOfBattery[i]);
+		}
+		closestCollectable = distanceHolder[0];
+
+		for (int i = 0; i < 5; i++)
+		{
+			if (distanceHolder[i] < closestCollectable)
+			{
+				closestCollectable = distanceHolder[i];
+			}
+		}
+		if (cMap2D->FindValue(80, uiRow, uiCol) == false)
+		{
+			closestCollectable = 0;
+		}
+	}
+	else
+	{
+		glm::vec2 doorPos = glm::vec2(1, 43);
+		closestCollectable = cPhysics2D.CalculateDistance(vec2Index, doorPos);
+	}
+	
 	/*cout <<"collectible x: " <<noOfCollectibles[0].x << endl;
 	cout <<"collectible y: " << noOfCollectibles[0].y << endl;*/
 
@@ -881,6 +966,9 @@ void CPlayer2D::InteractWithMap(void)
 		cInventoryItem->Add(cInventoryItem->GetMaxCount() - cInventoryItem->GetCount());
 		cSoundController->PlaySoundByID(28);
 		break;
+	case 91:
+		CGameManager::GetInstance()->bPlayerWon = true;
+		break;
 	default:
 		break;
 	}
@@ -916,6 +1004,22 @@ void CPlayer2D::InteractWithMap(void)
 		cSoundController->PlaySoundByID(13);
 		collected = true;
 	}
+
+	//Battery tuning
+	if (cMap2D->GetMapInfo(vec2Index.y, vec2Index.x + 1) == 80 && vec2NumMicroSteps.x > 10)
+	{
+		cMap2D->SetMapInfo(vec2Index.y, vec2Index.x + 1, 2);
+		cInventoryItem = cInventoryManager->GetItem("Flashlight");
+		cInventoryItem->Add(cInventoryItem->GetMaxCount() - cInventoryItem->GetCount());
+		cSoundController->PlaySoundByID(28);
+	}
+	if (cMap2D->GetMapInfo(vec2Index.y + 1, vec2Index.x) == 80 && vec2NumMicroSteps.y > 10)
+	{
+		cMap2D->SetMapInfo(vec2Index.y+1, vec2Index.x, 2);
+		cInventoryItem = cInventoryManager->GetItem("Flashlight");
+		cInventoryItem->Add(cInventoryItem->GetMaxCount() - cInventoryItem->GetCount());
+		cSoundController->PlaySoundByID(28);
+	}
 }
 
 /**
@@ -933,8 +1037,6 @@ void CPlayer2D::UpdateHealthLives(void)
 		runtimeColour = glm::vec4(1.0, 1.0, 1.0, 1.0);
 		iframeElapsed = 0;
 		deadElapsed += 0.01;
-
-		
 	}
 
 }
@@ -1051,4 +1153,14 @@ void CPlayer2D::setCollected(bool collect)
 int CPlayer2D::getOldPaperCount()
 {
 	return oldpapercount;
+}
+
+int CPlayer2D::getClosestCollectible()
+{
+	return closestCollectable;
+}
+
+int CPlayer2D::getitemTracked()
+{
+	return itemTracked;
 }

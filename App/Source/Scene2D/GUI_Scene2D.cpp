@@ -7,6 +7,7 @@
 #include "GUI_Scene2D.h"
 
 #include <iostream>
+
 using namespace std;
 
 /**
@@ -31,7 +32,11 @@ CGUI_Scene2D::~CGUI_Scene2D(void)
 		cInventoryManager->Destroy();
 		cInventoryManager = NULL;
 	}
-
+	if (cPlayer2D)
+	{
+		cPlayer2D->Destroy();
+		cPlayer2D = NULL;
+	}
 	// Cleanup
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
@@ -52,6 +57,7 @@ bool CGUI_Scene2D::Init(void)
 	// Store the CFPSCounter singleton instance here
 	cFPSCounter = CFPSCounter::GetInstance();
 
+	cPlayer2D = CPlayer2D::GetInstance();
 	// Setup Dear ImGui context
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -206,8 +212,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::End();
 
 
-
-	//// Render the inventory items
+	//PASSCODE
+	// Render the inventory items
 	cInventoryItem = cInventoryManager->GetItem("Paper");
 	ImGuiWindowFlags PaperWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoBackground |
@@ -228,7 +234,8 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::SameLine();
 	ImGui::End();
 
-	//// Render the inventory items
+	//FLASHLIGHT
+	// Render the inventory items
 	cInventoryItem = cInventoryManager->GetItem("Flashlight");
 	ImGuiWindowFlags FlashlightWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
 		ImGuiWindowFlags_NoBackground |
@@ -238,7 +245,7 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 		ImGuiWindowFlags_NoCollapse |
 		ImGuiWindowFlags_NoScrollbar;
 	ImGui::Begin("Flashlight", NULL, FlashlightWindowFlags);
-	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.685f, cSettings->iWindowHeight * 0.85f));
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.75f, cSettings->iWindowHeight * 0.85f));
 	ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
 	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
 		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
@@ -249,27 +256,64 @@ void CGUI_Scene2D::Update(const double dElapsedTime)
 	ImGui::SameLine();
 	ImGui::End();
 
+	//Display Radar cycle
+	ImGuiWindowFlags CycleWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags_NoBackground |
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoScrollbar;
+	ImGui::Begin("Cycle", NULL, CycleWindowFlags);
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.815f,cSettings->iWindowHeight * 0.06f));
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Press");
+	ImGui::SameLine();
+	ImGui::TextColored(ImVec4(0, 1, 0, 1), "'Q'");
+	ImGui::SameLine();
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), "to Cycle");
+	ImGui::SameLine();
+	ImGui::SetWindowFontScale(2.f * relativeScale_y);
+	ImGui::End();
 
-	////// Render the inventory items
-	//cInventoryItem = cInventoryManager->GetItem("Paper");
-	//ImGuiWindowFlags PaperWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
-	//	ImGuiWindowFlags_NoBackground |
-	//	ImGuiWindowFlags_NoTitleBar |
-	//	ImGuiWindowFlags_NoMove |
-	//	ImGuiWindowFlags_NoResize |
-	//	ImGuiWindowFlags_NoCollapse |
-	//	ImGuiWindowFlags_NoScrollbar;
-	//ImGui::Begin("Radar", NULL, PaperWindowFlags);
-	//ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.015f, cSettings->iWindowHeight * 0.85f));
-	//ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
-	//ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
-	//	ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
-	//	ImVec2(0, 1), ImVec2(1, 0));
-	//ImGui::SameLine();
-	//ImGui::SetWindowFontScale(2.f * relativeScale_y);
-	//ImGui::TextColored(ImVec4(1, 1, 1, 1), "Distance to Passcode: %d / %d", cInventoryItem->GetCount(), cInventoryItem->GetMaxCount());
-	//ImGui::SameLine();
-	//ImGui::End();
+
+	//RADAR
+	// Render the inventory items
+	if (cPlayer2D->getitemTracked() == 0)
+		cInventoryItem = cInventoryManager->GetItem("Paper");
+	else if (cPlayer2D->getitemTracked() == 1)
+		cInventoryItem = cInventoryManager->GetItem("Battery");
+	else
+		cInventoryItem = cInventoryManager->GetItem("Door");
+		
+	ImGuiWindowFlags RadarWindowFlags = ImGuiWindowFlags_AlwaysAutoResize |
+		ImGuiWindowFlags_NoBackground |
+		ImGuiWindowFlags_NoTitleBar |
+		ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoScrollbar;
+	ImGui::Begin("Radar", NULL, RadarWindowFlags);
+	ImGui::SetWindowPos(ImVec2(cSettings->iWindowWidth * 0.815f, cSettings->iWindowHeight * 0.1f));
+	ImGui::SetWindowSize(ImVec2(200.0f * relativeScale_x, 25.0f * relativeScale_y));
+	ImGui::SetWindowFontScale(2.f * relativeScale_y);
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), "Nearest ");
+	ImGui::SameLine();
+	ImGui::Image((void*)(intptr_t)cInventoryItem->GetTextureID(),
+		ImVec2(cInventoryItem->vec2Size.x * relativeScale_x, cInventoryItem->vec2Size.y * relativeScale_y),
+		ImVec2(0, 1), ImVec2(1, 0));
+	ImGui::SameLine();
+	ImGui::TextColored(ImVec4(1, 1, 1, 1), ":");
+	ImGui::SameLine();
+	if (cPlayer2D->getClosestCollectible() != 0 && cInventoryItem != cInventoryManager->GetItem("Door"))
+	{
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d m", cPlayer2D->getClosestCollectible());
+		ImGui::SameLine();
+	}
+	else if (cPlayer2D->getClosestCollectible() == 0 && cInventoryItem != cInventoryManager->GetItem("Door"))
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "All Collected!");
+	else
+		ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d m", cPlayer2D->getClosestCollectible());
+	ImGui::End();
 
 
 

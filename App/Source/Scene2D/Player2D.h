@@ -84,6 +84,10 @@ public:
 	void setCollected(bool collect);
 
 	int getOldPaperCount();
+	
+	int getClosestCollectible();
+
+	int getitemTracked();
 
 protected:
 	enum DIRECTION
@@ -151,8 +155,6 @@ protected:
 	//If all collectibles are collected, make this shiz true
 	bool AllNumbersCollected;
 
-	bool blBatteryPickedUp;
-	float flashlightBattery;
 	int closestCollectable;
 
 	int distCount;
@@ -188,9 +190,11 @@ protected:
 	//old position of player
 	glm::vec2 tempOldVec;
 	
-	//position of nearest collectible
+	//Radar stuff
 	glm::vec2 noOfCollectibles[10];
-	glm::vec2 collectiblePos;
+	glm::vec2 noOfBattery[5];
+	bool blCycle;		//the cycle for item the radar is tracking
+	int itemTracked;	//the item that the radar is tracking
 
 	bool collected;//if player just collected a paper
 	int oldpapercount;
